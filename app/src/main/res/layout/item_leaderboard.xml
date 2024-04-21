@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/rankTextView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="start|center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jktsans_regular"
+        tools:text="1"/>
+
+    <ImageView
+        android:id="@+id/item_leaderboard_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_launcher_background"/>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:fontFamily="@font/jktsans_regular"
+        android:textColor="@color/black"
+        tools:text="Rangga"/>
+
+    <TextView
+        android:id="@+id/xpTextView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="end|center"
+        android:fontFamily="@font/jktsans_regular"
+        android:textColor="@color/black"
+        tools:text="25"/>
+
+</LinearLayout>

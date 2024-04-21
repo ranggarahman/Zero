@@ -1,0 +1,50 @@
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Table header -->
+    <TableRow>
+        <TextView
+            android:id="@+id/rankHeaderTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Rank"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/nameHeaderTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Name"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/xpHeaderTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="XP"
+            android:textStyle="bold"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"/>
+    </TableRow>
+
+    <TableRow>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/leaderboardRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:listitem="@layout/item_leaderboard"/>
+    </TableRow>
+
+</TableLayout>

@@ -15,11 +15,19 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.zero.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_chatActivity"
+            app:destination="@id/chatActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.zero.ui.notifications.ProfileFragment"
         android:label="Profil"
         tools:layout="@layout/fragment_profile" />
+    <activity
+        android:id="@+id/chatActivity"
+        android:name="com.example.zero.ui.chat.ChatActivity"
+        android:label="ChatActivity" />
 </navigation>
