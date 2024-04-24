@@ -25,4 +25,14 @@
         <!-- Add other attributes as needed -->
     </style>
 
+    <style name="McqButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">#B19CDA</item>
+        <item name="cardCornerRadius">20dp</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
 </resources>

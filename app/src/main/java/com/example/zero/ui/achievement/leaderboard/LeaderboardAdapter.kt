@@ -1,12 +1,10 @@
 package com.example.zero.ui.achievement.leaderboard
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.zero.data.LeaderboardItem
 import com.example.zero.databinding.ItemLeaderboardBinding
-
 import com.example.zero.ui.achievement.placeholder.PlaceholderContent.PlaceholderItem
 
 /**
@@ -17,12 +15,28 @@ class LeaderboardAdapter(
     private val leaderboardList: List<LeaderboardItem>
 ) : RecyclerView.Adapter<LeaderboardAdapter.AchievementViewHolder>() {
 
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    interface OnItemClickCallback{
+        fun onItemClicked(data: LeaderboardItem)
+    }
+
     inner class AchievementViewHolder(private val binding: ItemLeaderboardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(leaderboard: LeaderboardItem, position: Int) {
             // Bind data achievement ke elemen-elemen dalam layout item_leaderboard.xml
-            binding.rankTextView.text = position.plus(1).toString()
-            binding.nameTextView.text = leaderboard.username.toString()
-            binding.xpTextView.text = leaderboard.userpoint.toString()
+
+            binding.apply {
+                rankTextView.text = position.plus(1).toString()
+                nameTextView.text = leaderboard.username.toString()
+                xpTextView.text = leaderboard.userpoint.toString()
+                root.setOnClickListener {
+                    onItemClickCallback.onItemClicked(leaderboard)
+                }
+            }
         }
     }
 

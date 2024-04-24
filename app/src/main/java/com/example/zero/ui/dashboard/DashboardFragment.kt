@@ -47,6 +47,7 @@ class DashboardFragment : Fragment() {
             materialListAdapter.setOnItemClickCallback(object :
                 MaterialAdapter.OnItemClickCallback {
                 override fun onItemClicked(id: Int) {
+                    findNavController().navigate(R.id.action_navigation_dashboard_to_materialFragment)
                     Toast.makeText(requireContext(), "ID IS : $id", Toast.LENGTH_LONG).show()
 //                    val detailIntent = Intent(context, DetailActivity::class.java)
 //                    detailIntent.putExtra(EXTRA_USERNAME, username)
@@ -58,7 +59,6 @@ class DashboardFragment : Fragment() {
         binding.btnChatroom.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_dashboard_to_chatActivity)
         }
-
 
     }
 

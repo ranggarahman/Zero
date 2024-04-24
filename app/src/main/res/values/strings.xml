@@ -8,4 +8,5 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="send_success">Berhasil terkirim</string>
     <string name="send_error">Gagal terkirim</string>
+    <string name="util_lorem_dolor_silit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis lacus sit amet lobortis tincidunt. Praesent ut iaculis diam.</string>
 </resources>

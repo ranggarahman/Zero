@@ -18,7 +18,18 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_navigation_dashboard_to_chatActivity"
-            app:destination="@id/chatActivity" />
+            app:destination="@id/chatActivity"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down"/>
+        <action
+            android:id="@+id/action_navigation_dashboard_to_materialFragment"
+            app:destination="@id/materialFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/slide_down"
+            app:popEnterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down"/>
     </fragment>
 
     <fragment
@@ -30,4 +41,9 @@
         android:id="@+id/chatActivity"
         android:name="com.example.zero.ui.chat.ChatActivity"
         android:label="ChatActivity" />
+    <fragment
+        android:id="@+id/materialFragment"
+        android:name="com.example.zero.ui.dashboard.material.MaterialFragment"
+        android:label="fragment_material"
+        tools:layout="@layout/fragment_material" />
 </navigation>

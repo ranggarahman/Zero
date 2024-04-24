@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="32dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/result_dialog_center_vertical_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/result_dialog_center_vertical_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.667"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/result_dialog_center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Horee, Quiz Selesai!"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:fontFamily="@font/jktsans_regular"
+        app:layout_constraintBottom_toTopOf="@+id/lottieFinished"
+        app:layout_constraintEnd_toEndOf="@+id/lottieFinished"
+        app:layout_constraintStart_toStartOf="@+id/lottieFinished" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieFinished"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/result_dialog_center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_rawRes="@raw/lottie_chat_loading"
+        app:lottie_autoPlay="true"
+        app:lottie_speed="0.3"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/result_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Konfirmasi"
+        android:textAllCaps="false"
+        android:padding="16dp"
+        app:cornerRadius="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_timer_24"
+        app:layout_constraintBottom_toTopOf="@+id/textview_Time_label"
+        app:layout_constraintEnd_toStartOf="@+id/result_dialog_center_vertical_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_dialog_center_horizontal" />
+
+    <TextView
+        android:id="@+id/textview_Time_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Waktu"
+        android:textSize="20sp"
+        android:fontFamily="@font/jktsans_regular"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/result_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/result_dialog_center_vertical_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/result_dialog_center_horizontal" />
+
+    <TextView
+        android:id="@+id/textview_Time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:fontFamily="@font/jktsans_regular"
+        tools:text="02:33"
+        app:layout_constraintBottom_toTopOf="@+id/result_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/result_dialog_center_vertical_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_Time_label" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_score_24"
+        app:layout_constraintBottom_toTopOf="@+id/textview_score_label"
+        app:layout_constraintEnd_toStartOf="@+id/result_dialog_center_vertical_end"
+        app:layout_constraintStart_toStartOf="@+id/result_dialog_center_vertical_start"
+        app:layout_constraintTop_toTopOf="@+id/result_dialog_center_horizontal" />
+
+    <TextView
+        android:id="@+id/textview_score_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Skor Akhir"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/jktsans_regular"
+        app:layout_constraintBottom_toTopOf="@+id/result_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/result_dialog_center_vertical_end"
+        app:layout_constraintStart_toStartOf="@+id/result_dialog_center_vertical_start"
+        app:layout_constraintTop_toTopOf="@+id/result_dialog_center_horizontal" />
+
+    <TextView
+        android:id="@+id/textview_score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="70sp"
+        tools:text="5"
+        android:fontFamily="@font/jktsans_regular"
+        app:layout_constraintBottom_toTopOf="@+id/result_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/result_dialog_center_vertical_end"
+        app:layout_constraintStart_toStartOf="@+id/result_dialog_center_vertical_start"
+        app:layout_constraintTop_toBottomOf="@+id/textview_score_label" />
+
+    <TextView
+        android:id="@+id/textview_XP_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="XP didapat"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/result_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/result_dialog_center_vertical_end"
+        app:layout_constraintTop_toTopOf="@+id/result_dialog_center_horizontal" />
+
+    <TextView
+        android:id="@+id/textview_XP"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/jktsans_regular"
+        android:textSize="70sp"
+        tools:text="33"
+        app:layout_constraintBottom_toTopOf="@+id/result_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/result_dialog_center_vertical_end"
+        app:layout_constraintTop_toBottomOf="@+id/textview_XP_label" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_24"
+        app:layout_constraintBottom_toTopOf="@+id/textview_XP_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/result_dialog_center_vertical_end"
+        app:layout_constraintTop_toTopOf="@+id/result_dialog_center_horizontal" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

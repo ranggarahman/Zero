@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trueorfalse_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/trueorfalse_start_vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/trueorfalse_end_vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.9"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/truefalse_bottom_image_horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/trueorfalse_top_image_horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/trueorfalse_center_vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/trueorfalse_center_horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/trueorfalse_center_horizontal_guideline_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <ImageView
+        android:id="@+id/trueorfalse_imageview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:src="@drawable/img_quiz_8"
+        app:layout_constraintBottom_toTopOf="@+id/truefalse_bottom_image_horizontal_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/trueorfalse_end_vertical_guideline"
+        app:layout_constraintStart_toStartOf="@+id/trueorfalse_start_vertical_guideline"
+        app:layout_constraintTop_toTopOf="@+id/trueorfalse_top_image_horizontal_guideline" />
+
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/util_lorem_dolor_silit"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/jktsans_regular"
+        app:layout_constraintBottom_toTopOf="@+id/trueorfalse_center_horizontal_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trueorfalse_imageview" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:strokeColor="@color/correct_answer_green"
+        app:strokeWidth="1dp"
+        android:padding="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Benar"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/trueorfalse_center_horizontal_guideline_2"
+        app:layout_constraintEnd_toStartOf="@id/trueorfalse_center_vertical_guideline"
+        app:layout_constraintTop_toBottomOf="@id/trueorfalse_center_horizontal_guideline" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/falseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@color/white"
+        android:padding="8dp"
+        android:text="Salah"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/wrong_answer_red"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/trueorfalse_center_horizontal_guideline_2"
+        app:layout_constraintStart_toEndOf="@id/trueorfalse_center_vertical_guideline"
+        app:layout_constraintTop_toBottomOf="@id/trueorfalse_center_horizontal_guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/trueorfalse_bottom_horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.95"
+        android:orientation="horizontal"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
