@@ -1,14 +1,18 @@
 package com.example.zero.ui.dashboard.material
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.zero.R
 import com.example.zero.databinding.FragmentDashboardBinding
 import com.example.zero.databinding.FragmentMaterialBinding
+import com.example.zero.ui.dashboard.quiz.QuizActivity
+import com.example.zero.ui.dashboard.quiz.brief.QuizBriefDialogFragment
 
 class MaterialFragment : Fragment() {
 
@@ -32,7 +36,21 @@ class MaterialFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.root
+        buttonNavigator()
+    }
+
+    private fun buttonNavigator() {
+        binding.materialBtnQuiz.setOnClickListener {
+            findNavController().navigate(R.id.action_materialFragment_to_quizActivity)
+        }
+
+        binding.materialBtnFlash.setOnClickListener {
+            findNavController().navigate(R.id.action_materialFragment_to_flashcardActivity)
+        }
+
+        binding.materialImgReads.setOnClickListener {
+            findNavController().navigate(R.id.action_materialFragment_to_readsActivity)
+        }
     }
 
 }

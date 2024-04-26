@@ -45,5 +45,27 @@
         android:id="@+id/materialFragment"
         android:name="com.example.zero.ui.dashboard.material.MaterialFragment"
         android:label="fragment_material"
-        tools:layout="@layout/fragment_material" />
+        tools:layout="@layout/fragment_material" >
+        <action
+            android:id="@+id/action_materialFragment_to_quizActivity"
+            app:destination="@id/quizActivity" />
+        <action
+            android:id="@+id/action_materialFragment_to_flashcardActivity"
+            app:destination="@id/flashcardActivity" />
+        <action
+            android:id="@+id/action_materialFragment_to_readsActivity"
+            app:destination="@id/readsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/quizActivity"
+        android:name="com.example.zero.ui.dashboard.quiz.QuizActivity"
+        android:label="QuizActivity" />
+    <activity
+        android:id="@+id/flashcardActivity"
+        android:name="com.example.zero.ui.dashboard.flashcard.FlashcardActivity"
+        android:label="FlashcardActivity" />
+    <activity
+        android:id="@+id/readsActivity"
+        android:name="com.example.zero.ui.dashboard.reads.ReadsActivity"
+        android:label="ReadsActivity" />
 </navigation>

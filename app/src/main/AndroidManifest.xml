@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Zero.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".ui.dashboard.flashcard.FlashcardActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.dashboard.reads.ReadsActivity"
             android:exported="false" />
         <activity

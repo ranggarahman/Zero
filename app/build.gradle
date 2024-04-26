@@ -68,6 +68,8 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    implementation 'eu.davidea:flipview:1.2.0'
+
     implementation 'com.github.bumptech.glide:glide:4.16.0'
 
     debugImplementation "androidx.compose.ui:ui-tooling:1.6.5"

@@ -46,11 +46,11 @@ class QuizResultDialogFragment : DialogFragment() {
         binding.textviewXP.text = xp.toString()
         binding.textviewTime.text = time
 
-        quizResultDialogViewModel.submitXP(xp ?: 0)
+/*        quizResultDialogViewModel.submitXP(xp ?: 0)
 
         quizResultDialogViewModel.isSubmitSuccess.observe(viewLifecycleOwner){
             binding.resultConfirm.isEnabled = it
-        }
+        }*/
 
         binding.resultConfirm.setOnClickListener {
             activity?.finish()

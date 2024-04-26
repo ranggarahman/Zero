@@ -29,11 +29,10 @@
         android:layout_height="120dp"
         android:scaleType="center"
         app:layout_constraintBottom_toTopOf="@+id/material_horizontal_guide"
-
         app:layout_constraintEnd_toStartOf="@id/material_vertical_guide"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/reads_frg_img" />
 
     <Button
         android:id="@+id/material_btn_reads"
@@ -53,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/material_vertical_guide"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/flash_frg_img" />
 
     <Button
         android:id="@+id/material_btn_flash"
@@ -71,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/material_horizontal_guide"
-        tools:src="@drawable/ic_launcher_background"
+        android:src="@drawable/quiz_frg_img"
         android:scaleType="center"
         android:layout_marginTop="32dp"/>
 

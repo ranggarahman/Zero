@@ -1,5 +1,6 @@
 package com.example.zero.ui.dashboard.quiz.brief
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.example.zero.databinding.FragmentQuizBriefDialogBinding
+import com.example.zero.ui.dashboard.quiz.QuizActivity
 
 class QuizBriefDialogFragment : DialogFragment() {
 

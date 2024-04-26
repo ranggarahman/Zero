@@ -1,5 +1,6 @@
 package com.example.zero.ui.dashboard.quiz
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentFilter
 import android.graphics.Color
@@ -46,7 +47,6 @@ class QuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val briefDialog = QuizBriefDialogFragment()
-
         briefDialog.show(supportFragmentManager, "brief_dialog")
 
         binding = ActivityQuizBinding.inflate(layoutInflater)
@@ -54,12 +54,16 @@ class QuizActivity : AppCompatActivity() {
 
         startTime = System.currentTimeMillis()
 
+        quizViewModel.generateRandomQuestions()
+
 //        val selectedCategoryId = intent?.getIntExtra(CATEGORY_ID, 0)
 //        val selectedLevelId = intent?.getIntExtra(LEVEL_ID, 0)
 
         quizViewModel.questionList.observe(this){
-            questionList = it
 
+            Log.d(TAG, "CALLED BZD QUIZLIST : ${it}")
+
+            questionList = it
             showNextQuestion(questionList)
         }
 
@@ -76,11 +80,11 @@ class QuizActivity : AppCompatActivity() {
 
     private fun getQuizzes(selectedCategoryId: Int, selectedLevelId: Int ){
         Log.d(TAG, "CALLED : $selectedCategoryId, $selectedLevelId")
-        quizViewModel.getQuiz(selectedCategoryId, selectedLevelId)
+        //quizViewModel.getQuiz(selectedCategoryId, selectedLevelId)
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        super.onBackPressed()
         showExitConfirmationDialog()
     }
 
@@ -105,7 +109,6 @@ class QuizActivity : AppCompatActivity() {
 
 
     private fun showNextQuestion(questionList: List<Question>) {
-
         if (currentQuestionIndex < questionList.size) {
 
             val currentQuestion = questionList[currentQuestionIndex]
@@ -178,7 +181,7 @@ class QuizActivity : AppCompatActivity() {
 
         // Show the appropriate layout container based on the question type
         when (question.type) {
-            "MC" -> {
+            "MCQ" -> {
                 multipleChoiceSetup(question)
                 binding.multiplechoiceLayout.mcqContainer.visibility = View.VISIBLE
             }
