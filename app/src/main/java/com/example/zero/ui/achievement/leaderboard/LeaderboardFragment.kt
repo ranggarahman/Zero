@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.zero.R
@@ -32,6 +33,8 @@ class LeaderboardFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val leaderboardViewModel by viewModels<LeaderboardViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,22 +47,26 @@ class LeaderboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val leaderboardAdapter = LeaderboardAdapter(generateLeaderboard())
-        binding.leaderboardRecyclerView.adapter = leaderboardAdapter
-        binding.leaderboardRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        leaderboardViewModel.getLeaderboard()
 
-        val itemDecoration = DividerItemDecoration(
-            requireContext(),
-            DividerItemDecoration.VERTICAL
-        )
+        leaderboardViewModel.leaderboardList.observe(viewLifecycleOwner){ leaderboardList ->
+            val leaderboardAdapter = LeaderboardAdapter(leaderboardList)
+            binding.leaderboardRecyclerView.adapter = leaderboardAdapter
+            binding.leaderboardRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.leaderboardRecyclerView.addItemDecoration(itemDecoration)
+            val itemDecoration = DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
 
-        leaderboardAdapter.setOnItemClickCallback(object : LeaderboardAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: LeaderboardItem) {
-                Toast.makeText(requireContext(), "CLICKED ITEM ${data.username}", Toast.LENGTH_LONG).show()
-            }
-        })
+            binding.leaderboardRecyclerView.addItemDecoration(itemDecoration)
+
+            leaderboardAdapter.setOnItemClickCallback(object : LeaderboardAdapter.OnItemClickCallback{
+                override fun onItemClicked(data: LeaderboardItem) {
+                    Toast.makeText(requireContext(), "CLICKED ITEM ${data.username}", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
     }
 
 }

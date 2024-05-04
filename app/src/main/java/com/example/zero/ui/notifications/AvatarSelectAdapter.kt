@@ -1,4 +1,4 @@
-package com.example.zero.ui.achievement.badges
+package com.example.zero.ui.notifications
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,12 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.zero.R
+import com.example.zero.data.Avatar
 import com.example.zero.data.Badges
-import com.example.zero.databinding.ItemBadgesBinding
+import com.example.zero.databinding.ItemAvatarSelectBinding
 
-class BadgesAdapter(private val badgesList: List<Badges>) :
-    RecyclerView.Adapter<BadgesAdapter.ViewHolder>() {
+class AvatarSelectAdapter(private val avatarList: List<Avatar>) :
+    RecyclerView.Adapter<AvatarSelectAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -19,11 +20,11 @@ class BadgesAdapter(private val badgesList: List<Badges>) :
     }
 
     interface OnItemClickCallback{
-        fun onItemClicked(data: Badges)
+        fun onItemClicked(data: Avatar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemBadgesBinding.inflate(
+        val binding = ItemAvatarSelectBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -32,27 +33,23 @@ class BadgesAdapter(private val badgesList: List<Badges>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val badgesData = badgesList[position]
-        holder.bind(badgesData)
+        val avatarImages = avatarList[position]
+        holder.bind(avatarImages, position)
     }
 
     override fun getItemCount(): Int {
-        return badgesList.size
+        return avatarList.size
     }
 
-    inner class ViewHolder(private val binding: ItemBadgesBinding) :
+    inner class ViewHolder(private val binding: ItemAvatarSelectBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(badgesItem: Badges) {
+        fun bind(avatarItem: Avatar, position: Int) {
             binding.apply {
-                badgeTitle.text = badgesItem.title
-                Glide.with(binding.root.context)
-                    .load(badgesItem.imgUrl) // Assuming imageUrl is the field in your Badges data class containing the image URL
-                    .placeholder(R.drawable.ic_launcher_background) // Placeholder image while loading (optional)
-                    .error(R.drawable.ic_launcher_background) // Image to show if loading fails (optional)
-                    .into(binding.badgeLogo)
+                avatarImg.setImageResource(avatarItem.imgInt)
+                avatarTitle.text = "Avatar ${position + 1}"
                 root.setOnClickListener {
-                    onItemClickCallback.onItemClicked(badgesItem)
+                    onItemClickCallback.onItemClicked(avatarItem)
                     animateItemView()
                 }
             }

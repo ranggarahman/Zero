@@ -19,6 +19,7 @@
         android:id="@+id/profile_image_view_frag"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@id/profile_guide_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,12 +54,30 @@
         />
 
     <Button
+        android:id="@+id/btn_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_email"
+        android:padding="10dp"
+        android:text="Ubah Avatar"
+        android:textSize="24sp"
+        app:cornerRadius="20dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/jktsans_bold"
+        android:drawableLeft="@drawable/ic_baseline_edit_24"
+        android:backgroundTint="#956FD7"/>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit_profile"
         android:padding="10dp"
         android:text="Keluar"
         android:textSize="24sp"

@@ -4,10 +4,12 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import com.example.zero.R
 import com.example.zero.data.FlashcardItem
@@ -18,6 +20,8 @@ class FlashcardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFlashcardBinding
     private var currentFlashcardIndex = 0
     private val flashcards = generateDummyFlashcards() // Call the dummy data generator
+
+    private val flashcardViewModel by viewModels<FlashcardViewModel>()
 
     private lateinit var front_animation:AnimatorSet
     private lateinit var back_animation: AnimatorSet
@@ -42,6 +46,24 @@ class FlashcardActivity : AppCompatActivity() {
         front_animation = AnimatorInflater.loadAnimator(applicationContext, R.animator.front_animator) as AnimatorSet
         back_animation = AnimatorInflater.loadAnimator(applicationContext, R.animator.back_animator) as AnimatorSet
 
+
+
+//        when (currentFlashcardIndex) {
+//            0 -> {
+//                binding.previousButton.isEnabled = false
+//                binding.nextButton.isEnabled = true // Enable next button when not at last index
+//            }
+//            flashcards.lastIndex -> {
+//                binding.previousButton.isEnabled = true // Enable previous button when not at first index
+//                binding.nextButton.isEnabled = false
+//            }
+//            else -> {
+//                binding.previousButton.isEnabled = true
+//                binding.nextButton.isEnabled = true
+//            }
+//        }
+
+
         // Set click listener for flashcard content container
         binding.contentContainer.setOnClickListener {
             flipFlashcard(front, back)
@@ -65,7 +87,15 @@ class FlashcardActivity : AppCompatActivity() {
         )
     }
 
+    private fun updateButtonState(index: Int) {
+        val isFirstPage = index == 0
+        val isLastPage = index == flashcards.size - 1
+        binding.previousButton.isEnabled = !isFirstPage
+        binding.nextButton.isEnabled = !isLastPage
+    }
+
     private fun updateFlashcardUI() {
+        updateButtonState(currentFlashcardIndex)
         val currentFlashcard = flashcards[currentFlashcardIndex]
         binding.materialTitle.text = currentFlashcard.title
         binding.materialContent.text = currentFlashcard.content
@@ -90,21 +120,6 @@ class FlashcardActivity : AppCompatActivity() {
             isFront =true
 
         }
-//        val cardView = binding.contentContainer
-//        val animation = AnimationUtils.loadAnimation(this, R.anim.flip_animation) // Load animation resource
-//        cardView.startAnimation(animation)
-//        // Swap content visibility after animation completes
-//        animation.setAnimationListener(object : Animation.AnimationListener {
-//            override fun onAnimationStart(animation: Animation?) {}
-//
-//            override fun onAnimationEnd(animation: Animation?) {
-//                val isRevealed = binding.materialContent.visibility == View.VISIBLE
-//                binding.materialContent.visibility = if (isRevealed) View.GONE else View.VISIBLE
-//                binding.materialTitle.text = if (isRevealed) flashcards[currentFlashcardIndex].reveal else flashcards[currentFlashcardIndex].title
-//            }
-//
-//            override fun onAnimationRepeat(animation: Animation?) {}
-//        })
     }
 
     private fun nextFlashcard() {

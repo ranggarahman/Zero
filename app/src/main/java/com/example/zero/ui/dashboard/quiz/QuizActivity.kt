@@ -54,7 +54,7 @@ class QuizActivity : AppCompatActivity() {
 
         startTime = System.currentTimeMillis()
 
-        quizViewModel.generateRandomQuestions()
+        quizViewModel.getQuiz()
 
 //        val selectedCategoryId = intent?.getIntExtra(CATEGORY_ID, 0)
 //        val selectedLevelId = intent?.getIntExtra(LEVEL_ID, 0)

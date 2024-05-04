@@ -6,6 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zero.R
+import com.example.zero.data.FirebaseManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 
 class QuizViewModel(): ViewModel() {
@@ -19,70 +23,56 @@ class QuizViewModel(): ViewModel() {
     private val _correctAnswerCount = MutableLiveData<Int>()
     val correctAnswerCount: LiveData<Int> = _correctAnswerCount
 
-//    fun getQuiz(categoryId: Int, levelId : Int) {
-//
-//        val jwtToken = "Bearer ${authRepository.getToken()}"
-//
-//        Log.d(TAG, "CREDENTIALS : $categoryId, $levelId, $jwtToken")
-//        Log.d(TAG, "QUIZ CALLED")
-//
-//        try {
-//            viewModelScope.launch {
-//                val result = quizRepository.getQuiz(
-//                    categoryId = categoryId,
-//                    levelId = levelId,
-//                    token = jwtToken
-//                )
-//
-//                Log.d(TAG, "RESULT $result")
-//
-//                if (result is Result.Success){
-//                    val drawables = getRandomDrawables(result.data.quizResponse!!.size)
-//
-//                    val questions: List<Question> = result.data.quizResponse.mapIndexed { index, quizResponseItem ->
-//                        quizResponseItem.let {
-//                            val mcqOptions = if (it!!.type == "MC") {
-//                                McqOption(
-//                                    option1 = it.a!!,
-//                                    option2 = it.b!!,
-//                                    option3 = it.c!!,
-//                                    option4 = it.d!!
-//                                )
-//                            } else {
-//                                null
-//                            }
-//
-//                            val tfOptions = if (it.type == "TF") {
-//
-//                                Log.d(TAG, "${it.answer}")
-//
-//                                TfOption(
-//                                    option1 = "Benar",
-//                                    option2 = "Salah"
-//                                )
-//                            } else {
-//                                null
-//                            }
-//
-//                            Question(
-//                                type = it.type!!,
-//                                questionText = it.question!!,
-//                                mcqOptions = mcqOptions,
-//                                tfOptions = tfOptions,
-//                                correctAnswer = it.answer!!,
-//                                imgInt = drawables[index]
-//                            )
-//                        }
-//                    }
-//
-//                    _questionList.value = questions
-//
-//                }
-//            }
-//        } catch (e: Exception){
-//            Log.d(TAG, "EXCEPTION ${e.message}")
-//        }
-//    }
+    fun getQuiz() {
+        val database = FirebaseManager.database.reference
+        val reference = database.child("materials").child("0").child("quiz")
+
+        val drawables = getRandomDrawables(5)
+
+        try {
+            reference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val questions = mutableListOf<Question>()
+                    snapshot.children.forEachIndexed { index, questionSnapshot ->
+                        val type = questionSnapshot.child("type").getValue(String::class.java)
+                        val questionText = questionSnapshot.child("questionText").getValue(String::class.java)
+                        val mcqOptionsSnapshot = questionSnapshot.child("mcqOptions")
+                        val tfOptionsSnapshot = questionSnapshot.child("tfOptions")
+                        val correctAnswer = questionSnapshot.child("correctAnswer").getValue(String::class.java)
+
+                        // Based on type, construct the Question object appropriately
+                        when (type) {
+                            "MCQ" -> {
+                                val mcqOptions = mcqOptionsSnapshot.getValue(McqOption::class.java)
+                                val question = Question(type,
+                                    questionText!!, mcqOptions, null, correctAnswer ?: "", drawables[index])
+                                questions.add(question)
+                            }
+                            "TF" -> {
+                                val tfOptions = tfOptionsSnapshot.getValue(TfOption::class.java)
+                                val question = Question(type, questionText!!, null, tfOptions, correctAnswer ?: "", drawables[index])
+                                questions.add(question)
+                            }
+                            "FIB" -> {
+                                val question = Question(type, questionText!!, null, null, correctAnswer ?: "", drawables[index])
+                                questions.add(question)
+                            }
+                        }
+                    }
+                    _questionList.postValue(questions)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error
+                    Log.d(TAG, "EXCEPTION ${error.message}")
+                }
+            })
+        } catch (e: Exception){
+            Log.d(TAG, "EXCEPTION ${e.message}")
+        }
+
+
+    }
 
     fun correctAnswerIterator() {
         _correctAnswerCount.value = (_correctAnswerCount.value ?: 0) + 1
@@ -174,13 +164,13 @@ data class Question(
 )
 
 data class TfOption(
-    val option1: String,
-    val option2: String
+    val option1: String = "",
+    val option2: String = "",
 )
 
 data class McqOption(
-    val option1: String,
-    val option2: String,
-    val option3: String,
-    val option4: String
+    val option1: String = "",
+    val option2: String = "",
+    val option3: String = "",
+    val option4: String = ""
 )
