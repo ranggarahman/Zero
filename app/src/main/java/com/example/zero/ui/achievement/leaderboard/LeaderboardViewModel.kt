@@ -26,7 +26,9 @@ class LeaderboardViewModel: ViewModel() {
                     snapshot.children.forEach { userSnapshot ->
                         val email = userSnapshot.child("email").getValue(String::class.java)
                         val userpoint = userSnapshot.child("userpoints").getValue(Int::class.java)
-                        val leaderboardItem = LeaderboardItem(email, userpoint)
+                        val avatarId = userSnapshot.child("avatarId").getValue(Int::class.java)
+                        val uid = userSnapshot.child("uid").getValue(String::class.java)
+                        val leaderboardItem = LeaderboardItem(email, userpoint, avatarId, uid)
                         leaderboardItems.add(leaderboardItem)
                     }
                     // Sort the list based on userpoint in descending order

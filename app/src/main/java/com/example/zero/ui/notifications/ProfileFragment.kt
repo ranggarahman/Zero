@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.zero.R
 import com.example.zero.data.Badges
 import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.FragmentProfileBinding
 import com.example.zero.ui.achievement.badges.BadgesFragment
 import com.example.zero.ui.achievement.badges.BadgesOverlayFragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
 
 class ProfileFragment : Fragment() {
 
@@ -35,22 +40,77 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        val userImg = FirebaseManager.currentUser.currentUser?.photoUrl
-//        Glide.with(requireContext()).load(userImg).into(binding.profileImageViewFrag)
 
-        binding.profileImageViewFrag.setOnClickListener {
+        setAvatar()
+
+        binding.btnEditProfile.setOnClickListener {
             showSelectorDialog()
         }
+
+    }
+
+    private fun setAvatar() {
+        val currentUser = FirebaseManager.currentUser.currentUser
+        val database = FirebaseManager.database
+
+        // Check if the user is authenticated
+        currentUser?.uid?.let { uid ->
+            // Reference to the Firebase database
+            val databaseReference = database.reference.child("users")
+
+            // Query to find the user with the matching UID
+            val query: Query = databaseReference.orderByChild("uid").equalTo(uid)
+
+            // Add a ValueEventListener to retrieve the user data
+            query.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Check if dataSnapshot has children
+                    if (dataSnapshot.exists()) {
+                        // Iterate over each child (should be only one)
+                        dataSnapshot.children.forEach { userSnapshot ->
+                            // Retrieve the avatarId property
+                            val avatarId = userSnapshot.child("avatarId").getValue(Int::class.java)
+
+                            // Use the retrieved avatarId
+                            if (avatarId != null) {
+                                // Construct the drawable resource name
+                                val drawableName = "a$avatarId"
+
+                                // Get the resource identifier for the drawable
+                                val resourceId = requireContext().resources.getIdentifier(drawableName, "drawable", requireContext().packageName)
+
+                                // Set the image resource
+                                if (resourceId != 0) {
+                                    binding.profileImageViewFrag.setImageResource(resourceId)
+                                } else {
+                                    // Drawable resource not found
+                                    println("Drawable resource not found for avatarId: $avatarId")
+                                }
+                            } else {
+                                // AvatarId not found or null
+                                println("AvatarId not found for UID: $uid")
+                            }
+                        }
+                    } else {
+                        // User not found
+                        println("User not found for UID: $uid")
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Error occurred
+                    println("Error: ${databaseError.message}")
+                }
+            })
+        } ?: run {
+            // User not authenticated
+            println("User not authenticated.")
+        }
+
     }
 
     private fun showSelectorDialog() {
         val dialog = AvatarSelectOverlayFragment()
-//        val args = Bundle().apply {
-//            putString(BadgesFragment.BADGE_TITLE, badgeItem.title)
-//            putString(BadgesFragment.BADGE_DESC, badgeItem.desc)
-//            putString(BadgesFragment.BADGE_IMG_URL, badgeItem.imgUrl)
-//        }
-//        dialog.arguments = args
         dialog.show(parentFragmentManager, "avatar_select_dialog")
     }
 

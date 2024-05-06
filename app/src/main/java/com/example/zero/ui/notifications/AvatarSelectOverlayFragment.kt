@@ -1,6 +1,8 @@
 package com.example.zero.ui.notifications
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +13,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zero.data.Avatar
 import com.example.zero.data.Badges
+import com.example.zero.data.FirebaseManager
 import com.example.zero.data.LeaderboardItem
 import com.example.zero.databinding.FragmentAvatarSelectOverlayBinding
 import com.example.zero.ui.achievement.leaderboard.LeaderboardAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
 
 class AvatarSelectOverlayFragment : DialogFragment() {
     private var _binding: FragmentAvatarSelectOverlayBinding? = null
@@ -45,9 +53,73 @@ class AvatarSelectOverlayFragment : DialogFragment() {
 
         leaderboardAdapter.setOnItemClickCallback(object : AvatarSelectAdapter.OnItemClickCallback{
             override fun onItemClicked(data: Avatar) {
-                Toast.makeText(requireContext(), "CLICKED ITEM ${data.id}", Toast.LENGTH_LONG).show()
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.apply {
+                    setTitle("Change Avatar")
+                    setMessage("Are you sure you want to change your avatar?")
+                    setPositiveButton("Yes") { dialog, which ->
+                        setSelectedAvatar(data.id)
+                        dialog.dismiss()
+                    }
+                    setNegativeButton("No") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                }
+                val alertDialog = alertDialogBuilder.create()
+                alertDialog.show()
             }
         })
+    }
+
+    private fun setSelectedAvatar(selectedAvatarId: Int) {
+        // Get the current Firebase user
+        val currentUser = FirebaseManager.currentUser.currentUser
+        val database = FirebaseManager.database
+
+        // Check if the user is authenticated
+        currentUser?.uid?.let { uid ->
+            // Reference to the Firebase database
+            //val databaseReference = database.getInstance().getReference("users")
+            val databaseReference = database.reference.child("users")
+
+            // Query to find the user with the matching UID
+            val query: Query = databaseReference.orderByChild("uid").equalTo(uid)
+
+            // Add a ValueEventListener to retrieve the user data
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // Check if dataSnapshot has children
+                    if (dataSnapshot.exists()) {
+                        // Iterate over each child (should be only one)
+                        dataSnapshot.children.forEach { userSnapshot ->
+                            // Update the avatarId property
+                            userSnapshot.child("avatarId").ref.setValue(selectedAvatarId)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        // AvatarId updated successfully
+                                        Log.d(TAG, "SUCCESS UPDATE")
+                                        dialog?.dismiss()
+                                    } else {
+                                        // Error updating avatarId
+                                        Log.e(TAG, "FAIL")
+                                    }
+                                }
+                        }
+                    } else {
+                        // User not found
+                        Log.e(TAG, "FAIL User not found for UID: $uid ")
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Error occurred
+                    Log.e(TAG, "Error: ${databaseError.message}")
+                }
+            })
+        } ?: run {
+            // User not authenticated
+            Log.e(TAG, "Error: unaothozired")
+        }
     }
 
     private fun generateAvatarList(): List<Avatar> {
@@ -80,5 +152,9 @@ class AvatarSelectOverlayFragment : DialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "ASOF"
     }
 }

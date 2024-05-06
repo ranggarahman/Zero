@@ -1,5 +1,8 @@
 package com.example.zero.ui.achievement.leaderboard
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +15,9 @@ import com.example.zero.ui.achievement.placeholder.PlaceholderContent.Placeholde
  * TODO: Replace the implementation with code for your data type.
  */
 class LeaderboardAdapter(
-    private val leaderboardList: List<LeaderboardItem>
+    private val leaderboardList: List<LeaderboardItem>,
+    private val context: Context,
+    private val currentUid: String?
 ) : RecyclerView.Adapter<LeaderboardAdapter.AchievementViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -27,12 +32,26 @@ class LeaderboardAdapter(
 
     inner class AchievementViewHolder(private val binding: ItemLeaderboardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(leaderboard: LeaderboardItem, position: Int) {
-            // Bind data achievement ke elemen-elemen dalam layout item_leaderboard.xml
+            val drawableName = "a${leaderboard.avatarId}"
 
+            // Get the resource identifier for the drawable
+            val resourceId = context.resources.getIdentifier(drawableName, "drawable", context.packageName)
+            // Bind data achievement ke elemen-elemen dalam layout item_leaderboard.xml
             binding.apply {
+                itemLeaderboardImage.setImageResource(resourceId)
                 rankTextView.text = position.plus(1).toString()
                 nameTextView.text = leaderboard.username.toString()
                 xpTextView.text = leaderboard.userpoint.toString()
+
+                if (leaderboard.uid == currentUid){
+                    root.setBackgroundColor(Color.parseColor("#B19CDA"))
+
+                    // Set text style to bold
+                    rankTextView.setTypeface(null, Typeface.BOLD)
+                    nameTextView.setTypeface(null, Typeface.BOLD)
+                    xpTextView.setTypeface(null, Typeface.BOLD)
+                }
+
                 root.setOnClickListener {
                     onItemClickCallback.onItemClicked(leaderboard)
                 }
