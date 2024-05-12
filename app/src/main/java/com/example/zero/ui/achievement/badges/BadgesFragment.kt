@@ -1,22 +1,19 @@
 package com.example.zero.ui.achievement.badges
 
-import androidx.lifecycle.ViewModelProvider
+import android.graphics.Rect
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.zero.R
 import com.example.zero.data.Badges
 import com.example.zero.data.createBadgesList
-import com.example.zero.databinding.FragmentAchievementBinding
 import com.example.zero.databinding.FragmentBadgesBinding
-import com.example.zero.ui.achievement.AchievementViewModel
 
 class BadgesFragment : Fragment() {
 
@@ -41,8 +38,16 @@ class BadgesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val badgesAdapter = BadgesAdapter(createBadgesList())
+
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+
+        // Set up spacing between items
+//        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing_between_columns)
+        binding.rvBadges.addItemDecoration(GridSpacingItemDecoration(2, 64, false))
+
+        binding.rvBadges.layoutManager = layoutManager
         binding.rvBadges.adapter = badgesAdapter
-        binding.rvBadges.layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
+
 
         badgesAdapter.setOnItemClickCallback(object : BadgesAdapter.OnItemClickCallback{
             override fun onItemClicked(data: Badges) {
@@ -70,3 +75,38 @@ class BadgesFragment : Fragment() {
     }
 
 }
+
+class GridSpacingItemDecoration(
+    private val spanCount: Int,
+    private val spacing: Int,
+    private val includeEdge: Boolean
+) :
+    ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        val position = parent.getChildAdapterPosition(view) // item position
+        val column = position % spanCount // item column
+        if (includeEdge) {
+            outRect.left =
+                spacing - column * spacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
+            outRect.right =
+                (column + 1) * spacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+            if (position < spanCount) { // top edge
+                outRect.top = spacing
+            }
+            outRect.bottom = spacing // item bottom
+        } else {
+            outRect.left = column * spacing / spanCount // column * ((1f / spanCount) * spacing)
+            outRect.right =
+                spacing - (column + 1) * spacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+            if (position >= spanCount) {
+                outRect.top = spacing // item top
+            }
+        }
+    }
+}
+

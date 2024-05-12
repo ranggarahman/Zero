@@ -10,9 +10,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class LeaderboardViewModel: ViewModel() {
+class LeaderboardViewModel : ViewModel() {
 
     private val _leaderboardList = MutableLiveData<List<LeaderboardItem>>()
+
+    // Public getter for leaderboardList
     val leaderboardList: LiveData<List<LeaderboardItem>> = _leaderboardList
 
     fun getLeaderboard() {
@@ -40,13 +42,14 @@ class LeaderboardViewModel: ViewModel() {
                     Log.d(TAG, "ERR ON CANCELLED MSD: ${error.message}")
                 }
             })
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Log.d(TAG, "ERR CATCH MSD: ${e.message}")
         }
-
     }
+
 
     companion object {
         private const val TAG = "LDBRDVIEWMODEL"
     }
 }
+

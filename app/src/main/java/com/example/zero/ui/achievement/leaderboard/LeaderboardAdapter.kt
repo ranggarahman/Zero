@@ -50,6 +50,12 @@ class LeaderboardAdapter(
                     rankTextView.setTypeface(null, Typeface.BOLD)
                     nameTextView.setTypeface(null, Typeface.BOLD)
                     xpTextView.setTypeface(null, Typeface.BOLD)
+                } else {
+                    // Reset appearance
+                    root.setBackgroundColor(Color.TRANSPARENT)
+                    rankTextView.setTypeface(null, Typeface.NORMAL)
+                    nameTextView.setTypeface(null, Typeface.NORMAL)
+                    xpTextView.setTypeface(null, Typeface.NORMAL)
                 }
 
                 root.setOnClickListener {

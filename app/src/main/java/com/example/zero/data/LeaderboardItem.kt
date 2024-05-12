@@ -18,11 +18,3 @@ data class LeaderboardItem(
     val uid: String? = null,
 )
 
-//fun generateLeaderboard(): List<LeaderboardItem> {
-//    // Generate 20 items with random points
-//    val leaderboardItems = List(20) {
-//        LeaderboardItem("user$it", Random.nextInt(0, 500), avatarId) // Adjust the range as needed
-//    }
-//
-//    return leaderboardItems.sortedByDescending { it.userpoint ?: 0 }
-//}

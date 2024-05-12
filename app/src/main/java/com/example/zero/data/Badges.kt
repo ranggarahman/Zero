@@ -5,6 +5,7 @@ data class Badges(
     val title: String,
     val desc: String,
     val imgUrl: String,
+    val isUnlocked: Boolean,
 )
 
 fun createBadgesList(): List<Badges> {
@@ -24,7 +25,8 @@ fun createBadgesList(): List<Badges> {
                 id = i,
                 title = "title$i",
                 desc = "desc$i",
-                imgUrl = badgeImages[i - 1]
+                imgUrl = badgeImages[i - 1],
+                isUnlocked = true
             )
         )
     }

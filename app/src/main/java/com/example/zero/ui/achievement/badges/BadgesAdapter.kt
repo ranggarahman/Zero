@@ -51,11 +51,19 @@ class BadgesAdapter(private val badgesList: List<Badges>) :
                     .placeholder(R.drawable.ic_launcher_background) // Placeholder image while loading (optional)
                     .error(R.drawable.ic_launcher_background) // Image to show if loading fails (optional)
                     .into(binding.badgeLogo)
+
+                if (!badgesItem.isUnlocked) {
+                    badgeLogo.alpha = 0.5f // Set the alpha value to 0.5 (or any other value you prefer)
+                } else {
+                    badgeLogo.alpha = 1.0f // Fully opaque
+                }
+
                 root.setOnClickListener {
                     onItemClickCallback.onItemClicked(badgesItem)
                     animateItemView()
                 }
             }
+
         }
 
         private fun animateItemView() {
