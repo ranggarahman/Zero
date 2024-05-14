@@ -36,7 +36,11 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.zero.ui.notifications.ProfileFragment"
         android:label="Profil"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
     <activity
         android:id="@+id/chatActivity"
         android:name="com.example.zero.ui.chat.ChatActivity"
@@ -68,4 +72,9 @@
         android:id="@+id/readsActivity"
         android:name="com.example.zero.ui.dashboard.reads.ReadsActivity"
         android:label="ReadsActivity" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.zero.auth.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>

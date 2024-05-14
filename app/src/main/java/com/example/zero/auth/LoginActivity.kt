@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.zero.MainActivity
 import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.ActivityLoginBinding
+import com.example.zero.ui.onboarding.OnboardingActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -28,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //checkCurrentUser()
+//        checkCurrentUser()
 
         binding.loginbtn.setOnClickListener {
             googleLogin()
@@ -43,6 +44,8 @@ class LoginActivity : AppCompatActivity() {
         } else {
             // No user is signed in
             // Do nothing, user stays in this activity
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
         }
     }
 

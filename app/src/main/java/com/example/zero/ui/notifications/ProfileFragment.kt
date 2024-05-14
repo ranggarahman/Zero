@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.zero.R
 import com.example.zero.data.Badges
@@ -45,6 +46,12 @@ class ProfileFragment : Fragment() {
 
         binding.btnEditProfile.setOnClickListener {
             showSelectorDialog()
+        }
+
+        binding.btnLogout.setOnClickListener {
+            FirebaseManager.currentUser.signOut()
+            findNavController().navigate(R.id.action_navigation_profile_to_loginActivity)
+            activity?.finish()
         }
 
     }
