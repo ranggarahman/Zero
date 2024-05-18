@@ -6,6 +6,8 @@ import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.zero.data.LeaderboardItem
 import com.example.zero.databinding.ItemLeaderboardBinding
 import com.example.zero.ui.achievement.placeholder.PlaceholderContent.PlaceholderItem
@@ -38,7 +40,9 @@ class LeaderboardAdapter(
             val resourceId = context.resources.getIdentifier(drawableName, "drawable", context.packageName)
             // Bind data achievement ke elemen-elemen dalam layout item_leaderboard.xml
             binding.apply {
-                itemLeaderboardImage.setImageResource(resourceId)
+                itemLeaderboardImage.load(resourceId) {
+                    transformations(CircleCropTransformation())
+                }
                 rankTextView.text = position.plus(1).toString()
                 nameTextView.text = leaderboard.username.toString()
                 xpTextView.text = leaderboard.userpoint.toString()

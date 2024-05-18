@@ -17,6 +17,13 @@ class LeaderboardViewModel : ViewModel() {
     // Public getter for leaderboardList
     val leaderboardList: LiveData<List<LeaderboardItem>> = _leaderboardList
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading : LiveData<Boolean> = _loading
+
+    init {
+        _loading.value = true
+    }
+
     fun getLeaderboard() {
         val database = FirebaseManager.database
         val reference = database.reference.child("users")
@@ -26,24 +33,28 @@ class LeaderboardViewModel : ViewModel() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val leaderboardItems = mutableListOf<LeaderboardItem>()
                     snapshot.children.forEach { userSnapshot ->
-                        val email = userSnapshot.child("email").getValue(String::class.java)
+                        val username = userSnapshot.child("username").getValue(String::class.java)
                         val userpoint = userSnapshot.child("userpoints").getValue(Int::class.java)
                         val avatarId = userSnapshot.child("avatarId").getValue(Int::class.java)
                         val uid = userSnapshot.child("uid").getValue(String::class.java)
-                        val leaderboardItem = LeaderboardItem(email, userpoint, avatarId, uid)
+                        val leaderboardItem = LeaderboardItem(username, userpoint, avatarId, uid)
                         leaderboardItems.add(leaderboardItem)
                     }
                     // Sort the list based on userpoint in descending order
                     leaderboardItems.sortByDescending { it.userpoint }
                     _leaderboardList.postValue(leaderboardItems)
+
+                    _loading.value = false
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.d(TAG, "ERR ON CANCELLED MSD: ${error.message}")
+                    _loading.value = false
                 }
             })
         } catch (e: Exception) {
             Log.d(TAG, "ERR CATCH MSD: ${e.message}")
+            _loading.value = false
         }
     }
 

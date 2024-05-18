@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         tools:text="Flashcard"
         android:textSize="32sp"
-        android:textColor="@color/black"
+        android:textColor="@color/textPrimary"
         android:textAlignment="center"
         android:fontFamily="@font/jktsans_bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:fontFamily="@font/jktsans_bold"
             android:padding="16dp"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/textPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Judul Materi" />
@@ -54,7 +54,7 @@
             android:paddingEnd="16dp"
             android:paddingBottom="16dp"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/textPrimary"
             android:textSize="18sp"
             tools:text="Isi Materi" />
 
@@ -84,7 +84,7 @@
             android:paddingEnd="16dp"
             android:paddingBottom="16dp"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/textPrimary"
             android:textSize="18sp"
             tools:text="Isi Materi" />
 

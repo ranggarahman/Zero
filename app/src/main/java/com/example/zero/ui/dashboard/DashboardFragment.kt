@@ -36,6 +36,11 @@ class DashboardFragment : Fragment() {
         val dashboardViewModel =
             ViewModelProvider(this)[DashboardViewModel::class.java]
 
+        dashboardViewModel.username.observe(viewLifecycleOwner){
+            binding.headerUsername.text =
+                getString(R.string.header_username, it)
+        }
+
         dashboardViewModel.materialList.observe(viewLifecycleOwner) { itemList ->
             val materialListAdapter = MaterialAdapter(itemList)
             binding.dashMaterialRv.adapter = materialListAdapter
@@ -49,9 +54,6 @@ class DashboardFragment : Fragment() {
                 override fun onItemClicked(id: Int) {
                     findNavController().navigate(R.id.action_navigation_dashboard_to_materialFragment)
                     Toast.makeText(requireContext(), "ID IS : $id", Toast.LENGTH_LONG).show()
-//                    val detailIntent = Intent(context, DetailActivity::class.java)
-//                    detailIntent.putExtra(EXTRA_USERNAME, username)
-//                    context.startActivity(detailIntent)
                 }
             })
         }

@@ -8,6 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="loading_gray">#555555</color>
+    <color name="textPrimary">#000000</color>
+    <color name="primaryGray">#6A6C70</color>
+
+    <color name="cardTextReverse">#FF000000</color>
+
+    <color name="fragment_window_color">@color/white</color>
 
     <color name="correct_answer_green">#DAFAB0</color>
     <color name="wrong_answer_red">#FAB0B0</color>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zero</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="send_success">Sent Successfully</string>
+    <string name="send_error">Failed to Send</string>
+    <string name="util_lorem_dolor_silit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis lacus sit amet lobortis tincidunt. Praesent ut iaculis diam.</string>
+    <string name="title_menu_1">Belajar Clinical Decision Support System</string>
+
+    <string name="title_menu_2">Fitur Gamifikasi Beragam</string>
+    <string name="desc_menu_2">Nikmati berbagai fitur gamifikasi yang dirancang untuk membuat pembelajaran lebih interaktif dan menyenangkan, serta meningkatkan motivasi belajar.</string>
+
+    <string name="title_menu_3">Berbagai Materi &amp; Quiz Menarik</string>
+    <string name="desc_menu_3">Jelajahi berbagai materi edukatif dan quiz menarik yang dirancang untuk menguji pemahaman serta memperdalam pengetahuan Anda di bidang kesehatan.</string>
+
+    <string name="title_menu_4">Nyilit Bareng Chiro</string>
+    <string name="desc_menu_4">Sertifikat yang membuktikan pengetahuan fundamental beserta keterampilan nyata yang diinginkan perusahaan global.</string>
+
+    <string name="learn_now">Belajar Sekarang</string>
+    <string name="header_username">Halo, %1$s</string>
+    <string name="text_header_desc">Kamu bisa mengakses materi yang tersedia \n dibawah ini 👇</string>
+    <string name="text_study_with">Belajar Bareng Chiro</string>
+    <string name="text_dash_card">Hai, namaku Chiro, aku juga lagi belajar tentang CDSS, yuk klik materinya untuk belajar bareng aku!</string>
+    <string name="text_available_materials">Materi Tersedia</string>
+    <string name="text_dash_chat">Ruang Chat Bersama</string>
+    <string name="text_akses_ruang_chat">Akses Ruang chat</string>
+</resources>

@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        checkCurrentUser()
+        checkCurrentUser()
 
         binding.loginbtn.setOnClickListener {
             googleLogin()

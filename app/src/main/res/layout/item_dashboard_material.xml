@@ -14,6 +14,7 @@
         android:fontFamily="@font/jktsans_regular"
         android:textSize="16sp"
         android:maxWidth="100dp"
+        android:textColor="@color/textPrimary"
         android:ellipsize="end"
         android:textAlignment="center"
         android:maxLines="1"
@@ -33,6 +34,8 @@
         android:layout_height="wrap_content"
         android:text="Mulai"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:backgroundTint="#956FD7"
         android:layout_marginTop="-8dp"
         />
 

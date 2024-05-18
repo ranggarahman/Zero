@@ -6,16 +6,28 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="send_success">Berhasil terkirim</string>
-    <string name="send_error">Gagal terkirim</string>
+    <string name="send_success">Sent Successfully</string>
+    <string name="send_error">Failed to Send</string>
     <string name="util_lorem_dolor_silit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis lacus sit amet lobortis tincidunt. Praesent ut iaculis diam.</string>
-    <string name="title_menu_1">Kurikulum Standar Industri Global</string>
-    <string name="title_menu_2">Belajar Fleksibel Sesuai Jadwal Anda</string>
-    <string name="title_menu_3">Code Review dari Developer Expert</string>
-    <string name="title_menu_4">Alumni Terpercaya di Berbagai Perusahaan</string>
-    <string name="desc_menu_1">Kurikulum dikembangkan bersama perusahaan dan pemilik teknologi dunia sesuai kebutuhan industri terkini.</string>
-    <string name="desc_menu_2">Belajar kapan pun, di mana pun, secara mandiri. Bebas memilih kelas sesuai minat belajar. Akses seumur hidup ke kelas dan forum diskusi setelah lulus.</string>
-    <string name="desc_menu_3">Validasi skill Anda melalui 1-on-1 Professional Code Review yang diberikan langsung oleh Developer Expert.</string>
-    <string name="desc_menu_4">Sertifikat yang membuktikan pengetahuan fundamental beserta keterampilan nyata yang diinginkan perusahaan global.</string>
-    <string name="learn_now">Belajar Sekarang</string>
+    <string name="title_menu_1">Learn Clinical Decision Support System</string>
+
+    <string name="title_menu_2">Various Gamification Features</string>
+    <string name="desc_menu_2">Enjoy various gamification features designed to make learning more interactive and fun, and to increase learning motivation.</string>
+
+    <string name="title_menu_3">Various Interesting Materials &amp; Quizzes</string>
+    <string name="desc_menu_3">Explore various educational materials and interesting quizzes designed to test your understanding and deepen your knowledge in the field of health.</string>
+
+    <string name="title_menu_4">Chiro\'s Workshop</string>
+    <string name="desc_menu_4">Certificates that prove fundamental knowledge along with practical skills desired by global companies.</string>
+
+    <string name="learn_now">Learn Now</string>
+    <string name="header_username">Hello, %1$s</string>
+    <string name="text_header_desc">You can access the available materials \n below 👇</string>
+    <string name="text_study_with">Study with Chiro</string>
+    <string name="text_dash_card">Hi, my name is Chiro, I\'m also learning about CDSS. Let\'s click on the material to learn together with me!</string>
+    <string name="text_available_materials">Available Materials</string>
+    <string name="text_dash_chat">Chat Room</string>
+    <string name="text_akses_ruang_chat">Access Chat Room</string>
+
+
 </resources>

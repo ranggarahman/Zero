@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_received_message"
         android:padding="12dp"
-        android:textColor="@color/black"
+        android:textColor="@color/textPrimary"
         android:textSize="16sp"
         tools:text="Hello"
         android:textAlignment="viewStart"

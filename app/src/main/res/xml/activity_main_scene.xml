@@ -11,13 +11,13 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/logo_container"
+            android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"/>
         <Constraint
             android:id="@+id/logoMenu1"
             motion:layout_constraintStart_toEndOf="parent"
@@ -79,9 +79,9 @@
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/logo_container"
+            android:id="@+id/imageView"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:layout_marginTop="15dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"

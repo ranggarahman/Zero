@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="start|center"
-        android:textColor="@color/black"
+        android:textColor="@color/textPrimary"
         android:fontFamily="@font/jktsans_regular"
         tools:text="1"/>
 
@@ -30,7 +30,7 @@
         android:textAlignment="center"
         android:gravity="center"
         android:fontFamily="@font/jktsans_regular"
-        android:textColor="@color/black"
+        android:textColor="@color/textPrimary"
         tools:text="Rangga"/>
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_weight="1"
         android:gravity="end|center"
         android:fontFamily="@font/jktsans_regular"
-        android:textColor="@color/black"
+        android:textColor="@color/textPrimary"
         tools:text="25"/>
 
 </LinearLayout>

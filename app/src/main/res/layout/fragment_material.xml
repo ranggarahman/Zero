@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="@color/fragment_window_color"
     tools:context=".ui.dashboard.material.MaterialFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -39,6 +39,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Bacaan"
+        android:fontFamily="@font/jktsans_regular"
+        android:backgroundTint="#956FD7"
         app:layout_constraintEnd_toEndOf="@+id/material_img_reads"
         app:layout_constraintStart_toStartOf="@+id/material_img_reads"
         app:layout_constraintTop_toBottomOf="@id/material_img_reads"/>
@@ -59,6 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Flashcard"
+        android:fontFamily="@font/jktsans_regular"
+        android:textColor="@color/white"
+        android:backgroundTint="#956FD7"
         app:layout_constraintEnd_toEndOf="@+id/material_img_flash"
         app:layout_constraintStart_toStartOf="@+id/material_img_flash"
         app:layout_constraintTop_toBottomOf="@id/material_img_flash"/>
@@ -79,6 +84,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Quiz"
+        android:backgroundTint="#956FD7"
+        android:fontFamily="@font/jktsans_regular"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/material_img_quiz"
         app:layout_constraintStart_toStartOf="@+id/material_img_quiz"
         app:layout_constraintTop_toBottomOf="@id/material_img_quiz"/>

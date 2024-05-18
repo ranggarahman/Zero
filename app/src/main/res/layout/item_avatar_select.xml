@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:text="Warrior"
+        android:textColor="@color/textPrimary"
         android:textAlignment="center"
         android:fontFamily="@font/jktsans_regular"
         />

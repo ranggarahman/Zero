@@ -13,6 +13,7 @@ import com.example.zero.data.Badges
 import com.example.zero.data.FirebaseManager
 import com.example.zero.data.LeaderboardItem
 import com.example.zero.databinding.FragmentLeaderboardListBinding
+import com.example.zero.ui.LoaderOverlay
 import com.example.zero.ui.achievement.badges.BadgesFragment
 import com.example.zero.ui.achievement.badges.BadgesOverlayFragment
 
@@ -44,6 +45,16 @@ class LeaderboardFragment : Fragment() {
         leaderboardViewModel.getLeaderboard()
 
         val currentUid = FirebaseManager.currentUser.currentUser?.uid
+
+        leaderboardViewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                binding.loaderStart.visibility = View.VISIBLE
+                binding.leaderboardTable.visibility = View.GONE
+            } else {
+                binding.loaderStart.visibility = View.GONE
+                binding.leaderboardTable.visibility = View.VISIBLE
+            }
+        }
 
         leaderboardViewModel.leaderboardList.observe(viewLifecycleOwner){
             val leaderboardAdapter = LeaderboardAdapter(it, requireContext(), currentUid)

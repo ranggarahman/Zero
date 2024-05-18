@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="12dp"
-
+    android:layout_marginTop="12dp"
     app:cardBackgroundColor="#EAFFE5"
     android:id="@+id/card_one"
     android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="12dp">
 
         <ImageView
             android:src="@drawable/chiro_one"
@@ -31,12 +31,13 @@
             android:layout_height="0dp"
             android:textAlignment="center"
             android:gravity="center"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_one_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:fontFamily="@font/jktsans_regular"
-            android:text="Hai, namaku Chiro, aku juga lagi belajar tentang CDSS, yuk klik materinya untuk  belajar bareng aku!" />
+            android:text="@string/text_dash_card" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

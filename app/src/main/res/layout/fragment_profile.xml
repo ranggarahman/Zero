@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp"
+    android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".ui.notifications.ProfileFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -36,6 +37,7 @@
         android:textSize="32sp"
         tools:text="Ilham Kusuma"
         android:textAlignment="center"
+        android:textColor="@color/textPrimary"
         android:fontFamily="@font/jktsans_bold"
         />
 
@@ -48,13 +50,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="16sp"
+        android:textColor="@color/textPrimary"
         tools:text="ilhamkusuma98@gmail.com"
         android:textAlignment="center"
         android:fontFamily="@font/jktsans_regular"
         />
 
     <Button
-        android:id="@+id/btn_edit_profile"
+        android:id="@+id/btn_edit_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,12 +65,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_email"
         android:padding="10dp"
-        android:text="Ubah Avatar"
+        android:text="Ubah Nama"
         android:textSize="24sp"
         app:cornerRadius="20dp"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:fontFamily="@font/jktsans_bold"
         android:drawableLeft="@drawable/ic_baseline_edit_24"
+        android:backgroundTint="#956FD7"/>
+
+
+    <Button
+        android:id="@+id/btn_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit_username"
+        android:padding="10dp"
+        android:text="Ubah Avatar"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        app:cornerRadius="20dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/jktsans_bold"
+        android:drawableLeft="@drawable/ic_edit_profile"
         android:backgroundTint="#956FD7"/>
 
     <Button
@@ -81,6 +104,7 @@
         android:padding="10dp"
         android:text="Keluar"
         android:textSize="24sp"
+        android:textColor="@color/white"
         app:cornerRadius="20dp"
         android:textAllCaps="false"
         android:fontFamily="@font/jktsans_bold"
