@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/fragment_window_color"
+    android:padding="16dp"
+    android:layout_marginTop="?attr/actionBarSize"
     tools:context=".ui.dashboard.material.MaterialFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -16,6 +18,22 @@
         />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/material_horz_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/material_horz_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/material_horizontal_guide"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,72 +41,212 @@
         app:layout_constraintGuide_percent="0.5"
         />
 
-    <ImageView
-        android:id="@+id/material_img_reads"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:scaleType="center"
-        app:layout_constraintBottom_toTopOf="@+id/material_horizontal_guide"
-        app:layout_constraintEnd_toStartOf="@id/material_vertical_guide"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/reads_frg_img" />
-
-    <Button
-        android:id="@+id/material_btn_reads"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Bacaan"
-        android:fontFamily="@font/jktsans_regular"
-        android:backgroundTint="#956FD7"
-        app:layout_constraintEnd_toEndOf="@+id/material_img_reads"
-        app:layout_constraintStart_toStartOf="@+id/material_img_reads"
-        app:layout_constraintTop_toBottomOf="@id/material_img_reads"/>
-
-    <ImageView
-        android:id="@+id/material_img_flash"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:scaleType="center"
-        app:layout_constraintBottom_toTopOf="@+id/material_horizontal_guide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/material_vertical_guide"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/flash_frg_img" />
-
-    <Button
-        android:id="@+id/material_btn_flash"
+    <TextView
+        android:id="@+id/header_cv_mtr_reads"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Flashcard"
-        android:fontFamily="@font/jktsans_regular"
-        android:textColor="@color/white"
-        android:backgroundTint="#956FD7"
-        app:layout_constraintEnd_toEndOf="@+id/material_img_flash"
-        app:layout_constraintStart_toStartOf="@+id/material_img_flash"
-        app:layout_constraintTop_toBottomOf="@id/material_img_flash"/>
+        app:layout_constraintStart_toStartOf="@id/cv_mtr_reads"
+        app:layout_constraintBottom_toTopOf="@id/cv_mtr_reads"
+        android:text="Reading Materials"
+        android:textColor="@color/textPrimary"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/jktsans_bold"
+        android:textSize="18sp"
+        />
 
-    <ImageView
-        android:id="@+id/material_img_quiz"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_mtr_reads"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:cardBackgroundColor="#EAFFE5"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/material_horizontal_guide"
-        android:src="@drawable/quiz_frg_img"
-        android:scaleType="center"
-        android:layout_marginTop="32dp"/>
+        app:layout_constraintBottom_toTopOf="@id/material_horz_1">
 
-    <Button
-        android:id="@+id/material_btn_quiz"
-        android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/material_img_reads"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/img_research_paper_bro" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="80dp"
+                    android:fontFamily="@font/jktsans_regular"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp"
+                    android:text="@string/text_reads_desc"
+                    android:textColor="@color/cardTextReverse" />
+
+                <Button
+                    android:id="@+id/material_btn_reads"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_akses_bacaan"
+                    android:fontFamily="@font/jktsans_regular"
+                    android:backgroundTint="#956FD7"
+                    app:cornerRadius="20dp"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/header_cv_mtr_flash"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/cv_mtr_flash"
+        app:layout_constraintBottom_toTopOf="@id/cv_mtr_flash"
+        android:text="Flashcards"
+        android:textColor="@color/textPrimary"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/jktsans_bold"
+        android:textSize="18sp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_mtr_flash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:cardBackgroundColor="#EAFFE5"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@id/material_horz_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/material_horz_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/material_img_flash"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/img_card_game_bro" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jktsans_regular"
+                    android:textAlignment="viewStart"
+                    android:text="@string/text_flashcard_desc"
+                    android:textColor="@color/black" />
+
+                <Button
+                    android:id="@+id/material_btn_flash"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#956FD7"
+                    app:cornerRadius="20dp"
+                    android:fontFamily="@font/jktsans_regular"
+                    android:text="@string/text_buka_flashcards"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/header_cv_mtr_quiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/cv_mtr_quiz"
+        app:layout_constraintBottom_toTopOf="@id/cv_mtr_quiz"
         android:text="Quiz"
-        android:backgroundTint="#956FD7"
-        android:fontFamily="@font/jktsans_regular"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/material_img_quiz"
-        app:layout_constraintStart_toStartOf="@+id/material_img_quiz"
-        app:layout_constraintTop_toBottomOf="@id/material_img_quiz"/>
+        android:textColor="@color/textPrimary"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/jktsans_bold"
+        android:textSize="18sp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_mtr_quiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:cardBackgroundColor="#EAFFE5"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/material_horz_2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/material_img_quiz"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/img_onboard_quiz" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/jktsans_regular"
+                    android:text="@string/text_quiz_desc"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/cardTextReverse" />
+
+                <Button
+                    android:id="@+id/material_btn_quiz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#956FD7"
+                    app:cornerRadius="20dp"
+                    android:fontFamily="@font/jktsans_regular"
+                    android:text="@string/text_mulai_quiz"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,24 +55,29 @@ class DashboardViewModel : ViewModel() {
                             // Use the retrieved avatarId
                             if (username != null) {
                                 _username.value = username.toString()
+                                _loading.value = false
                             } else {
                                 // AvatarId not found or null
                                 println("username not found for UID: $uid")
+                                _loading.value = false
                             }
                         }
                     } else {
                         // User not found
+                        _loading.value = false
                         println("User not found for UID: $uid")
                     }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Error occurred
+                    _loading.value = false
                     println("Error: ${databaseError.message}")
                 }
             })
         } ?: run {
             // User not authenticated
+            _loading.value = false
             println("User not authenticated.")
         }
     }

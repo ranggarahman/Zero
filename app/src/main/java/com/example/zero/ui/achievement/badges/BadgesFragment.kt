@@ -6,14 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.zero.R
 import com.example.zero.data.Badges
+import com.example.zero.data.FirebaseManager
 import com.example.zero.data.createBadgesList
 import com.example.zero.databinding.FragmentBadgesBinding
+import com.example.zero.ui.LoaderOverlay
+import com.example.zero.ui.achievement.leaderboard.LeaderboardSelectOverlayViewModel
+import com.example.zero.ui.achievement.leaderboard.LeaderboardViewModel
 
 class BadgesFragment : Fragment() {
 
@@ -23,37 +28,47 @@ class BadgesFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val viewModel by viewModels<LeaderboardSelectOverlayViewModel>()
+    private val dialog = LoaderOverlay()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val badgesViewModel =
-            ViewModelProvider(this)[BadgesViewModel::class.java]
-
         _binding = FragmentBadgesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val badgesAdapter = BadgesAdapter(createBadgesList())
 
-        val layoutManager = GridLayoutManager(requireContext(), 2)
+        viewModel.getUserDataWithBadges(FirebaseManager.currentUser.uid.toString())
 
-        // Set up spacing between items
-//        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing_between_columns)
-        binding.rvBadges.addItemDecoration(GridSpacingItemDecoration(2, 64, false))
-
-        binding.rvBadges.layoutManager = layoutManager
-        binding.rvBadges.adapter = badgesAdapter
-
-
-        badgesAdapter.setOnItemClickCallback(object : BadgesAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: Badges) {
-                showBadgeDialog(data)
+        viewModel.loading.observe(viewLifecycleOwner){
+            if (it) {
+                dialog.show(parentFragmentManager, "BF_LO_TAG")
+            } else {
+                dialog.dismiss()
             }
-        })
+        }
+
+        viewModel.badgesList.observe(viewLifecycleOwner){
+            val badgesAdapter = BadgesAdapter(it)
+
+            val layoutManager = GridLayoutManager(requireContext(), 2)
+
+            binding.rvBadges.addItemDecoration(GridSpacingItemDecoration(2, 64, false))
+
+            binding.rvBadges.layoutManager = layoutManager
+            binding.rvBadges.adapter = badgesAdapter
+
+            badgesAdapter.setOnItemClickCallback(object : BadgesAdapter.OnItemClickCallback{
+                override fun onItemClicked(data: Badges) {
+                    showBadgeDialog(data)
+                }
+            })
+        }
 
     }
 

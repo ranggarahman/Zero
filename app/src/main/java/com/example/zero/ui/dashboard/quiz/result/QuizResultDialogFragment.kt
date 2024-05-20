@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import com.example.zero.data.Const.PATH_UID
+import com.example.zero.data.Const.PATH_USERPOINTS
+import com.example.zero.data.Const.PATH_USERS
 import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.FragmentQuizResultDialogBinding
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.CORRECT_ANSWER_COUNT
@@ -68,10 +71,10 @@ class QuizResultDialogFragment : DialogFragment() {
         currentUser?.uid?.let { uid ->
             // Reference to the Firebase database
             //val databaseReference = database.getInstance().getReference("users")
-            val databaseReference = database.reference.child("users")
+            val databaseReference = database.reference.child(PATH_USERS)
 
             // Query to find the user with the matching UID
-            val query: Query = databaseReference.orderByChild("uid").equalTo(uid)
+            val query: Query = databaseReference.orderByChild(PATH_UID).equalTo(uid)
 
             // Add a ValueEventListener to retrieve the user data
             query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -81,7 +84,7 @@ class QuizResultDialogFragment : DialogFragment() {
                         // Iterate over each child (should be only one)
                         dataSnapshot.children.forEach { userSnapshot ->
                             // Update the avatarId property
-                            userSnapshot.child("userpoint").ref.setValue(points)
+                            userSnapshot.child(PATH_USERPOINTS).ref.setValue(points)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         // AvatarId updated successfully

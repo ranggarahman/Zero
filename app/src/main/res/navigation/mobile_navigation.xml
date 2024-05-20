@@ -48,7 +48,7 @@
     <fragment
         android:id="@+id/materialFragment"
         android:name="com.example.zero.ui.dashboard.material.MaterialFragment"
-        android:label="fragment_material"
+        android:label="@string/material_fragment_label"
         tools:layout="@layout/fragment_material" >
         <action
             android:id="@+id/action_materialFragment_to_quizActivity"

@@ -10,6 +10,7 @@
     <string name="send_error">Failed to Send</string>
     <string name="util_lorem_dolor_silit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis lacus sit amet lobortis tincidunt. Praesent ut iaculis diam.</string>
     <string name="title_menu_1">Learn Clinical Decision Support System</string>
+    <string name="desc_menu_1">Get to know Clinical Decision Support Systems (CDSS) and see how they can help improve healthcare decisions. We\'ll cover the basics, how they work, and why they\'re useful in everyday medical practice.</string>
 
     <string name="title_menu_2">Various Gamification Features</string>
     <string name="desc_menu_2">Enjoy various gamification features designed to make learning more interactive and fun, and to increase learning motivation.</string>
@@ -29,5 +30,25 @@
     <string name="text_dash_chat">Chat Room</string>
     <string name="text_akses_ruang_chat">Access Chat Room</string>
 
+    <string name="dialog_avatar_change">Change Avatar</string>
+    <string name="dialog_avatar_confirm">Are you sure you want to change your avatar?</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="text_header_quiz_result">Hooray! Quiz is done!</string>
+    <string name="waktu">Time Spent</string>
+    <string name="text_skor_akhir">Final Score</string>
+    <string name="text_xp_didapat">XP Acquired</string>
+    <string name="text_ubah_nama">Change Name</string>
+    <string name="text_ubah_avatar">Change Avatar</string>
+    <string name="text_logout">Log Out</string>
+    <string name="text_buka_flashcards">Open Flashcards</string>
+    <string name="text_mulai_quiz">Start Quiz</string>
+    <string name="text_akses_bacaan">Access Reading Materials</string>
+
+    <string name="text_flashcard_desc">Flashcards are a great way to review and reinforce your knowledge. Use them to quickly test yourself on key concepts and terms, helping you retain information more effectively.</string>
+    <string name="text_reads_desc">Explore a variety of reading materials that cover key topics and concepts. These resources are designed to deepen your understanding and provide you with comprehensive knowledge.</string>
+    <string name="text_quiz_desc">Test your knowledge with our interactive quizzes. They are designed to help you assess your understanding of the material and identify areas where you can improve.</string>
+    <string name="material_fragment_label">Available Materials</string>
 
 </resources>

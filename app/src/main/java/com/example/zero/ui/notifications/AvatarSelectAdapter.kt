@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.bumptech.glide.Glide
 import com.example.zero.R
 import com.example.zero.data.Avatar
@@ -46,7 +48,9 @@ class AvatarSelectAdapter(private val avatarList: List<Avatar>) :
 
         fun bind(avatarItem: Avatar, position: Int) {
             binding.apply {
-                avatarImg.setImageResource(avatarItem.imgInt)
+                avatarImg.load(avatarItem.imgInt) {
+                    transformations(CircleCropTransformation())
+                }
                 avatarTitle.text = "Avatar ${position + 1}"
                 root.setOnClickListener {
                     onItemClickCallback.onItemClicked(avatarItem)

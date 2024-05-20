@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zero.R
 import com.example.zero.databinding.FragmentDashboardBinding
+import com.example.zero.ui.LoaderOverlay
 
 class DashboardFragment : Fragment() {
 
@@ -20,6 +21,7 @@ class DashboardFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val dialog = LoaderOverlay()
 
 
     override fun onCreateView(
@@ -35,6 +37,14 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val dashboardViewModel =
             ViewModelProvider(this)[DashboardViewModel::class.java]
+
+        dashboardViewModel.loading.observe(viewLifecycleOwner){
+            if (it){
+                dialog.show(parentFragmentManager, "DASH_LOADER_TAG")
+            } else {
+                dialog.dismiss()
+            }
+        }
 
         dashboardViewModel.username.observe(viewLifecycleOwner){
             binding.headerUsername.text =

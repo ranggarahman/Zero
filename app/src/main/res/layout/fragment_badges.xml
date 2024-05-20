@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     android:layout_gravity="center_horizontal"
     tools:context=".ui.achievement.badges.BadgesFragment">
 
@@ -38,6 +39,7 @@
                 android:layout_height="0dp"
                 android:textAlignment="center"
                 android:gravity="center"
+                android:textColor="@color/cardTextReverse"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/card_one_image"
                 app:layout_constraintEnd_toEndOf="parent"

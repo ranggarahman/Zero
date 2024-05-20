@@ -23,6 +23,8 @@ class LoaderOverlay: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.loaderStart.playAnimation()
     }
 
     override fun onResume() {

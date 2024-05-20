@@ -34,9 +34,11 @@ class BadgesOverlayFragment : DialogFragment() {
         binding.titleTextView.text = title
         binding.messageTextView.text = desc
 
-
-
         Glide.with(requireContext()).load(imgUrl).into(binding.iconImageView)
+
+        binding.btnDismissal.setOnClickListener {
+            dismiss()
+        }
 
     }
 

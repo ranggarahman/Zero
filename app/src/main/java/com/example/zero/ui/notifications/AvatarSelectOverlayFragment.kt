@@ -1,5 +1,6 @@
 package com.example.zero.ui.notifications
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
@@ -11,8 +12,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.zero.R
 import com.example.zero.data.Avatar
 import com.example.zero.data.Badges
+import com.example.zero.data.Const.PATH_AVATAR_ID
+import com.example.zero.data.Const.PATH_UID
+import com.example.zero.data.Const.PATH_USERS
 import com.example.zero.data.FirebaseManager
 import com.example.zero.data.LeaderboardItem
 import com.example.zero.databinding.FragmentAvatarSelectOverlayBinding
@@ -55,13 +60,13 @@ class AvatarSelectOverlayFragment : DialogFragment() {
             override fun onItemClicked(data: Avatar) {
                 val alertDialogBuilder = AlertDialog.Builder(requireContext())
                 alertDialogBuilder.apply {
-                    setTitle("Change Avatar")
-                    setMessage("Are you sure you want to change your avatar?")
-                    setPositiveButton("Yes") { dialog, which ->
+                    setTitle(R.string.dialog_avatar_change)
+                    setMessage(R.string.dialog_avatar_confirm)
+                    setPositiveButton(R.string.yes) { dialog, _ ->
                         setSelectedAvatar(data.id)
                         dialog.dismiss()
                     }
-                    setNegativeButton("No") { dialog, which ->
+                    setNegativeButton(R.string.no) { dialog, _ ->
                         dialog.dismiss()
                     }
                 }
@@ -79,11 +84,10 @@ class AvatarSelectOverlayFragment : DialogFragment() {
         // Check if the user is authenticated
         currentUser?.uid?.let { uid ->
             // Reference to the Firebase database
-            //val databaseReference = database.getInstance().getReference("users")
-            val databaseReference = database.reference.child("users")
+            val databaseReference = database.reference.child(PATH_USERS)
 
             // Query to find the user with the matching UID
-            val query: Query = databaseReference.orderByChild("uid").equalTo(uid)
+            val query: Query = databaseReference.orderByChild(PATH_UID).equalTo(uid)
 
             // Add a ValueEventListener to retrieve the user data
             query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -93,7 +97,7 @@ class AvatarSelectOverlayFragment : DialogFragment() {
                         // Iterate over each child (should be only one)
                         dataSnapshot.children.forEach { userSnapshot ->
                             // Update the avatarId property
-                            userSnapshot.child("avatarId").ref.setValue(selectedAvatarId)
+                            userSnapshot.child(PATH_AVATAR_ID).ref.setValue(selectedAvatarId)
                                 .addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
                                         // AvatarId updated successfully
@@ -135,6 +139,7 @@ class AvatarSelectOverlayFragment : DialogFragment() {
         return avatarList
     }
 
+    @SuppressLint("DiscouragedApi")
     private fun getDrawableResourceId(name: String): Int {
         // Assuming you have a Context instance available
         // If not, you'll need to pass a Context as a parameter to this function

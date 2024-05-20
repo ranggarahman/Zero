@@ -1,11 +1,13 @@
 package com.example.zero.data
 
+import com.example.zero.R
+
 data class Badges(
     val id: Int,
     val title: String,
     val desc: String,
     val imgUrl: String,
-    val isUnlocked: Boolean,
+    var isUnlocked: Boolean,
 )
 
 fun createBadgesList(): List<Badges> {
@@ -19,7 +21,7 @@ fun createBadgesList(): List<Badges> {
     )
 
     val badgesList = mutableListOf<Badges>()
-    for (i in 1..6) {
+    for (i in 1..4) {
         badgesList.add(
             Badges(
                 id = i,
@@ -30,5 +32,26 @@ fun createBadgesList(): List<Badges> {
             )
         )
     }
+
+    badgesList.add(
+        Badges(
+            id = 5,
+            title = "The Gayyer",
+            desc = "Mendapatkan lebih dari 300 XP",
+            imgUrl = "https://i.ibb.co/hYj9V6L/rank5.png",
+            isUnlocked = false
+        )
+    )
+
+    badgesList.add(
+        Badges(
+            id = 6,
+            title = "The Gayyer",
+            desc = "Mendapatkan lebih dari 400 XP",
+            imgUrl = "https://i.ibb.co/h2wr3cm/rank6.png",
+            isUnlocked = false
+        )
+    )
+
     return badgesList
 }

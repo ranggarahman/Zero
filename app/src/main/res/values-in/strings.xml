@@ -11,6 +11,8 @@
     <string name="send_error">Failed to Send</string>
     <string name="util_lorem_dolor_silit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis lacus sit amet lobortis tincidunt. Praesent ut iaculis diam.</string>
     <string name="title_menu_1">Belajar Clinical Decision Support System</string>
+    <string name="desc_menu_1">Pelajari tentang Clinical Decision Support System (CDSS) dan lihat bagaimana alat ini dapat membantu meningkatkan keputusan dalam perawatan kesehatan. Kami akan membahas dasar-dasarnya, cara kerjanya, dan mengapa CDSS berguna dalam praktik medis sehari-hari.</string>
+
 
     <string name="title_menu_2">Fitur Gamifikasi Beragam</string>
     <string name="desc_menu_2">Nikmati berbagai fitur gamifikasi yang dirancang untuk membuat pembelajaran lebih interaktif dan menyenangkan, serta meningkatkan motivasi belajar.</string>
@@ -29,4 +31,27 @@
     <string name="text_available_materials">Materi Tersedia</string>
     <string name="text_dash_chat">Ruang Chat Bersama</string>
     <string name="text_akses_ruang_chat">Akses Ruang chat</string>
+
+    <string name="dialog_avatar_change">Ubah Avatar</string>
+    <string name="dialog_avatar_confirm">Apa kamu yakin ingin mengubah avatar?</string>
+
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="text_header_quiz_result">Horee, Quiz Selesai!</string>
+    <string name="waktu">Waktu</string>
+    <string name="text_skor_akhir">Skor Akhir</string>
+    <string name="text_xp_didapat">XP didapat</string>
+    <string name="text_ubah_nama">Ubah Nama</string>
+    <string name="text_ubah_avatar">Ubah Avatar</string>
+    <string name="text_logout">Keluar</string>
+    <string name="text_buka_flashcards">Buka Flashcards</string>
+    <string name="text_mulai_quiz">Mulai Quiz</string>
+    <string name="text_akses_bacaan">Akses Bacaan</string>
+
+    <string name="text_flashcard_desc">Flashcard adalah cara yang bagus untuk meninjau dan memperkuat pengetahuan kamu. Gunakan flashcard untuk menguji diri Anda dengan cepat mengenai konsep dan istilah penting, membantu kamu mengingat informasi dengan lebih efektif.</string>
+    <string name="text_reads_desc">Jelajahi berbagai materi bacaan yang mencakup topik dan konsep utama. Sumber daya ini dirancang untuk memperdalam pemahaman Anda dan memberikan pengetahuan yang komprehensif.</string>
+    <string name="text_quiz_desc">Uji pengetahuan Anda dengan kuis interaktif kami. Kuis ini dirancang untuk membantu Anda menilai pemahaman Anda tentang materi dan mengidentifikasi area di mana Anda dapat meningkatkan.</string>
+    <string name="material_fragment_label">Materi Tersedia</string>
+
+
 </resources>

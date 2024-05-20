@@ -1,5 +1,6 @@
 package com.example.zero.ui.achievement.leaderboard
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
@@ -33,6 +34,7 @@ class LeaderboardAdapter(
     }
 
     inner class AchievementViewHolder(private val binding: ItemLeaderboardBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("DiscouragedApi")
         fun bind(leaderboard: LeaderboardItem, position: Int) {
             val drawableName = "a${leaderboard.avatarId}"
 
