@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener
 
 class QuizResultDialogViewModel : ViewModel() {
 
-    private fun setResult(resultPoints: Int) {
+    private fun setResult(resultPoints: Int, quizId: Int) {
         // Get the current Firebase user
         val currentUser = FirebaseManager.currentUser.currentUser
         val database = FirebaseManager.database
@@ -50,6 +50,26 @@ class QuizResultDialogViewModel : ViewModel() {
                                         Log.e(TAG, "FAIL")
                                     }
                                 }
+
+                            // Update quizTaken count in materialsCompletion
+                            val materialsCompletionRef = userSnapshot.child("materialsCompletion")
+                            materialsCompletionRef.children.forEach { materialSnapshot ->
+                                val materialId = materialSnapshot.child("id").getValue(Int::class.java)
+                                if (materialId == quizId) {
+                                    val quizTaken = materialSnapshot.child("quizTaken").getValue(Int::class.java) ?: 0
+                                    materialSnapshot.ref
+                                        .child("quizTaken")
+                                        .setValue(quizTaken + 1).addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            // Points updated successfully
+                                            Log.d(TAG, "SUCCESS UPDATE")
+                                        } else {
+                                            // Error updating points
+                                            Log.e(TAG, "FAIL")
+                                        }
+                                    }
+                                }
+                            }
                         }
                     } else {
                         // User not found

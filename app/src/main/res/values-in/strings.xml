@@ -53,5 +53,19 @@
     <string name="text_quiz_desc">Uji pengetahuan Anda dengan kuis interaktif kami. Kuis ini dirancang untuk membantu Anda menilai pemahaman Anda tentang materi dan mengidentifikasi area di mana Anda dapat meningkatkan.</string>
     <string name="material_fragment_label">Materi Tersedia</string>
 
+    <string name="title_badge_1">Rookie</string>
+    <string name="title_badge_2">Sociable</string>
+    <string name="title_badge_3">Almost Good</string>
+    <string name="title_badge_4">Am I Good Yet</string>
+    <string name="title_badge_5">More is Always Less</string>
+    <string name="title_badge_6">Top of The World</string>
+
+    <string name="desc_badge_1">Selesaikan Quiz, Materi Bacaan, &amp; Flashcard Pertamamu</string>
+    <string name="desc_badge_2">Kirim Pesan Pertamamu di Ruang Chat</string>
+    <string name="desc_badge_3">Selesaikan 3 Materi</string>
+    <string name="desc_badge_4">Dapatkan lebih dari 200 XP</string>
+    <string name="desc_badge_5">Dapatkan lebih dari 300 XP</string>
+    <string name="desc_badge_6">Masuk Dalam 5 Besar Leaderboard</string>
+
 
 </resources>

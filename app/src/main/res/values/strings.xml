@@ -51,4 +51,18 @@
     <string name="text_quiz_desc">Test your knowledge with our interactive quizzes. They are designed to help you assess your understanding of the material and identify areas where you can improve.</string>
     <string name="material_fragment_label">Available Materials</string>
 
+    <string name="title_badge_1">Rookie</string>
+    <string name="title_badge_2">Sociable</string>
+    <string name="title_badge_3">Almost Good</string>
+    <string name="title_badge_4">Am I Good Yet</string>
+    <string name="title_badge_5">More is Always Less</string>
+    <string name="title_badge_6">Top of The World</string>
+
+    <string name="desc_badge_1">Complete Your First Quiz, Reading Material, &amp; Flashcard</string>
+    <string name="desc_badge_2">Send Your First Message in the Chat Room</string>
+    <string name="desc_badge_3">Complete 3 Materials</string>
+    <string name="desc_badge_4">Earn More Than 200 XP</string>
+    <string name="desc_badge_5">Earn More Than 300 XP</string>
+    <string name="desc_badge_6">Rank in the Top 5 on the Leaderboard</string>
+
 </resources>

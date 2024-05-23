@@ -10,10 +10,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.zero.data.Badges
+import com.example.zero.data.ResourceRepository
 import com.example.zero.data.createBadgesList
 import com.example.zero.databinding.FragmentLeaderboardPopupOverlayBinding
+import com.example.zero.ui.DefaultViewModelFactory
 import com.example.zero.ui.achievement.badges.BadgesAdapter
 import com.example.zero.ui.achievement.badges.BadgesFragment
+import com.example.zero.ui.achievement.badges.BadgesOverlayFragment
 import com.example.zero.ui.achievement.leaderboard.LeaderboardFragment.Companion.UID_BADGES
 import com.example.zero.ui.achievement.leaderboard.LeaderboardFragment.Companion.USERNAME_BADGES
 
@@ -24,7 +28,13 @@ class LeaderboardSelectOverlayFragment : DialogFragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val leaderboardSelectOverlayViewModel by viewModels<LeaderboardSelectOverlayViewModel>()
+    // Initialize the ResourceRepository
+    private val resourceRepository by lazy { ResourceRepository(requireContext()) }
+
+    // Use the custom ViewModelFactory with viewModels delegate
+    private val leaderboardSelectOverlayViewModel: LeaderboardSelectOverlayViewModel by viewModels {
+        DefaultViewModelFactory(resourceRepository)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentLeaderboardPopupOverlayBinding.inflate(inflater, container, false)
@@ -43,13 +53,30 @@ class LeaderboardSelectOverlayFragment : DialogFragment() {
                 val badgesAdapter = BadgesAdapter(list)
                 binding.frgLeaderboardPopupRvbadges.adapter = badgesAdapter
                 binding.frgLeaderboardPopupRvbadges.layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
-
-                Log.d(TAG, "RETRIEVED LIST $list")
                 binding.frgLeaderboardPopupUsername.text = username
+
+                Log.d(TAG, "RETRIEVED LIST FOR USN $username => $list")
+
+                badgesAdapter.setOnItemClickCallback(object : BadgesAdapter.OnItemClickCallback{
+                    override fun onItemClicked(data: Badges) {
+                        showBadgeDialog(data)
+                    }
+                })
             }
         } else {
             Toast.makeText(requireContext(), "LIST NOT RETRIVED", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showBadgeDialog(badgeItem : Badges) {
+        val dialog = BadgesOverlayFragment()
+        val args = Bundle().apply {
+            putString(BadgesFragment.BADGE_TITLE, badgeItem.title)
+            putString(BadgesFragment.BADGE_DESC, badgeItem.desc)
+            putString(BadgesFragment.BADGE_IMG_URL, badgeItem.imgUrl)
+        }
+        dialog.arguments = args
+        dialog.show(parentFragmentManager, "LSOF_popup_dialog_CLICK")
     }
 
     override fun onResume() {

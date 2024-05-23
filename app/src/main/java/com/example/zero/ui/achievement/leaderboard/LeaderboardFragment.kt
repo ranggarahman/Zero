@@ -46,16 +46,6 @@ class LeaderboardFragment : Fragment() {
 
         val currentUid = FirebaseManager.currentUser.currentUser?.uid
 
-        leaderboardViewModel.loading.observe(viewLifecycleOwner){
-            if (it){
-                binding.loaderStart.visibility = View.VISIBLE
-                binding.leaderboardTable.visibility = View.GONE
-            } else {
-                binding.loaderStart.visibility = View.GONE
-                binding.leaderboardTable.visibility = View.VISIBLE
-            }
-        }
-
         leaderboardViewModel.leaderboardList.observe(viewLifecycleOwner){
             val leaderboardAdapter = LeaderboardAdapter(it, requireContext(), currentUid)
             binding.leaderboardRecyclerView.adapter = leaderboardAdapter
@@ -86,12 +76,13 @@ class LeaderboardFragment : Fragment() {
             putString(USERNAME_BADGES, username)
         }
         dialog.arguments = args
-        dialog.show(parentFragmentManager, "leaderboard_popup_dialog")
+        dialog.show(parentFragmentManager, TAG_DIALOG_FROM_LEADERBOARD_FRAGMENT)
     }
 
     companion object {
         const val UID_BADGES = "uid_badges"
         const val USERNAME_BADGES = "usn_badges"
+        private const val TAG_DIALOG_FROM_LEADERBOARD_FRAGMENT = "TAG_DIALOG_FROM_LEADERBOARD_FRAGMENT"
     }
 
 }

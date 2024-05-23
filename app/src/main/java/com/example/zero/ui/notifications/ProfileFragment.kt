@@ -98,10 +98,10 @@ class ProfileFragment : Fragment() {
                                 val drawableName = "a$avatarId"
 
                                 // Get the resource identifier for the drawable
-                                val resourceId = requireContext().resources.getIdentifier(drawableName, "drawable", requireContext().packageName)
+                                val resourceId = activity?.resources?.getIdentifier(drawableName, "drawable", requireContext().packageName)
 
                                 // Set the image resource
-                                if (resourceId != 0) {
+                                if (resourceId != null) {
                                     binding.profileImageViewFrag.setImageResource(resourceId)
                                     binding.textUsername.text = username
                                     binding.textEmail.text = currentUser.email

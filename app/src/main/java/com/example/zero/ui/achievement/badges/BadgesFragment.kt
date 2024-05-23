@@ -14,11 +14,15 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.zero.R
 import com.example.zero.data.Badges
 import com.example.zero.data.FirebaseManager
+import com.example.zero.data.Message
+import com.example.zero.data.ResourceRepository
 import com.example.zero.data.createBadgesList
 import com.example.zero.databinding.FragmentBadgesBinding
+import com.example.zero.ui.DefaultViewModelFactory
 import com.example.zero.ui.LoaderOverlay
 import com.example.zero.ui.achievement.leaderboard.LeaderboardSelectOverlayViewModel
 import com.example.zero.ui.achievement.leaderboard.LeaderboardViewModel
+import com.firebase.ui.database.FirebaseRecyclerOptions
 
 class BadgesFragment : Fragment() {
 
@@ -28,7 +32,14 @@ class BadgesFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<LeaderboardSelectOverlayViewModel>()
+    // Initialize the ResourceRepository
+    private val resourceRepository by lazy { ResourceRepository(requireContext()) }
+
+    // Use the custom ViewModelFactory with viewModels delegate
+    private val viewModel:  BadgesViewModel by viewModels {
+        DefaultViewModelFactory(resourceRepository)
+    }
+
     private val dialog = LoaderOverlay()
 
     override fun onCreateView(
@@ -43,21 +54,13 @@ class BadgesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getUserDataWithBadges(FirebaseManager.currentUser.uid.toString())
+        val uid = FirebaseManager.currentUser.uid.toString()
 
-        viewModel.loading.observe(viewLifecycleOwner){
-            if (it) {
-                dialog.show(parentFragmentManager, "BF_LO_TAG")
-            } else {
-                dialog.dismiss()
-            }
-        }
+        viewModel.getUserDataWithBadges(uid)
 
         viewModel.badgesList.observe(viewLifecycleOwner){
             val badgesAdapter = BadgesAdapter(it)
-
             val layoutManager = GridLayoutManager(requireContext(), 2)
-
             binding.rvBadges.addItemDecoration(GridSpacingItemDecoration(2, 64, false))
 
             binding.rvBadges.layoutManager = layoutManager

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.bumptech.glide.Glide
 import com.example.zero.data.Message
 import com.example.zero.databinding.ItemMessageReceivedBinding
@@ -49,10 +51,7 @@ class FirebaseMessageAdapter(
                     if (message.text!!.isNotEmpty()) {
                         receivedMessageBinding.textMessageReceived.visibility = View.VISIBLE
                         receivedMessageBinding.textMessageReceived.text = message.text
-                        Glide.with(itemView.context)
-                            .load(message.photoUrl)
-                            .circleCrop()
-                            .into(receivedMessageBinding.imageviewAvatar)
+                        receivedMessageBinding.imageviewAvatar.setImageResource(message.photoUrl!!)
                         if (message.timestamp != null) {
                             binding.textChatTimestamp.text = DateUtils.getRelativeTimeSpanString(message.timestamp)
                         }

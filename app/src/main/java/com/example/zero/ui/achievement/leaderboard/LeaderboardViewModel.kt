@@ -29,7 +29,7 @@ class LeaderboardViewModel : ViewModel() {
         val reference = database.reference.child("users")
 
         try {
-            reference.addListenerForSingleValueEvent(object : ValueEventListener {
+            reference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val leaderboardItems = mutableListOf<LeaderboardItem>()
                     snapshot.children.forEach { userSnapshot ->
@@ -42,6 +42,13 @@ class LeaderboardViewModel : ViewModel() {
                     }
                     // Sort the list based on userpoint in descending order
                     leaderboardItems.sortByDescending { it.userpoint }
+
+                    // Update the top 5 users in the database
+                    val top5Uids = leaderboardItems.take(5).map { it.uid }
+                    top5Uids.forEach { uid ->
+                        reference.child(uid.toString()).child("isTop5").setValue(true)
+                    }
+
                     _leaderboardList.postValue(leaderboardItems)
 
                     _loading.value = false
