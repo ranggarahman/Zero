@@ -143,12 +143,6 @@ class LeaderboardSelectOverlayViewModel(private val resourceRepository: Resource
                             true
                         )
                     )
-                } else {
-                    badgeUpdates.add(
-                        badgeSnapshot.child("isUnlocked").ref.setValue(
-                            false
-                        )
-                    )
                 }
 
             }
@@ -161,12 +155,6 @@ class LeaderboardSelectOverlayViewModel(private val resourceRepository: Resource
                     badgeUpdates.add(
                         badgeSnapshot.child("isUnlocked").ref.setValue(
                             true
-                        )
-                    )
-                } else {
-                    badgeUpdates.add(
-                        badgeSnapshot.child("isUnlocked").ref.setValue(
-                            false
                         )
                     )
                 }
@@ -191,12 +179,6 @@ class LeaderboardSelectOverlayViewModel(private val resourceRepository: Resource
                             true
                         )
                     )
-                } else {
-                    badgeUpdates.add(
-                        badgeSnapshot.child("isUnlocked").ref.setValue(
-                            false
-                        )
-                    )
                 }
             }
 
@@ -207,12 +189,6 @@ class LeaderboardSelectOverlayViewModel(private val resourceRepository: Resource
                             true
                         )
                     )
-                } else {
-                    badgeUpdates.add(
-                        badgeSnapshot.child("isUnlocked").ref.setValue(
-                            false
-                        )
-                    )
                 }
             }
 
@@ -221,12 +197,6 @@ class LeaderboardSelectOverlayViewModel(private val resourceRepository: Resource
                     badgeUpdates.add(
                         badgeSnapshot.child("isUnlocked").ref.setValue(
                             true
-                        )
-                    )
-                } else {
-                    badgeUpdates.add(
-                        badgeSnapshot.child("isUnlocked").ref.setValue(
-                            false
                         )
                     )
                 }

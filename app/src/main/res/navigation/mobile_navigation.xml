@@ -60,6 +60,7 @@
             android:id="@+id/action_materialFragment_to_readsActivity"
             app:destination="@id/readsActivity" />
     </fragment>
+
     <activity
         android:id="@+id/quizActivity"
         android:name="com.example.zero.ui.dashboard.quiz.QuizActivity"

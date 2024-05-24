@@ -48,7 +48,7 @@ class MaterialFragment : Fragment() {
             findNavController().navigate(R.id.action_materialFragment_to_flashcardActivity)
         }
 
-        binding.materialImgReads.setOnClickListener {
+        binding.materialBtnReads.setOnClickListener {
             findNavController().navigate(R.id.action_materialFragment_to_readsActivity)
         }
     }
