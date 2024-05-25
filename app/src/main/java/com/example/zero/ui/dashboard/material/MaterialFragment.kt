@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.zero.R
 import com.example.zero.databinding.FragmentDashboardBinding
 import com.example.zero.databinding.FragmentMaterialBinding
+import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERIAL_ID
 import com.example.zero.ui.dashboard.quiz.QuizActivity
 import com.example.zero.ui.dashboard.quiz.brief.QuizBriefDialogFragment
 
@@ -36,21 +37,28 @@ class MaterialFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        buttonNavigator()
+        val id = arguments?.getInt(SELECTED_MATERIAL_ID) ?: 0
+
+        buttonNavigator(id)
     }
 
-    private fun buttonNavigator() {
+    private fun buttonNavigator(id: Int) {
+        val bundle = Bundle().apply {
+            putInt(SELECTED_MATERIAL_ID, id) // "id" is the key used to pass the value
+        }
+
         binding.materialBtnQuiz.setOnClickListener {
-            findNavController().navigate(R.id.action_materialFragment_to_quizActivity)
+            findNavController().navigate(R.id.action_materialFragment_to_quizActivity, bundle)
         }
 
         binding.materialBtnFlash.setOnClickListener {
-            findNavController().navigate(R.id.action_materialFragment_to_flashcardActivity)
+            findNavController().navigate(R.id.action_materialFragment_to_flashcardActivity, bundle)
         }
 
         binding.materialBtnReads.setOnClickListener {
-            findNavController().navigate(R.id.action_materialFragment_to_readsActivity)
+            findNavController().navigate(R.id.action_materialFragment_to_readsActivity, bundle)
         }
     }
+
 
 }

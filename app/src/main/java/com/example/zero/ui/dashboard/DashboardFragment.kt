@@ -62,7 +62,11 @@ class DashboardFragment : Fragment() {
             materialListAdapter.setOnItemClickCallback(object :
                 MaterialAdapter.OnItemClickCallback {
                 override fun onItemClicked(id: Int) {
-                    findNavController().navigate(R.id.action_navigation_dashboard_to_materialFragment)
+                    val bundle = Bundle().apply {
+                        putInt(SELECTED_MATERIAL_ID, id) // "id" is the key, and `id` is the value being passed
+                    }
+
+                    findNavController().navigate(R.id.action_navigation_dashboard_to_materialFragment, bundle)
                     Toast.makeText(requireContext(), "ID IS : $id", Toast.LENGTH_LONG).show()
                 }
             })
@@ -81,5 +85,6 @@ class DashboardFragment : Fragment() {
 
     companion object {
         private const val TAG = "DASH_FRAG"
+        const val SELECTED_MATERIAL_ID = "SELECTED_MATERIAL_ID"
     }
 }

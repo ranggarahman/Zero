@@ -1,20 +1,17 @@
-package com.example.zero.ui.dashboard.flashcard
+package com.example.zero.ui.dashboard.reads
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.zero.data.Const
 import com.example.zero.data.FirebaseManager
-import com.example.zero.data.FlashcardItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 
-class FlashcardViewModel: ViewModel() {
+class ReadsViewModel : ViewModel() {
 
-    fun setAchievement(quizId: Int) {
+    fun setResult(quizId: Int) {
         // Get the current Firebase user
         val currentUser = FirebaseManager.currentUser.currentUser
         val database = FirebaseManager.database
@@ -39,9 +36,9 @@ class FlashcardViewModel: ViewModel() {
                             materialsCompletionRef.children.forEach { materialSnapshot ->
                                 val materialId = materialSnapshot.child("id").getValue(Int::class.java)
                                 if (materialId == quizId) {
-                                    val readsTaken = materialSnapshot.child("flashcardTaken").getValue(Int::class.java) ?: 0
+                                    val readsTaken = materialSnapshot.child("readsTaken").getValue(Int::class.java) ?: 0
                                     materialSnapshot.ref
-                                        .child("flashcardTaken")
+                                        .child("readsTaken")
                                         .setValue(readsTaken + 1).addOnCompleteListener { task ->
                                             if (task.isSuccessful) {
                                                 // Points updated successfully
@@ -70,9 +67,9 @@ class FlashcardViewModel: ViewModel() {
             Log.e(TAG, "Error: unauthorized")
         }
     }
-
+    
     companion object {
-        private const val TAG = "FVM_VM"
+        private const val TAG = "RVM_VM"
     }
-
+    
 }

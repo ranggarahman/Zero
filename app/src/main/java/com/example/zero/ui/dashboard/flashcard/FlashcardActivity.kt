@@ -14,12 +14,15 @@ import androidx.cardview.widget.CardView
 import com.example.zero.R
 import com.example.zero.data.FlashcardItem
 import com.example.zero.databinding.ActivityFlashcardBinding
+import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERIAL_ID
+import com.example.zero.ui.dashboard.reads.ReadsActivity
 
 class FlashcardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFlashcardBinding
     private var currentFlashcardIndex = 0
     private val flashcards = generateDummyFlashcards() // Call the dummy data generator
+    private var materialId = 0
 
     private val flashcardViewModel by viewModels<FlashcardViewModel>()
 
@@ -31,6 +34,9 @@ class FlashcardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFlashcardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val id = intent.extras?.getInt(SELECTED_MATERIAL_ID) ?: 0
+        materialId = id
 
         // Update UI with initial flashcard
         updateFlashcardUI()
@@ -92,6 +98,11 @@ class FlashcardActivity : AppCompatActivity() {
         val isLastPage = index == flashcards.size - 1
         binding.previousButton.isEnabled = !isFirstPage
         binding.nextButton.isEnabled = !isLastPage
+
+        if (isLastPage) {
+            flashcardViewModel.setAchievement(materialId)
+        }
+
     }
 
     private fun updateFlashcardUI() {
@@ -99,6 +110,8 @@ class FlashcardActivity : AppCompatActivity() {
         val currentFlashcard = flashcards[currentFlashcardIndex]
         binding.materialTitle.text = currentFlashcard.title
         binding.materialContent.text = currentFlashcard.content
+
+        binding.materialContentBack.text = currentFlashcard.reveal
     }
 
     private fun flipFlashcard(front: LinearLayout, back: LinearLayout) {
@@ -109,6 +122,7 @@ class FlashcardActivity : AppCompatActivity() {
             front_animation.start()
             back_animation.start()
             isFront = false
+
 
         }
         else

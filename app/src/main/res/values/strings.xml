@@ -64,5 +64,6 @@
     <string name="desc_badge_4">Earn More Than 200 XP</string>
     <string name="desc_badge_5">Earn More Than 300 XP</string>
     <string name="desc_badge_6">Rank in the Top 5 on the Leaderboard</string>
+    <string name="text_subtitle_flash">Tap on the card to reveal the answer</string>
 
 </resources>

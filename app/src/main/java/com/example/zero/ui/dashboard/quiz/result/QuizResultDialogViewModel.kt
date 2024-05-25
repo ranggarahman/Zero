@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener
 
 class QuizResultDialogViewModel : ViewModel() {
 
-    private fun setResult(resultPoints: Int, quizId: Int) {
+    fun setResult(resultPoints: Int, quizId: Int) {
         // Get the current Firebase user
         val currentUser = FirebaseManager.currentUser.currentUser
         val database = FirebaseManager.database

@@ -50,12 +50,16 @@ class QuizResultDialogFragment : DialogFragment() {
         val result = arguments?.getInt(CORRECT_ANSWER_COUNT, 0)
         val xp = arguments?.getInt(XP_ACQUIRED_COUNT, 0)
         val time = arguments?.getString(TIME_SPENT)
+        val quizId = arguments?.getInt(SELECTED_QUIZ_ID, 0)
 
         binding.textviewScore.text = result.toString()
         binding.textviewXP.text = xp.toString()
         binding.textviewTime.text = time
 
-        setUserpoint(xp!!)
+        quizResultDialogViewModel.setResult(
+            quizId = quizId!!,
+            resultPoints = result!!
+        )
 
         binding.resultConfirm.setOnClickListener {
             activity?.finish()
@@ -122,6 +126,7 @@ class QuizResultDialogFragment : DialogFragment() {
 
     companion object {
         private const val TAG = "QRDF"
+        const val SELECTED_QUIZ_ID = "selected_quiz_id"
     }
 
 }

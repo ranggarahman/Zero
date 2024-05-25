@@ -21,9 +21,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.example.zero.R
 import com.example.zero.databinding.ActivityQuizBinding
+import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERIAL_ID
 import com.example.zero.ui.dashboard.misc.ButtonState
 import com.example.zero.ui.dashboard.quiz.brief.QuizBriefDialogFragment
 import com.example.zero.ui.dashboard.quiz.result.QuizResultDialogFragment
+import com.example.zero.ui.dashboard.reads.ReadsActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import java.util.concurrent.TimeUnit
@@ -45,6 +47,8 @@ class QuizActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val id = intent.extras?.getInt(SELECTED_MATERIAL_ID) ?: 0
 
         val briefDialog = QuizBriefDialogFragment()
         briefDialog.show(supportFragmentManager, "brief_dialog")

@@ -11,7 +11,7 @@
         android:id="@+id/categoryindicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Flashcard"
+        android:text="Flashcard"
         android:textSize="32sp"
         android:textColor="@color/textPrimary"
         android:textAlignment="center"
@@ -20,11 +20,23 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp" />
 
+    <TextView
+        android:id="@+id/flash_subtitle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/jktsans_regular"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textColor="@color/textPrimary"
+        android:text="@string/text_subtitle_flash"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categoryindicator"/>
+
     <LinearLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="#EAFFE5"
+        android:background="@drawable/flashcard_rounded_background_front"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         android:gravity="center"
@@ -40,7 +52,7 @@
             android:fontFamily="@font/jktsans_bold"
             android:padding="16dp"
             android:textAlignment="center"
-            android:textColor="@color/textPrimary"
+            android:textColor="@color/cardTextReverse"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Judul Materi" />
@@ -54,7 +66,7 @@
             android:paddingEnd="16dp"
             android:paddingBottom="16dp"
             android:textAlignment="center"
-            android:textColor="@color/textPrimary"
+            android:textColor="@color/cardTextReverse"
             android:textSize="18sp"
             tools:text="Isi Materi" />
 
@@ -65,7 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         app:cardCornerRadius="12dp"
-        android:background="#76DE77"
+        android:background="@drawable/flashcard_rounded_background_back"
         android:gravity="center"
         android:alpha="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +96,7 @@
             android:paddingEnd="16dp"
             android:paddingBottom="16dp"
             android:textAlignment="center"
-            android:textColor="@color/textPrimary"
+            android:textColor="@color/cardTextReverse"
             android:textSize="18sp"
             tools:text="Isi Materi" />
 
