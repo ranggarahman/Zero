@@ -27,11 +27,11 @@ class QuizViewModel(): ViewModel() {
         val database = FirebaseManager.database.reference
         val reference = database.child("materials").child("0").child("quiz")
 
-        val drawables = getRandomDrawables(5)
-
         try {
             reference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    val childCount = snapshot.childrenCount.toInt()
+                    val drawables = getRandomDrawables(childCount)
                     val questions = mutableListOf<Question>()
                     snapshot.children.forEachIndexed { index, questionSnapshot ->
                         val type = questionSnapshot.child("type").getValue(String::class.java)
@@ -70,8 +70,6 @@ class QuizViewModel(): ViewModel() {
         } catch (e: Exception){
             Log.d(TAG, "EXCEPTION ${e.message}")
         }
-
-
     }
 
     fun correctAnswerIterator() {

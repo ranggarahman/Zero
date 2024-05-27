@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fragment_window_color"
     android:padding="32dp">
 
     <androidx.constraintlayout.widget.Guideline
@@ -47,7 +48,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/result_dialog_center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:lottie_rawRes="@raw/lottie_chat_loading"
+        app:lottie_rawRes="@raw/quiz_complete"
         app:lottie_autoPlay="true"
         app:lottie_speed="0.3"
         app:layout_constraintHeight_percent="0.3"

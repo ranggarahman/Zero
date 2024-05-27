@@ -1,19 +1,14 @@
 package com.example.zero.ui.dashboard.material
 
-import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.zero.R
-import com.example.zero.databinding.FragmentDashboardBinding
 import com.example.zero.databinding.FragmentMaterialBinding
 import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERIAL_ID
-import com.example.zero.ui.dashboard.quiz.QuizActivity
-import com.example.zero.ui.dashboard.quiz.brief.QuizBriefDialogFragment
 
 class MaterialFragment : Fragment() {
 

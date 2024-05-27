@@ -1,15 +1,59 @@
 package com.example.zero.ui.dashboard.reads
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.zero.data.Const
 import com.example.zero.data.FirebaseManager
+import com.example.zero.data.FlashcardItem
+import com.example.zero.data.ReadsItem
+import com.example.zero.ui.dashboard.flashcard.FlashcardViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 
 class ReadsViewModel : ViewModel() {
+
+    private val _reads = MutableLiveData<List<ReadsItem>>()
+    val reads : LiveData<List<ReadsItem>> = _reads
+
+    fun getReads(materialId: Int) {
+
+        val database = FirebaseManager.database.reference
+        val reference = database.child("materials").child("$materialId").child("reads")
+
+        try {
+            reference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val tempReads = mutableListOf<ReadsItem>()
+                    snapshot.children.forEachIndexed { _, flashcardSnapshot ->
+                        val title = flashcardSnapshot.child("title").getValue(String::class.java) ?: ""
+                        val content = flashcardSnapshot.child("content").getValue(String::class.java) ?: ""
+
+                        // Based on type, construct the Question object appropriately
+
+                        val items = ReadsItem(
+                            title = title ,
+                            content = content ,
+                        )
+
+                        tempReads.add(items)
+
+                    }
+                    _reads.postValue(tempReads)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle error
+                    Log.d(TAG, "EXCEPTION ${error.message}")
+                }
+            })
+        } catch (e: Exception){
+            Log.d(TAG, "EXCEPTION ${e.message}")
+        }
+    }
 
     fun setResult(quizId: Int) {
         // Get the current Firebase user

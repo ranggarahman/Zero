@@ -1,14 +1,15 @@
 package com.example.zero.ui.dashboard.reads
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.ScrollView
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.example.zero.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.zero.databinding.ActivityReadsBinding
 import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERIAL_ID
+
 
 class ReadsActivity : AppCompatActivity() {
 
@@ -24,23 +25,27 @@ class ReadsActivity : AppCompatActivity() {
         // Retrieve the id from the intent extras
         val id = intent.extras?.getInt(SELECTED_MATERIAL_ID) ?: 0
 
-        binding.scrollContainer.setOnBottomReachedListener {
-            Toast.makeText(this@ReadsActivity, "YOU HAVE REACHED THE END", Toast.LENGTH_SHORT).show()
-            readsViewModel.setResult(id)
+        readsViewModel.getReads(id)
+
+        readsViewModel.reads.observe(this@ReadsActivity){
+            val adapter = ReadsAdapter(it)
+
+            binding.rvReads.adapter = adapter
+            binding.rvReads.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         }
-    }
 
-    private fun ScrollView.setOnBottomReachedListener(onBottomReached: () -> Unit) {
-        this.viewTreeObserver.addOnScrollChangedListener {
-            val view = this.getChildAt(this.childCount - 1) as View
-            val diff = view.bottom - (this.height + this.scrollY)
+        binding.rvReads.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if ( recyclerView.canScrollVertically(-1) &&
+                    !recyclerView.canScrollVertically(1) &&
+                    newState == RecyclerView.SCROLL_STATE_IDLE) {
 
-            if (diff <= 0) {
-                onBottomReached()
+                    Toast.makeText(this@ReadsActivity, "END REACHED", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
+        })
     }
-
 
     companion object {
         const val SELECTED_READS_ID = "selected_reads_id"

@@ -65,5 +65,8 @@
     <string name="desc_badge_5">Earn More Than 300 XP</string>
     <string name="desc_badge_6">Rank in the Top 5 on the Leaderboard</string>
     <string name="text_subtitle_flash">Tap on the card to reveal the answer</string>
+    <string name="text_card_badge_chiro">Badges you acquire can be displayed for others to see in the leaderboard. Let\'s get them all!</string>
+    
+    <string name="text_card_chiro_dash_chat">You can access the public chatroom to interact with other users. Please be civilized at all times!</string>
 
 </resources>

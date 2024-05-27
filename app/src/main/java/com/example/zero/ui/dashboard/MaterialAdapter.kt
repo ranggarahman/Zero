@@ -29,7 +29,7 @@ class MaterialAdapter(private val materialList: List<MaterialListItem>)
         val material = materialList[position]
         holder.titleMaterial.text = material.title
         Glide.with(holder.itemView.context)
-            .load("https://i.ibb.co/QnbC0dQ/machine-learning-in-hospitals-pic03-20210415-etkho-hospital-engineering.jpg")
+            .load(material.img)
             .into(holder.imgMaterial)
 
         holder.btnMaterial.setOnClickListener {

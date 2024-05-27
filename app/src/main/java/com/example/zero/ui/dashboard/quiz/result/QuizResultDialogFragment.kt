@@ -14,6 +14,7 @@ import com.example.zero.data.Const.PATH_UID
 import com.example.zero.data.Const.PATH_USERPOINTS
 import com.example.zero.data.Const.PATH_USERS
 import com.example.zero.data.FirebaseManager
+import com.example.zero.databinding.FragmentAvatarNameChangeOverlayBinding
 import com.example.zero.databinding.FragmentQuizResultDialogBinding
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.CORRECT_ANSWER_COUNT
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.TIME_SPENT
@@ -25,9 +26,11 @@ import com.google.firebase.database.ValueEventListener
 
 class QuizResultDialogFragment : DialogFragment() {
 
-    private val binding by lazy {
-        FragmentQuizResultDialogBinding.inflate(layoutInflater)
-    }
+    private var _binding: FragmentQuizResultDialogBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     private val quizResultDialogViewModel by viewModels<QuizResultDialogViewModel> ()
 
@@ -35,12 +38,9 @@ class QuizResultDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        _binding = FragmentQuizResultDialogBinding.inflate(inflater, container, false)
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
-
         isCancelable = false
-
         return binding.root
     }
 
@@ -52,68 +52,18 @@ class QuizResultDialogFragment : DialogFragment() {
         val time = arguments?.getString(TIME_SPENT)
         val quizId = arguments?.getInt(SELECTED_QUIZ_ID, 0)
 
+
         binding.textviewScore.text = result.toString()
         binding.textviewXP.text = xp.toString()
         binding.textviewTime.text = time
 
         quizResultDialogViewModel.setResult(
             quizId = quizId!!,
-            resultPoints = result!!
+            resultPoints = xp!!
         )
 
         binding.resultConfirm.setOnClickListener {
             activity?.finish()
-        }
-    }
-
-    private fun setUserpoint(points: Int) {
-        // Get the current Firebase user
-        val currentUser = FirebaseManager.currentUser.currentUser
-        val database = FirebaseManager.database
-
-        // Check if the user is authenticated
-        currentUser?.uid?.let { uid ->
-            // Reference to the Firebase database
-            //val databaseReference = database.getInstance().getReference("users")
-            val databaseReference = database.reference.child(PATH_USERS)
-
-            // Query to find the user with the matching UID
-            val query: Query = databaseReference.orderByChild(PATH_UID).equalTo(uid)
-
-            // Add a ValueEventListener to retrieve the user data
-            query.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    // Check if dataSnapshot has children
-                    if (dataSnapshot.exists()) {
-                        // Iterate over each child (should be only one)
-                        dataSnapshot.children.forEach { userSnapshot ->
-                            // Update the avatarId property
-                            userSnapshot.child(PATH_USERPOINTS).ref.setValue(points)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        // AvatarId updated successfully
-                                        Log.d(TAG, "SUCCESS UPDATE")
-                                        dialog?.dismiss()
-                                    } else {
-                                        // Error updating avatarId
-                                        Log.e(TAG, "FAIL")
-                                    }
-                                }
-                        }
-                    } else {
-                        // User not found
-                        Log.e(TAG, "FAIL User not found for UID: $uid ")
-                    }
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Error occurred
-                    Log.e(TAG, "Error: ${databaseError.message}")
-                }
-            })
-        } ?: run {
-            // User not authenticated
-            Log.e(TAG, "Error: unaothozired")
         }
     }
 

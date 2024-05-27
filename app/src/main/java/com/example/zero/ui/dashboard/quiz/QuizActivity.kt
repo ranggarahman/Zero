@@ -25,6 +25,7 @@ import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERI
 import com.example.zero.ui.dashboard.misc.ButtonState
 import com.example.zero.ui.dashboard.quiz.brief.QuizBriefDialogFragment
 import com.example.zero.ui.dashboard.quiz.result.QuizResultDialogFragment
+import com.example.zero.ui.dashboard.quiz.result.QuizResultDialogFragment.Companion.SELECTED_QUIZ_ID
 import com.example.zero.ui.dashboard.reads.ReadsActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -41,7 +42,7 @@ class QuizActivity : AppCompatActivity() {
     private var currentQuestionIndex = 0
     private var questionList: List<Question> = emptyList()
     private var buttonState = ButtonState.CLICK_TOAST
-
+    private var selectedMaterialId = 0
     private val answerCheck = "Cek Jawaban"
     private val nextQuestion = "Pertanyaan Selanjutnya"
 
@@ -49,6 +50,7 @@ class QuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val id = intent.extras?.getInt(SELECTED_MATERIAL_ID) ?: 0
+        selectedMaterialId = id
 
         val briefDialog = QuizBriefDialogFragment()
         briefDialog.show(supportFragmentManager, "brief_dialog")
@@ -60,9 +62,6 @@ class QuizActivity : AppCompatActivity() {
 
         quizViewModel.getQuiz()
 
-//        val selectedCategoryId = intent?.getIntExtra(CATEGORY_ID, 0)
-//        val selectedLevelId = intent?.getIntExtra(LEVEL_ID, 0)
-
         quizViewModel.questionList.observe(this){
 
             Log.d(TAG, "CALLED BZD QUIZLIST : ${it}")
@@ -70,21 +69,6 @@ class QuizActivity : AppCompatActivity() {
             questionList = it
             showNextQuestion(questionList)
         }
-
-//        Log.d(TAG, "BUNDLE $selectedCategoryId, $selectedLevelId")
-//
-//        if (selectedCategoryId != null) {
-//            if (selectedLevelId != null) {
-//                getQuizzes(selectedCategoryId, selectedLevelId)
-//            }
-//        }
-
-        //networkConnectivityListener = NetworkConnectivityListener(this)
-    }
-
-    private fun getQuizzes(selectedCategoryId: Int, selectedLevelId: Int ){
-        Log.d(TAG, "CALLED : $selectedCategoryId, $selectedLevelId")
-        //quizViewModel.getQuiz(selectedCategoryId, selectedLevelId)
     }
 
     @SuppressLint("MissingSuperCall")
@@ -131,15 +115,6 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun showQuizResult() {
-//        val levelMultiplier = when(intent!!.getIntExtra(LEVEL_ID, 0)){
-//            1 -> 5
-//            2 -> 10
-//            3 -> 15
-//            else -> {
-//                1
-//            }
-//        }
-
         val levelMultiplier = 5
 
         // Calculate the elapsed time in milliseconds
@@ -164,10 +139,11 @@ class QuizActivity : AppCompatActivity() {
                 putInt(CORRECT_ANSWER_COUNT, correctAnswerCount)
                 putInt(XP_ACQUIRED_COUNT, correctAnswerCount*levelMultiplier)
                 putString(TIME_SPENT, formattedTime)
+                putInt(SELECTED_QUIZ_ID, selectedMaterialId)
             }
 
             dialog.arguments = args
-            dialog.show(supportFragmentManager, "result_dialog")
+            dialog.show(supportFragmentManager, "QA_result_dialog")
         }
     }
 
@@ -253,8 +229,8 @@ class QuizActivity : AppCompatActivity() {
                 }
 
                 selectedOptionCategory = when (button) {
-                    binding.trueorfalseLayout.trueButton -> "true"
-                    binding.trueorfalseLayout.falseButton -> "false"
+                    binding.trueorfalseLayout.trueButton -> "True"
+                    binding.trueorfalseLayout.falseButton -> "False"
                     else -> null
                 }
             }
@@ -320,7 +296,7 @@ class QuizActivity : AppCompatActivity() {
                     ButtonState.CLICK_TOAST -> {
                         binding.btnNext.text = answerCheck
                         // Show "CORRECT" or "FALSE" toast
-                        if (binding.fillblankLayout.editAnswer.text.toString().trim() == question.correctAnswer) {
+                        if (binding.fillblankLayout.editAnswer.text.toString().trim().lowercase() == question.correctAnswer.lowercase()) {
                             Toast.makeText(this, "Yey! Jawaban Benar", Toast.LENGTH_SHORT).show()
                             quizViewModel.correctAnswerIterator()
                         } else {
@@ -473,6 +449,8 @@ class QuizActivity : AppCompatActivity() {
 
                         buttonState = ButtonState.CLICK_NEXT_QUESTION
                         binding.btnNext.text = nextQuestion
+
+                        Log.d(TAG, "QUESTION : ${question.correctAnswer}, SELECTED = $selectedOptionCategory")
                     }
 
                     ButtonState.CLICK_NEXT_QUESTION -> {

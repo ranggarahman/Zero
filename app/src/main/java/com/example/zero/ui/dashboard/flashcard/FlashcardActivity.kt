@@ -21,7 +21,7 @@ class FlashcardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFlashcardBinding
     private var currentFlashcardIndex = 0
-    private val flashcards = generateDummyFlashcards() // Call the dummy data generator
+    private lateinit var flashcards : List<FlashcardItem>
     private var materialId = 0
 
     private val flashcardViewModel by viewModels<FlashcardViewModel>()
@@ -38,59 +38,37 @@ class FlashcardActivity : AppCompatActivity() {
         val id = intent.extras?.getInt(SELECTED_MATERIAL_ID) ?: 0
         materialId = id
 
-        // Update UI with initial flashcard
-        updateFlashcardUI()
+        flashcardViewModel.getFlashcards(id)
+        flashcardViewModel.flashcardList.observe(this@FlashcardActivity){
+            flashcards = it
 
-        val scale = applicationContext.resources.displayMetrics.density
-        val front = binding.contentContainer
-        val back = binding.contentContainerBack
+            // Update UI with initial flashcard
+            updateFlashcardUI()
 
-        front.cameraDistance = 8000 * scale
-        back.cameraDistance = 8000 * scale
+            val scale = applicationContext.resources.displayMetrics.density
+            val front = binding.contentContainer
+            val back = binding.contentContainerBack
 
-        // Now we will set the front animation
-        front_animation = AnimatorInflater.loadAnimator(applicationContext, R.animator.front_animator) as AnimatorSet
-        back_animation = AnimatorInflater.loadAnimator(applicationContext, R.animator.back_animator) as AnimatorSet
+            front.cameraDistance = 8000 * scale
+            back.cameraDistance = 8000 * scale
 
+            // Now we will set the front animation
+            front_animation = AnimatorInflater.loadAnimator(applicationContext, R.animator.front_animator) as AnimatorSet
+            back_animation = AnimatorInflater.loadAnimator(applicationContext, R.animator.back_animator) as AnimatorSet
 
+            // Set click listener for flashcard content container
+            binding.contentContainer.setOnClickListener {
+                flipFlashcard(front, back)
+            }
 
-//        when (currentFlashcardIndex) {
-//            0 -> {
-//                binding.previousButton.isEnabled = false
-//                binding.nextButton.isEnabled = true // Enable next button when not at last index
-//            }
-//            flashcards.lastIndex -> {
-//                binding.previousButton.isEnabled = true // Enable previous button when not at first index
-//                binding.nextButton.isEnabled = false
-//            }
-//            else -> {
-//                binding.previousButton.isEnabled = true
-//                binding.nextButton.isEnabled = true
-//            }
-//        }
-
-
-        // Set click listener for flashcard content container
-        binding.contentContainer.setOnClickListener {
-            flipFlashcard(front, back)
+            // Set click listeners for navigation buttons
+            binding.previousButton.setOnClickListener {
+                previousFlashcard()
+            }
+            binding.nextButton.setOnClickListener {
+                nextFlashcard()
+            }
         }
-
-        // Set click listeners for navigation buttons
-        binding.previousButton.setOnClickListener {
-            previousFlashcard()
-        }
-        binding.nextButton.setOnClickListener {
-            nextFlashcard()
-        }
-    }
-
-    private fun generateDummyFlashcards(): List<FlashcardItem> {
-        // Replace this with your actual data generation logic
-        return listOf(
-            FlashcardItem(1, "Title 1", "Content 1", "Reveal Content 1"),
-            FlashcardItem(2, "Title 2", "Content 2", "Reveal Content 2"),
-            FlashcardItem(3, "Title 3", "Content 3", "Reveal Content 3")
-        )
     }
 
     private fun updateButtonState(index: Int) {

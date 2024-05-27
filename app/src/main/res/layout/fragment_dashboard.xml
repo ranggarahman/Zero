@@ -133,7 +133,7 @@
                 app:layout_constraintEnd_toStartOf="@id/card_two_image"
                 app:layout_constraintTop_toTopOf="parent"
                 android:fontFamily="@font/jktsans_regular"
-                android:text="Hai, namaku Chiro, aku juga lagi belajar tentang CDSS, yuk klik materinya untuk  belajar bareng aku!" />
+                android:text="@string/text_card_chiro_dash_chat" />
 
             <Button
                 android:id="@+id/btn_chatroom"

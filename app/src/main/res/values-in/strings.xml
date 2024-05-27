@@ -68,6 +68,6 @@
     <string name="desc_badge_6">Masuk Dalam 5 Besar Leaderboard</string>
 
     <string name="text_subtitle_flash">Ketuk Kartu untuk membuka jawaban</string>
-
-
+    <string name="text_card_badge_chiro">Badges yang kamu dapatkan bisa tampil untuk orang lain di papan peringkat, yuk dapatkan semuanya!</string>
+    <string name="text_card_chiro_dash_chat">Kamu bisa mengakses Ruang Chat publik untuk berinteraksi dengan pengguna lain, tetap jaga kesponanan yaa!</string>
 </resources>

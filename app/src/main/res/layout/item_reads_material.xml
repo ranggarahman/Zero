@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/item_reads_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/textPrimary"
+        android:fontFamily="@font/jktsans_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Kegunaan CDSS"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/item_reads_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/textPrimary"
+        android:fontFamily="@font/jktsans_regular"
+        android:lineSpacingMultiplier="1.2"
+        android:letterSpacing="0.03"
+        tools:text="CDSS terdiri dari beberapa komponen utama yang bekerja bersama untuk menyediakan dukungan keputusan klinis yang efektif. Basis pengetahuan (knowledge base) adalah komponen yang menyimpan informasi medis seperti protokol pengobatan, pedoman klinis, dan pengetahuan medis lainnya. Mesin inferensi (inference engine) adalah komponen yang menggunakan basis pengetahuan untuk menganalisis data pasien dan menghasilkan rekomendasi berbasis bukti. Selain itu, CDSS juga dilengkapi dengan mekanisme komunikasi untuk berinteraksi dengan pengguna dan menyampaikan informasi yang relevan."
+        app:layout_constraintTop_toBottomOf="@id/item_reads_subtitle"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
