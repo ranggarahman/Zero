@@ -60,6 +60,8 @@ class ReadsViewModel : ViewModel() {
         val currentUser = FirebaseManager.currentUser.currentUser
         val database = FirebaseManager.database
 
+        Log.d(TAG, "RESULT READS CALLED")
+
         // Check if the user is authenticated
         currentUser?.uid?.let { uid ->
             // Reference to the Firebase database
@@ -92,6 +94,8 @@ class ReadsViewModel : ViewModel() {
                                                 Log.e(TAG, "FAIL")
                                             }
                                         }
+                                } else {
+                                    Log.e(TAG, "QUIZ ID NOT FOUND AT $quizId, MATERIAL ID $materialId")
                                 }
                             }
                         }

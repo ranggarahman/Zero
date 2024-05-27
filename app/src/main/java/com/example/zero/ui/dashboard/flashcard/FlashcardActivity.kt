@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import com.example.zero.R
@@ -25,7 +26,7 @@ class FlashcardActivity : AppCompatActivity() {
     private var materialId = 0
 
     private val flashcardViewModel by viewModels<FlashcardViewModel>()
-
+    private var isEndReached = false
     private lateinit var front_animation:AnimatorSet
     private lateinit var back_animation: AnimatorSet
     private var isFront = true
@@ -77,8 +78,10 @@ class FlashcardActivity : AppCompatActivity() {
         binding.previousButton.isEnabled = !isFirstPage
         binding.nextButton.isEnabled = !isLastPage
 
-        if (isLastPage) {
+        if (isLastPage && !isEndReached) {
             flashcardViewModel.setAchievement(materialId)
+            isEndReached = true
+            Toast.makeText(this, "LAST FLASH", Toast.LENGTH_SHORT).show()
         }
 
     }

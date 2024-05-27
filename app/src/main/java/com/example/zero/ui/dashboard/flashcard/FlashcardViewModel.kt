@@ -95,9 +95,11 @@ class FlashcardViewModel: ViewModel() {
                                                 Log.d(TAG, "SUCCESS UPDATE")
                                             } else {
                                                 // Error updating points
-                                                Log.e(TAG, "FAIL")
+                                                Log.e(TAG, "${task.exception}")
                                             }
                                         }
+                                } else {
+                                    Log.e(TAG, "NO MATCHING IDS")
                                 }
                             }
                         }

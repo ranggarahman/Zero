@@ -14,7 +14,7 @@ import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERI
 class ReadsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReadsBinding
-
+    private var isEndReached = false
     private val readsViewModel by viewModels<ReadsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +37,14 @@ class ReadsActivity : AppCompatActivity() {
         binding.rvReads.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if ( recyclerView.canScrollVertically(-1) &&
+                if ( !isEndReached &&
+                    recyclerView.canScrollVertically(-1) &&
                     !recyclerView.canScrollVertically(1) &&
                     newState == RecyclerView.SCROLL_STATE_IDLE) {
 
+                    isEndReached = true
+
+                    readsViewModel.setResult(id)
                     Toast.makeText(this@ReadsActivity, "END REACHED", Toast.LENGTH_SHORT).show()
                 }
             }
