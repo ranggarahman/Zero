@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bumptech.glide.Glide
 import com.example.zero.R
 import com.example.zero.data.Badges
@@ -46,11 +47,13 @@ class BadgesAdapter(private val badgesList: List<Badges>) :
         fun bind(badgesItem: Badges) {
             binding.apply {
                 badgeTitle.text = badgesItem.title
-                Glide.with(binding.root.context)
-                    .load(badgesItem.imgUrl) // Assuming imageUrl is the field in your Badges data class containing the image URL
-                    .placeholder(R.drawable.ic_launcher_background) // Placeholder image while loading (optional)
-                    .error(R.drawable.ic_launcher_background) // Image to show if loading fails (optional)
-                    .into(binding.badgeLogo)
+                // Load the image using Coil
+                badgeLogo.load(badgesItem.imgUrl) {
+                    placeholder(R.drawable.ic_launcher_background) // Placeholder image while loading (optional)
+                    error(R.drawable.ic_launcher_background) // Image to show if loading fails (optional)
+                    // You can add transformations if needed, e.g., CircleCropTransformation() for circular images
+                    // transformations(CircleCropTransformation())
+                }
 
                 if (!badgesItem.isUnlocked) {
                     badgeLogo.alpha = 0.5f // Set the alpha value to 0.5 (or any other value you prefer)

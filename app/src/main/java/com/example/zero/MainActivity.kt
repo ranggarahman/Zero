@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.zero.data.Const.updateStreak
 import com.example.zero.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
             navController.navigateUp()
         }
 
+        updateStreak(this)
+
         binding.maintoolbar.setTitleTextColor(getColor(R.color.white))
         binding.maintoolbar.navigationIcon?.setColorFilter(getColor(R.color.white), PorterDuff.Mode.SRC_IN)
 
@@ -59,4 +62,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+
+
+
 }

@@ -22,6 +22,22 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels()
     private val user = FirebaseManager.currentUser.currentUser
 
+    private val badges = listOf(
+        null,
+        mapOf("id" to 1, "isUnlocked" to false),
+        mapOf("id" to 2, "isUnlocked" to false),
+        mapOf("id" to 3, "isUnlocked" to false),
+        mapOf("id" to 4, "isUnlocked" to false),
+        mapOf("id" to 5, "isUnlocked" to false),
+        mapOf("id" to 6, "isUnlocked" to false)
+    )
+
+    private val materialsCompletion = listOf(
+        mapOf("flashcardTaken" to 0, "id" to 0, "isCompleted" to false, "quizTaken" to 0, "readsTaken" to 0),
+        mapOf("flashcardTaken" to 0, "id" to 1, "isCompleted" to false, "quizTaken" to 0, "readsTaken" to 0),
+        mapOf("flashcardTaken" to 0, "id" to 2, "isCompleted" to false, "quizTaken" to 0, "readsTaken" to 0)
+    )
+
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,23 +45,133 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        checkCurrentUser()
-
         binding.loginbtn.setOnClickListener {
             googleLogin()
         }
+        binding.emailLoginbtn.setOnClickListener {
+            emailLogin()
+        }
     }
 
-    private fun checkCurrentUser() {
-        if (user != null) {
-            // User is signed in
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+    private fun emailLogin() {
+        val email = binding.loginEmailEdittext.text.toString()
+        val password = binding.loginPasswordEdittext.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { authTask ->
+                    if (authTask.isSuccessful) {
+                        handleUserAuthentication()
+                    } else {
+                        // Sign in failed, try to register the user
+                        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener { registerTask ->
+                                if (registerTask.isSuccessful) {
+                                    // Registration successful, sign in again to handle the user
+                                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener { signInAfterRegisterTask ->
+                                            if (signInAfterRegisterTask.isSuccessful) {
+                                                handleUserAuthentication()
+                                            } else {
+                                                // Sign in after registration failed
+                                                Log.e(TAG, "ERROR: Authentication after registration failed")
+                                                Toast.makeText(
+                                                    this,
+                                                    "Authentication after registration failed",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                } else {
+                                    // Registration failed
+                                    Log.e(TAG, "ERROR: Registration failed")
+                                    Toast.makeText(
+                                        this,
+                                        "Registration Failed",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, "ERROR: ${e.message}")
+                    Toast.makeText(
+                        this,
+                        "Authentication Failed: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
         } else {
-            // No user is signed in
-            // Do nothing, user stays in this activity
-            startActivity(Intent(this, OnboardingActivity::class.java))
-            finish()
+            Toast.makeText(
+                this,
+                "Email and Password cannot be empty",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun handleUserAuthentication() {
+        val user = FirebaseManager.currentUser.currentUser
+        val uid = user?.uid
+
+        if (uid != null) {
+            // Create a reference to the Firebase Realtime Database
+            val usersRef = FirebaseManager.database.getReference("users")
+
+            // Check if the user already exists
+            usersRef.child(uid).get().addOnCompleteListener { dataSnapshotTask ->
+                if (dataSnapshotTask.isSuccessful) {
+                    if (!dataSnapshotTask.result.exists()) {
+                        // User does not exist, create a new record
+                        val userObject = HashMap<String, Any>()
+                        userObject["uid"] = uid
+                        userObject["email"] = user.email ?: ""
+                        userObject["avatarId"] = 1
+                        userObject["userpoints"] = 0
+                        userObject["isChatSent"]= false
+                        userObject["isTop5"]= false
+                        userObject["badges"] = badges
+                        userObject["materialsCompletion"] = materialsCompletion
+
+                        // Add more user data as needed
+
+                        usersRef.child(uid).setValue(userObject)
+                            .addOnSuccessListener {
+                                // Database write successful
+                                Toast.makeText(
+                                    this,
+                                    "SUCCESS LOGIN",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                // Do further processing with the authenticated user
+                                finish()
+                                startActivity(Intent(this, MainActivity::class.java))
+                                Log.d(TAG, "success")
+                            }
+                            .addOnFailureListener { e ->
+                                // Database write failed
+                                Log.e(TAG, "Error writing user data to database: ${e.message}")
+                            }
+                    } else {
+                        // User already exists, no need to create a new record
+                        Toast.makeText(
+                            this,
+                            "SUCCESS LOGIN",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        // Do further processing with the authenticated user
+                        finish()
+                        startActivity(Intent(this, MainActivity::class.java))
+                        Log.d(TAG, "User already exists")
+                    }
+                } else {
+                    // Failed to check if user exists
+                    Log.e(TAG, "Error checking user existence: ${dataSnapshotTask.exception?.message}")
+                }
+            }
+        } else {
+            Log.e(TAG, "ERROR: User is null")
         }
     }
 
@@ -72,7 +198,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        Log.d(TAG, "CALLED")
+        Log.d(TAG, "CALLED, REQUEST CODE : $requestCode, RC 9001")
 
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -96,6 +222,13 @@ class LoginActivity : AppCompatActivity() {
                                 val userObject = HashMap<String, Any>()
                                 userObject["uid"] = userId
                                 userObject["email"] = user?.email ?: ""
+                                userObject["username"] = user?.displayName.toString()
+                                userObject["avatarId"] = 1
+                                userObject["userpoints"] = 0
+                                userObject["isChatSent"]= false
+                                userObject["isTop5"]= false
+                                userObject["badges"] = badges
+                                userObject["materialsCompletion"] = materialsCompletion
                                 // Add more user data as needed
 
                                 usersRef.child(userId).setValue(userObject)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -57,12 +58,33 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnLogout.setOnClickListener {
-            FirebaseManager.currentUser.signOut()
-            findNavController().navigate(R.id.action_navigation_profile_to_loginActivity)
-            activity?.finish()
+            showExitConfirmationDialog()
         }
 
     }
+
+    private fun showExitConfirmationDialog() {
+        val context = requireContext()
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(context.getString(R.string.logout_confirmation_title))
+            .setMessage(context.getString(R.string.logout_confirmation_message))
+            .setPositiveButton(context.getString(R.string.yes)) { _, _ ->
+                // User clicked "Yes" button, finish the activity
+                FirebaseManager.currentUser.signOut()
+                findNavController().navigate(R.id.action_navigation_profile_to_loginActivity)
+                activity?.finish()
+            }
+            .setNegativeButton(context.getString(R.string.no)) { dialog, _ ->
+                // User clicked "No" button, dismiss the dialog
+                dialog.dismiss()
+            }
+            .setCancelable(false) // Prevent dialog dismissal when clicking outside or pressing back button
+            .setIcon(R.drawable.baseline_warning_24)
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
     private fun showEditNameDialog() {
         val dialog = AvatarNameChangeOverlayFragment()

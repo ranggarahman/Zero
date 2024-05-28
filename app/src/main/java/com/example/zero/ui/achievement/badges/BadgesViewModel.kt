@@ -28,12 +28,12 @@ class BadgesViewModel(private val resourceRepository: ResourceRepository): ViewM
     val loading : LiveData<Boolean> = _loading
 
     private val badgeImages = listOf(
-        "https://i.ibb.co/n1PQXHn/rank1.png",
-        "https://i.ibb.co/5rP7pch/rank2.png",
-        "https://i.ibb.co/Z80RGZZ/rank3.png",
-        "https://i.ibb.co/PFgHV2s/rank4.png",
-        "https://i.ibb.co/hYj9V6L/rank5.png",
-        "https://i.ibb.co/h2wr3cm/rank6.png"
+        "https://i.ibb.co.com/n1PQXHn/rank1.png",
+        "https://i.ibb.co.com/5rP7pch/rank2.png",
+        "https://i.ibb.co.com/Z80RGZZ/rank3.png",
+        "https://i.ibb.co.com/PFgHV2s/rank4.png",
+        "https://i.ibb.co.com/hYj9V6L/rank5.png",
+        "https://i.ibb.co.com/h2wr3cm/rank6.png"
     )
 
     init {

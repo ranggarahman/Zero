@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zero.R
 import com.example.zero.data.Const
@@ -64,13 +65,17 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun buttonListener(messagesRef: DatabaseReference, username: String, avatarId: Int) {
+
+        val drawableName = "a$avatarId"
+        val resourceId = resources?.getIdentifier(drawableName, "drawable", this.packageName)
+
         binding.buttonSendMessage.setOnClickListener {
             val uid = currentUser?.uid ?: return@setOnClickListener
             val friendlyMessage = Message(
                 uidSender = uid,
                 text = binding.textMessageInput.text.toString(),
                 name = username,
-                photoUrl = avatarId,
+                photoUrl = resourceId,
                 timestamp = Date().time
             )
             messagesRef.push().setValue(friendlyMessage) { error, _ ->

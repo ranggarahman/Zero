@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Selamat Datang!"
+        android:text="@string/text_login_welcome"
         android:textSize="24sp"
         android:fontFamily="@font/jktsans_bold"
         android:textColor="@color/textPrimary"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/welcomeHeader"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Masuk dengan akun Google mu"
+        android:text="@string/text_login_subtitle"
         android:textSize="14sp"
         android:fontFamily="@font/jktsans_light"
         android:textStyle="italic"
@@ -35,7 +35,7 @@
         />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/vertical_guide_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -53,34 +53,123 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/horizontal_guide_login_2"
         app:layout_constraintEnd_toStartOf="@id/vertical_guide_login_2"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guide_login"
         app:layout_constraintTop_toBottomOf="@id/welcomeSubHeader"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
         app:lottie_rawRes="@raw/loginlottie" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_email_InputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guide_login_2"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guide_login"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_guide_login_2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_email_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jktsans_bold"
+            android:hint="@string/tiet_enter_username"
+            android:textColor="@color/textPrimary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_password_InputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guide_login_2"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guide_login"
+        app:layout_constraintTop_toBottomOf="@id/login_email_InputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_password_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jktsans_bold"
+            android:hint="@string/tiet_enter_pass"
+            android:textColor="@color/textPrimary" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/email_loginbtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cornerRadius="20dp"
+        app:iconTint="@null"
+        android:layout_marginTop="12dp"
+        android:text="@string/text_login"
+        android:textAllCaps="false"
+        android:backgroundTint="#956FD7"
+        android:padding="12dp"
+        android:fontFamily="@font/jktsans_bold"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guide_login_2"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guide_login"
+        app:layout_constraintTop_toBottomOf="@id/login_password_InputLayout" />
+
+    <LinearLayout
+        android:id="@+id/login_separator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guide_login_2"
+        app:layout_constraintStart_toEndOf="@+id/vertical_guide_login"
+        app:layout_constraintTop_toBottomOf="@id/email_loginbtn">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_separatOR_login"
+            android:textColor="@android:color/darker_gray"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/loginbtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         app:cornerRadius="20dp"
         app:icon="@drawable/ic_google"
         app:iconTint="@null"
-        android:text="Masuk dengan Akun Google"
+        android:layout_marginTop="12dp"
+        android:text="@string/text_login_with_google"
         android:textAllCaps="false"
         android:backgroundTint="#956FD7"
         android:padding="12dp"
+        android:fontFamily="@font/jktsans_bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guide_login_2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_guide_login_2" />
-
+        app:layout_constraintStart_toEndOf="@+id/vertical_guide_login"
+        app:layout_constraintTop_toBottomOf="@id/login_separator" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,6 +50,7 @@ class FirebaseMessageAdapter(
                     val receivedMessageBinding = binding as ItemMessageReceivedBinding
                     if (message.text!!.isNotEmpty()) {
                         receivedMessageBinding.textMessageReceived.visibility = View.VISIBLE
+                        receivedMessageBinding.textChatUsernameItem.text = message.name
                         receivedMessageBinding.textMessageReceived.text = message.text
                         receivedMessageBinding.imageviewAvatar.setImageResource(message.photoUrl!!)
                         if (message.timestamp != null) {

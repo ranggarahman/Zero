@@ -48,9 +48,10 @@
     <string name="text_mulai_quiz">Mulai Quiz</string>
     <string name="text_akses_bacaan">Akses Bacaan</string>
 
-    <string name="text_flashcard_desc">Flashcard adalah cara yang bagus untuk meninjau dan memperkuat pengetahuan kamu. Gunakan flashcard untuk menguji diri Anda dengan cepat mengenai konsep dan istilah penting, membantu kamu mengingat informasi dengan lebih efektif.</string>
-    <string name="text_reads_desc">Jelajahi berbagai materi bacaan yang mencakup topik dan konsep utama. Sumber daya ini dirancang untuk memperdalam pemahaman Anda dan memberikan pengetahuan yang komprehensif.</string>
-    <string name="text_quiz_desc">Uji pengetahuan Anda dengan kuis interaktif kami. Kuis ini dirancang untuk membantu Anda menilai pemahaman Anda tentang materi dan mengidentifikasi area di mana Anda dapat meningkatkan.</string>
+    <string name="text_flashcard_desc">Flashcard membantu meninjau dan memperkuat pengetahuan. Uji diri dengan konsep dan istilah penting.</string>
+    <string name="text_reads_desc">Jelajahi materi bacaan untuk memperdalam pemahaman. Sumber ini memberikan pengetahuan komprehensif.</string>
+    <string name="text_quiz_desc">Uji pengetahuan Anda dengan kuis interaktif. Kuis ini membantu menilai dan meningkatkan pemahaman.</string>
+
     <string name="material_fragment_label">Materi Tersedia</string>
 
     <string name="title_badge_1">Rookie</string>
@@ -70,4 +71,14 @@
     <string name="text_subtitle_flash">Ketuk Kartu untuk membuka jawaban</string>
     <string name="text_card_badge_chiro">Badges yang kamu dapatkan bisa tampil untuk orang lain di papan peringkat, yuk dapatkan semuanya!</string>
     <string name="text_card_chiro_dash_chat">Kamu bisa mengakses Ruang Chat publik untuk berinteraksi dengan pengguna lain, tetap jaga kesponanan yaa!</string>
+    <string name="text_streaK_days">%1$s Hari</string>
+    <string name="tiet_enter_username">Masukkan Email</string>
+    <string name="tiet_enter_pass">Masukkan Password</string>
+    <string name="text_separatOR_login">ATAU</string>
+    <string name="text_login_with_google">Login dengan Akun Google</string>
+    <string name="text_login_welcome">Selamat Datang!</string>
+    <string name="text_login_subtitle">Masuk ke akunmu dengan metode yang tersedia</string>
+    <string name="text_login">Login</string>
+    <string name="logout_confirmation_title">Konfirmasi Keluar Akun</string>
+    <string name="logout_confirmation_message">Apa kamu yakin ingin keluar dari akun ini?</string>
 </resources>

@@ -46,9 +46,10 @@
     <string name="text_mulai_quiz">Start Quiz</string>
     <string name="text_akses_bacaan">Access Reading Materials</string>
 
-    <string name="text_flashcard_desc">Flashcards are a great way to review and reinforce your knowledge. Use them to quickly test yourself on key concepts and terms, helping you retain information more effectively.</string>
-    <string name="text_reads_desc">Explore a variety of reading materials that cover key topics and concepts. These resources are designed to deepen your understanding and provide you with comprehensive knowledge.</string>
-    <string name="text_quiz_desc">Test your knowledge with our interactive quizzes. They are designed to help you assess your understanding of the material and identify areas where you can improve.</string>
+    <string name="text_flashcard_desc">Flashcards are great for reviewing and reinforcing knowledge. Quickly test yourself on key concepts and terms.</string>
+    <string name="text_reads_desc">Explore reading materials on key topics. These resources deepen your understanding and provide comprehensive knowledge.</string>
+    <string name="text_quiz_desc">Test your knowledge with interactive quizzes. Assess your understanding and identify areas for improvement.</string>
+
     <string name="material_fragment_label">Available Materials</string>
 
     <string name="title_badge_1">Rookie</string>
@@ -68,5 +69,16 @@
     <string name="text_card_badge_chiro">Badges you acquire can be displayed for others to see in the leaderboard. Let\'s get them all!</string>
     
     <string name="text_card_chiro_dash_chat">You can access the public chatroom to interact with other users. Please be civilized at all times!</string>
+    <string name="text_streaK_days">%1$s Days</string>
+    <string name="tiet_enter_username">Enter Email</string>
+    <string name="tiet_enter_pass">Enter Password</string>
+    <string name="text_separatOR_login">OR</string>
+    <string name="text_login_with_google">Login using Google Account</string>
+    <string name="text_login_welcome">Welcome!</string>
+    <string name="text_login_subtitle">You can login with the available methods below</string>
+    <string name="text_login">Login</string>
+
+    <string name="logout_confirmation_title">Konfirmasi Keluar Akun</string>
+    <string name="logout_confirmation_message">Apa kamu yakin ingin keluar dari akun ini?</string>
 
 </resources>

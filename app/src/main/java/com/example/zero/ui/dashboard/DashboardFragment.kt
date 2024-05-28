@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zero.R
+import com.example.zero.data.Const.getCurrentStreak
 import com.example.zero.databinding.FragmentDashboardBinding
 import com.example.zero.ui.LoaderOverlay
 
@@ -37,6 +38,12 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val dashboardViewModel =
             ViewModelProvider(this)[DashboardViewModel::class.java]
+
+        // Get the current streak count
+        val streakCount = getCurrentStreak(requireContext())
+
+        binding.dashCardOne.dashCardStreakText.text =
+            getString(R.string.text_streaK_days, streakCount.toString())
 
         dashboardViewModel.loading.observe(viewLifecycleOwner){
             if (it){
