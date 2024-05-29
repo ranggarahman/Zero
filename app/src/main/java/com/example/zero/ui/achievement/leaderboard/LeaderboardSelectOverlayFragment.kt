@@ -15,6 +15,7 @@ import com.example.zero.data.ResourceRepository
 import com.example.zero.data.createBadgesList
 import com.example.zero.databinding.FragmentLeaderboardPopupOverlayBinding
 import com.example.zero.ui.DefaultViewModelFactory
+import com.example.zero.ui.achievement.badges.AnotherBadgesAdapter
 import com.example.zero.ui.achievement.badges.BadgesAdapter
 import com.example.zero.ui.achievement.badges.BadgesFragment
 import com.example.zero.ui.achievement.badges.BadgesOverlayFragment
@@ -50,14 +51,14 @@ class LeaderboardSelectOverlayFragment : DialogFragment() {
         if (uid != null) {
             leaderboardSelectOverlayViewModel.getUserDataWithBadges(uid)
             leaderboardSelectOverlayViewModel.badgesList.observe(viewLifecycleOwner){list ->
-                val badgesAdapter = BadgesAdapter(list)
+                val badgesAdapter = AnotherBadgesAdapter(list)
                 binding.frgLeaderboardPopupRvbadges.adapter = badgesAdapter
                 binding.frgLeaderboardPopupRvbadges.layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.VERTICAL, false)
                 binding.frgLeaderboardPopupUsername.text = username
 
                 Log.d(TAG, "RETRIEVED LIST FOR USN $username => $list")
 
-                badgesAdapter.setOnItemClickCallback(object : BadgesAdapter.OnItemClickCallback{
+                badgesAdapter.setOnItemClickCallback(object : AnotherBadgesAdapter.OnItemClickCallback{
                     override fun onItemClicked(data: Badges) {
                         showBadgeDialog(data)
                     }

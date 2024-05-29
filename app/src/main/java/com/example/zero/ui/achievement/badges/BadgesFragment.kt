@@ -1,10 +1,12 @@
 package com.example.zero.ui.achievement.badges
 
 import android.graphics.Rect
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -20,9 +22,13 @@ import com.example.zero.data.createBadgesList
 import com.example.zero.databinding.FragmentBadgesBinding
 import com.example.zero.ui.DefaultViewModelFactory
 import com.example.zero.ui.LoaderOverlay
+import com.example.zero.ui.achievement.leaderboard.LeaderboardAdapter
 import com.example.zero.ui.achievement.leaderboard.LeaderboardSelectOverlayViewModel
 import com.example.zero.ui.achievement.leaderboard.LeaderboardViewModel
+import com.example.zero.ui.utils.RectDimmedPromptBackground
+import com.example.zero.ui.utils.TransparentPromptFocal
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 
 class BadgesFragment : Fragment() {
 
@@ -65,15 +71,38 @@ class BadgesFragment : Fragment() {
 
             binding.rvBadges.layoutManager = layoutManager
             binding.rvBadges.adapter = badgesAdapter
-
             badgesAdapter.setOnItemClickCallback(object : BadgesAdapter.OnItemClickCallback{
                 override fun onItemClicked(data: Badges) {
                     showBadgeDialog(data)
                 }
             })
-        }
 
+        }
     }
+
+    fun showRecyclerViewItemPrompt() {
+        // Ensure there are items in the RecyclerView before showing the prompt
+        val customFontSecondary: Typeface? = ResourcesCompat.getFont(requireContext(), R.font.jktsans_regular)
+        val customFontPrimary: Typeface? = ResourcesCompat.getFont(requireContext(), R.font.jktsans_bold)
+        MaterialTapTargetPrompt.Builder(requireActivity())
+            .setTarget(binding.badgesViewContainer)  // Target the whole item view or a specific view inside the ViewHolder
+            .setPrimaryText("These Are Badges")
+            .setSecondaryText("Badges will appear transparent if you have yet to unlock it. Click it to see the requirement")
+            .setPrimaryTextColour(resources.getColor(R.color.black))
+            .setSecondaryTextColour(resources.getColor(R.color.black))
+            .setPrimaryTextTypeface(customFontPrimary)
+            .setSecondaryTextTypeface(customFontSecondary)
+            .setBackgroundColour(resources.getColor(R.color.green_1))
+            .setPromptBackground(RectDimmedPromptBackground())
+            .setPromptFocal(TransparentPromptFocal()) // Optional: change the focal shape
+            .setPromptStateChangeListener { _, state ->
+                if (state == MaterialTapTargetPrompt.STATE_DISMISSED) {
+                    // Show the next prompt when the first one is dismissed
+                }
+            }
+            .show()
+    }
+
 
     private fun showBadgeDialog(badgeItem : Badges) {
         val dialog = BadgesOverlayFragment()

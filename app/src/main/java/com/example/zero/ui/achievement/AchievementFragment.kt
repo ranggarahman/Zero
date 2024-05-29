@@ -1,5 +1,6 @@
 package com.example.zero.ui.achievement
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import com.example.zero.R
 import com.example.zero.databinding.FragmentAchievementBinding
 import com.example.zero.ui.achievement.badges.BadgesFragment
 import com.example.zero.ui.achievement.leaderboard.LeaderboardFragment
+import com.example.zero.ui.dashboard.DashboardFragment
 
 class AchievementFragment : Fragment() {
 
@@ -38,6 +41,31 @@ class AchievementFragment : Fragment() {
 
         setupViewPager(binding.tabViewpager)
         binding.tabTablayout.setupWithViewPager(binding.tabViewpager)
+
+        val sharedPreferences = requireContext().getSharedPreferences(
+            ACHIEVEMENT_PREFS_NAME_FIRST_TIME_TUTORIAL, Context.MODE_PRIVATE)
+        val isFirstTime = sharedPreferences.getBoolean(ACHIEVEMENT_KEY_FIRST_TIME_TUTORIAL, true)
+
+        // Add a page change listener to handle showing the prompt for BadgesFragment
+        binding.tabViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                if (isFirstTime && position == 1 ) {
+                    val badgesFragment = childFragmentManager.findFragmentByTag(
+                        "android:switcher:" + R.id.tab_viewpager + ":1"
+                    ) as? BadgesFragment
+                    //badgesFragment?.showRecyclerViewItemPrompt()
+
+                    with(sharedPreferences.edit()) {
+                        putBoolean(ACHIEVEMENT_KEY_FIRST_TIME_TUTORIAL, false)
+                        apply()
+                    }
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
 
     }
 
@@ -87,5 +115,10 @@ class AchievementFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val ACHIEVEMENT_PREFS_NAME_FIRST_TIME_TUTORIAL = "ACHIEVEMENT_PREFS_NAME_FIRST_TIME_TUTORIAL"
+        const val ACHIEVEMENT_KEY_FIRST_TIME_TUTORIAL = "ACHIEVEMENT_KEY_FIRST_TIME_TUTORIAL"
     }
 }

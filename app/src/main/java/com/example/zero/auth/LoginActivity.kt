@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
 import com.example.zero.MainActivity
 import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.ActivityLoginBinding
-import com.example.zero.ui.onboarding.OnboardingActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -45,9 +43,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.loginbtn.setOnClickListener {
-            googleLogin()
-        }
+//        binding.loginbtn.setOnClickListener {
+//            googleLogin()
+//        }
+
         binding.emailLoginbtn.setOnClickListener {
             emailLogin()
         }
@@ -56,12 +55,14 @@ class LoginActivity : AppCompatActivity() {
     private fun emailLogin() {
         val email = binding.loginEmailEdittext.text.toString()
         val password = binding.loginPasswordEdittext.text.toString()
+        val username = binding.loginUsernameEdittext.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty()) {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { authTask ->
+                    Log.d(TAG, "AUTH TASK ${authTask.exception?.message}")
                     if (authTask.isSuccessful) {
-                        handleUserAuthentication()
+                        handleUserAuthentication(username)
                     } else {
                         // Sign in failed, try to register the user
                         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
@@ -71,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                                         .addOnCompleteListener { signInAfterRegisterTask ->
                                             if (signInAfterRegisterTask.isSuccessful) {
-                                                handleUserAuthentication()
+                                                handleUserAuthentication(username)
                                             } else {
                                                 // Sign in after registration failed
                                                 Log.e(TAG, "ERROR: Authentication after registration failed")
@@ -84,10 +85,10 @@ class LoginActivity : AppCompatActivity() {
                                         }
                                 } else {
                                     // Registration failed
-                                    Log.e(TAG, "ERROR: Registration failed")
+                                    Log.e(TAG, "ERROR: Registration failed, ${registerTask.exception?.message}")
                                     Toast.makeText(
                                         this,
-                                        "Registration Failed",
+                                        "Registration Failed, ${registerTask.exception?.message}",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -111,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleUserAuthentication() {
+    private fun handleUserAuthentication(username: String) {
         val user = FirebaseManager.currentUser.currentUser
         val uid = user?.uid
 
@@ -127,6 +128,7 @@ class LoginActivity : AppCompatActivity() {
                         val userObject = HashMap<String, Any>()
                         userObject["uid"] = uid
                         userObject["email"] = user.email ?: ""
+                        userObject["username"] = username
                         userObject["avatarId"] = 1
                         userObject["userpoints"] = 0
                         userObject["isChatSent"]= false

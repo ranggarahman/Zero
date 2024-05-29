@@ -1,5 +1,6 @@
 package com.example.zero.ui.notifications
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +18,10 @@ import com.example.zero.data.Const.PATH_USERNAME
 import com.example.zero.data.Const.PATH_USERS
 import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.FragmentProfileBinding
+import com.example.zero.ui.achievement.AchievementFragment.Companion.ACHIEVEMENT_PREFS_NAME_FIRST_TIME_TUTORIAL
 import com.example.zero.ui.achievement.badges.BadgesFragment
 import com.example.zero.ui.achievement.badges.BadgesOverlayFragment
+import com.example.zero.ui.dashboard.DashboardFragment.Companion.DASH_PREFS_NAME_FIRST_TIME_TUTORIAL
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
@@ -70,6 +73,19 @@ class ProfileFragment : Fragment() {
             .setMessage(context.getString(R.string.logout_confirmation_message))
             .setPositiveButton(context.getString(R.string.yes)) { _, _ ->
                 // User clicked "Yes" button, finish the activity
+                // Clear the first shared preferences file
+                val achievementSharedPreferences = context.getSharedPreferences(ACHIEVEMENT_PREFS_NAME_FIRST_TIME_TUTORIAL, Context.MODE_PRIVATE)
+                with(achievementSharedPreferences.edit()) {
+                    clear()
+                    apply()
+                }
+
+                // Clear the second shared preferences file
+                val dashSharedPreferences = context.getSharedPreferences(DASH_PREFS_NAME_FIRST_TIME_TUTORIAL, Context.MODE_PRIVATE)
+                with(dashSharedPreferences.edit()) {
+                    clear()
+                    apply()
+                }
                 FirebaseManager.currentUser.signOut()
                 findNavController().navigate(R.id.action_navigation_profile_to_loginActivity)
                 activity?.finish()

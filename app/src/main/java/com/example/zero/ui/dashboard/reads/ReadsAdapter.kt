@@ -1,5 +1,7 @@
 package com.example.zero.ui.dashboard.reads
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +27,12 @@ class ReadsAdapter(private val readsList: List<ReadsItem>)
     override fun onBindViewHolder(holder: MaterialViewHolder, position: Int) {
         val material = readsList[position]
         holder.subtitleReads.text = material.title
-        holder.contentReads.text = material.content
+        // Assuming `material` is your data object and `holder` is your ViewHolder
+        val contentText = material.content
+
+        // Set the formatted text to the TextView
+        holder.contentReads.text =
+            Html.fromHtml(contentText, Html.FROM_HTML_MODE_LEGACY)
     }
 
     override fun getItemCount() = readsList.size
