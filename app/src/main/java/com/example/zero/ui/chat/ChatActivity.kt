@@ -1,5 +1,6 @@
 package com.example.zero.ui.chat
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +9,17 @@ import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zero.R
+import com.example.zero.data.Badges
 import com.example.zero.data.Const
 import com.example.zero.data.FirebaseManager
+import com.example.zero.data.LeaderboardItem
 import com.example.zero.data.Message
 import com.example.zero.databinding.ActivityChatBinding
+import com.example.zero.ui.achievement.badges.BadgesFragment
+import com.example.zero.ui.achievement.badges.BadgesOverlayFragment
+import com.example.zero.ui.achievement.leaderboard.LeaderboardAdapter
+import com.example.zero.ui.chat.privatechat.PrivateChatActivity
+import com.example.zero.ui.dashboard.CongratsPopupDialogFragment
 import com.example.zero.ui.notifications.AvatarSelectOverlayFragment
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseUser
@@ -49,7 +57,10 @@ class ChatActivity : AppCompatActivity() {
         val messagesRef = database.reference.child(MESSAGES_CHILD)
 
         viewModel.retrievedObject.observe(this@ChatActivity){item ->
-            buttonListener(messagesRef, item.username!!, item.avatarId!!)
+
+            Log.d(TAG, "$item")
+
+            buttonListener(messagesRef, item.username ?: "", item.avatarId ?: 0)
 
             val options = FirebaseRecyclerOptions.Builder<Message>()
                 .setQuery(messagesRef, Message::class.java)
@@ -61,6 +72,19 @@ class ChatActivity : AppCompatActivity() {
             val manager = LinearLayoutManager(this)
             manager.stackFromEnd = true
             binding.chatRecyclerView.layoutManager = manager
+
+            adapter.setOnItemClickCallback(object : FirebaseMessageAdapter.OnItemClickCallback{
+                override fun onItemClicked(data: Message) {
+                    Log.d(TAG, "DATA CLICKED TARGET : $data")
+                    val intent = Intent(this@ChatActivity, PrivateChatActivity::class.java)
+                    intent.putExtra(KEY_UID_SENDER, data.uidSender)
+                    intent.putExtra(KEY_NAME_SENDER, data.name)
+                    intent.putExtra(KEY_PHOTOURL_SENDER, data.photoUrl)
+                    startActivity(intent)
+                    finish()
+                }
+            })
+
         }
     }
 
@@ -113,7 +137,15 @@ class ChatActivity : AppCompatActivity() {
                             // Update the isChatSent property to true
                             userRef.setValue(true).addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    // isChatSent updated successfully
+                                    showBadgeDialog(
+                                        Badges(
+                                            id = 2,
+                                            title = "Congrats!",
+                                            desc = "You have unlocked this badge for sending your first chat.",
+                                            imgUrl = "https://i.ibb.co.com/5rP7pch/rank2.png",
+                                            isUnlocked = true
+                                        )
+                                    )
                                     Log.d(TAG, "SUCCESS UPDATE")
                                 } else {
                                     // Error updating isChatSent
@@ -149,6 +181,17 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+    private fun showBadgeDialog(badgeItem : Badges) {
+        val dialog = CongratsPopupDialogFragment()
+        val args = Bundle().apply {
+            putString(BadgesFragment.BADGE_TITLE, badgeItem.title)
+            putString(BadgesFragment.BADGE_DESC, badgeItem.desc)
+            putString(BadgesFragment.BADGE_IMG_URL, badgeItem.imgUrl)
+        }
+        dialog.arguments = args
+        dialog.show(supportFragmentManager, "congrats_unlock_dialog_from_chat")
+    }
+
 
     override fun onResume() {
         super.onResume()
@@ -162,6 +205,9 @@ class ChatActivity : AppCompatActivity() {
 
 
     companion object {
+        const val KEY_UID_SENDER = "KEY_UID_SENDER"
+        const val KEY_NAME_SENDER = "KEY_NAME_SENDER"
+        const val KEY_PHOTOURL_SENDER = "KEY_PHOTOURL_SENDER"
         const val MESSAGES_CHILD = "messages"
         private const val TAG = "CHAT_ACTIVITY"
     }

@@ -1,42 +1,28 @@
-package com.example.zero.ui.chat
+package com.example.zero.ui.chat.privatechat
 
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import coil.load
-import coil.transform.CircleCropTransformation
-import com.bumptech.glide.Glide
-import com.example.zero.data.LeaderboardItem
 import com.example.zero.data.Message
 import com.example.zero.databinding.ItemMessageReceivedBinding
 import com.example.zero.databinding.ItemMessageSentBinding
+import com.example.zero.databinding.ItemPrivateMessageRecievedBinding
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class FirebaseMessageAdapter(
+class PrivateChatFirebaseMessageAdapter(
     options: FirebaseRecyclerOptions<Message>,
     private val currentUserName: String?
-) : FirebaseRecyclerAdapter<Message, FirebaseMessageAdapter.MessageViewHolder>(options) {
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
-        this.onItemClickCallback = onItemClickCallback
-    }
-
-    interface OnItemClickCallback{
-        fun onItemClicked(data: Message)
-    }
+) : FirebaseRecyclerAdapter<Message, PrivateChatFirebaseMessageAdapter.MessageViewHolder>(options) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = when (viewType) {
             SENT_MESSAGE_VIEW_TYPE -> ItemMessageSentBinding.inflate(inflater, parent, false)
-            RECEIVED_MESSAGE_VIEW_TYPE -> ItemMessageReceivedBinding.inflate(inflater, parent, false)
+            RECEIVED_MESSAGE_VIEW_TYPE -> ItemPrivateMessageRecievedBinding.inflate(inflater, parent, false)
             else -> throw IllegalArgumentException("Invalid view type")
         }
         return MessageViewHolder(binding)
@@ -59,22 +45,16 @@ class FirebaseMessageAdapter(
                     }
                 }
                 RECEIVED_MESSAGE_VIEW_TYPE -> {
-                    val receivedMessageBinding = binding as ItemMessageReceivedBinding
-                    Log.d(TAG, "$message")
+                    val receivedMessageBinding = binding as ItemPrivateMessageRecievedBinding
                     if (message.text!!.isNotEmpty()) {
                         receivedMessageBinding.textMessageReceived.visibility = View.VISIBLE
-                        receivedMessageBinding.textChatUsernameItem.text = message.name
+                        //receivedMessageBinding.textChatUsernameItem.text = message.name
                         receivedMessageBinding.textMessageReceived.text = message.text
-                        receivedMessageBinding.imageviewAvatar.setImageResource(message.photoUrl!!)
+                        //receivedMessageBinding.imageviewAvatar.setImageResource(message.photoUrl!!)
                         if (message.timestamp != null) {
                             binding.textChatTimestamp.text = DateUtils.getRelativeTimeSpanString(message.timestamp)
                         }
                         receivedMessageBinding.chatLoadingPlaceholder.visibility = View.GONE
-
-                        receivedMessageBinding.imageviewAvatar.setOnClickListener {
-                            onItemClickCallback.onItemClicked(message)
-                        }
-
                     } else {
                         receivedMessageBinding.textMessageReceived.visibility = View.GONE
                         receivedMessageBinding.chatLoadingPlaceholder.visibility = View.VISIBLE
@@ -96,7 +76,6 @@ class FirebaseMessageAdapter(
     }
 
     companion object {
-        private const val TAG = "Fma"
         private const val RECEIVED_MESSAGE_VIEW_TYPE = 0
         private const val SENT_MESSAGE_VIEW_TYPE = 1
     }

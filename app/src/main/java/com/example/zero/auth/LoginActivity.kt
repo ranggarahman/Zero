@@ -3,10 +3,14 @@ package com.example.zero.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.zero.MainActivity
+import com.example.zero.R
 import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -43,13 +47,52 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.loginbtn.setOnClickListener {
-//            googleLogin()
-//        }
+        val emailEditText = binding.loginEmailEdittext
+        val passwordEditText = binding.loginPasswordEdittext
+
+        emailEditText.addTextChangedListener(textWatcher)
+        passwordEditText.addTextChangedListener(textWatcher)
 
         binding.emailLoginbtn.setOnClickListener {
             emailLogin()
         }
+
+        updateLoginButtonState()
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+            updateLoginButtonState()
+        }
+
+        override fun afterTextChanged(editable: Editable?) {
+            // Optional: Additional actions after text changed
+        }
+    }
+
+    private fun updateLoginButtonState() {
+        val isEmailValid = isValidEmail(binding.loginEmailEdittext.text.toString())
+        val isPasswordValid = binding.loginPasswordEdittext.text.toString().length >= 6
+
+        binding.emailLoginbtn.isEnabled = isEmailValid && isPasswordValid
+
+        if (!isEmailValid) {
+            binding.loginEmailInputLayout.error = getString(R.string.email_error)
+        } else {
+            binding.loginEmailInputLayout.error = null
+        }
+
+        if (!isPasswordValid) {
+            binding.loginPasswordInputLayout.error = getString(R.string.password_error)
+        } else {
+            binding.loginPasswordInputLayout.error = null
+        }
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     private fun emailLogin() {

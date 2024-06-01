@@ -116,31 +116,25 @@ class BadgesViewModel(private val resourceRepository: ResourceRepository): ViewM
                 var flashcardsCompleted = 0
 
                 materialsCompletionSnapshot.children.forEach { materialSnapshot ->
-                    val quizTaken =
-                        materialSnapshot.child("quizTaken").getValue(Int::class.java) ?: 0
-                    val flashcardTaken =
-                        materialSnapshot.child("flashcardTaken").getValue(Int::class.java) ?: 0
-                    val readsTaken =
-                        materialSnapshot.child("readsTaken").getValue(Int::class.java) ?: 0
+                    val quizTaken = materialSnapshot.child("quizTaken").getValue(Int::class.java) ?: 0
+                    val flashcardTaken = materialSnapshot.child("flashcardTaken").getValue(Int::class.java) ?: 0
+                    val readsTaken = materialSnapshot.child("readsTaken").getValue(Int::class.java) ?: 0
 
-                    if (quizTaken >= 1) {
-                        quizzesCompleted++
-                    }
-                    if (flashcardTaken >= 1) {
-                        flashcardsCompleted++
-                    }
-                    if (readsTaken >= 1) {
-                        readingMaterialsCompleted++
-                    }
+                    if (quizTaken >= 1) quizzesCompleted++
+                    if (flashcardTaken >= 1) flashcardsCompleted++
+                    if (readsTaken >= 1) readingMaterialsCompleted++
+
+//                    if (quizzesCompleted >= 1 && flashcardsCompleted >= 1 && readingMaterialsCompleted >= 1) {
+//                        materialSnapshot.child("isCompleted").ref.setValue(true)
+//                    }
                 }
 
-                if (quizzesCompleted >= 1 && flashcardsCompleted >= 1 && readingMaterialsCompleted >= 1 && !isUnlocked) {
-                    badgeUpdates.add(
-                        badgeSnapshot.child("isUnlocked").ref.setValue(
-                            true
-                        )
-                    )
+                val allCompleted = quizzesCompleted >= 1 && flashcardsCompleted >= 1 && readingMaterialsCompleted >= 1
+
+                if (allCompleted && !isUnlocked) {
+                    badgeUpdates.add(badgeSnapshot.child("isUnlocked").ref.setValue(true))
                 }
+
 
             }
 

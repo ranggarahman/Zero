@@ -2,6 +2,7 @@ package com.example.zero.ui.dashboard.quiz.result
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,12 +11,16 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import com.example.zero.R
+import com.example.zero.data.Badges
 import com.example.zero.data.Const.PATH_UID
 import com.example.zero.data.Const.PATH_USERPOINTS
 import com.example.zero.data.Const.PATH_USERS
 import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.FragmentAvatarNameChangeOverlayBinding
 import com.example.zero.databinding.FragmentQuizResultDialogBinding
+import com.example.zero.ui.achievement.badges.BadgesFragment
+import com.example.zero.ui.dashboard.CongratsPopupDialogFragment
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.CORRECT_ANSWER_COUNT
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.TIME_SPENT
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.XP_ACQUIRED_COUNT
@@ -47,6 +52,12 @@ class QuizResultDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.winner)
+        mediaPlayer.start()
+        mediaPlayer.setOnCompletionListener { mp ->
+            mp.release()
+        }
+
         val result = arguments?.getInt(CORRECT_ANSWER_COUNT, 0)
         val xp = arguments?.getInt(XP_ACQUIRED_COUNT, 0)
         val time = arguments?.getString(TIME_SPENT)
@@ -62,9 +73,60 @@ class QuizResultDialogFragment : DialogFragment() {
             resultPoints = xp!!
         )
 
+        quizResultDialogViewModel.completionCount.observe(viewLifecycleOwner) { completionCount ->
+            Log.d(TAG, "COMPLETION COUNT : $completionCount")
+            if (completionCount == 1){
+                showBadgeDialog(
+                    Badges(
+                        id = 1,
+                        title = "Congrats!",
+                        desc = "You have unlocked this badge for completing 1 material",
+                        imgUrl = "https://i.ibb.co.com/n1PQXHn/rank1.png",
+                        isUnlocked = true
+                    )
+                )
+            }
+//            when (completionCount) {
+//                1 -> {
+//                    showBadgeDialog(
+//                        Badges(
+//                            id = 1,
+//                            title = "Congrats!",
+//                            desc = "You have unlocked this badge for completing 1 material",
+//                            imgUrl = "https://i.ibb.co.com/n1PQXHn/rank1.png",
+//                            isUnlocked = true
+//                        )
+//                    )
+//                }
+//                3 -> {
+//                    showBadgeDialog(
+//                        Badges(
+//                            id = 3,
+//                            title = "Congrats!",
+//                            desc = "You have unlocked this badge for completing 3 materials",
+//                            imgUrl = "https://i.ibb.co.com/Z80RGZZ/rank3.png",
+//                            isUnlocked = true
+//                        )
+//                    )
+//                }
+//            }
+        }
+
         binding.resultConfirm.setOnClickListener {
             activity?.finish()
         }
+
+    }
+
+    private fun showBadgeDialog(badgeItem : Badges) {
+        val dialog = CongratsPopupDialogFragment()
+        val args = Bundle().apply {
+            putString(BadgesFragment.BADGE_TITLE, badgeItem.title)
+            putString(BadgesFragment.BADGE_DESC, badgeItem.desc)
+            putString(BadgesFragment.BADGE_IMG_URL, badgeItem.imgUrl)
+        }
+        dialog.arguments = args
+        dialog.show(parentFragmentManager, "congrats_unlock_dialog_from_quiz")
     }
 
     override fun onResume() {

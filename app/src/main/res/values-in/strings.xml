@@ -81,4 +81,6 @@
     <string name="text_login">Login</string>
     <string name="logout_confirmation_title">Konfirmasi Keluar Akun</string>
     <string name="logout_confirmation_message">Apa kamu yakin ingin keluar dari akun ini?</string>
+    <string name="email_error">Bukan alamat email yang valid!</string>
+    <string name="password_error">Password setidaknya harus 6 karakter</string>
 </resources>

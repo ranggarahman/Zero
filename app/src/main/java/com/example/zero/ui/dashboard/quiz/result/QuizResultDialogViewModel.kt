@@ -1,6 +1,8 @@
 package com.example.zero.ui.dashboard.quiz.result
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.zero.data.Const
 import com.example.zero.data.Const.PATH_USERPOINTS
@@ -10,13 +12,21 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 
 class QuizResultDialogViewModel : ViewModel() {
+
+    private val _completionCount = MutableLiveData<Int>()
+    val completionCount : LiveData<Int> = _completionCount
+
+    private val _is300 = MutableLiveData<Boolean>()
+    val is300: LiveData<Boolean> = _is300
 
     fun setResult(resultPoints: Int, quizId: Int) {
         // Get the current Firebase user
         val currentUser = FirebaseManager.currentUser.currentUser
         val database = FirebaseManager.database
+
 
         // Check if the user is authenticated
         currentUser?.uid?.let { uid ->
@@ -51,24 +61,41 @@ class QuizResultDialogViewModel : ViewModel() {
                                     }
                                 }
 
+                            if (newTotalPoints >= 300 && currentPoints < 300){
+                                _is300.value = true
+                            }
+
                             // Update quizTaken count in materialsCompletion
                             val materialsCompletionRef = userSnapshot.child("materialsCompletion")
                             materialsCompletionRef.children.forEach { materialSnapshot ->
                                 val materialId = materialSnapshot.child("id").getValue(Int::class.java)
                                 if (materialId == quizId) {
-                                    val quizTaken = materialSnapshot.child("quizTaken").getValue(Int::class.java) ?: 0
+                                    val readsTaken = materialSnapshot.child("readsTaken").getValue(Int::class.java) ?: 0
+                                    val currentQuizTaken = materialSnapshot.child("quizTaken").getValue(Int::class.java) ?: 0
+                                    val flashcardTaken = materialSnapshot.child("flashcardTaken").getValue(Int::class.java) ?: 0
+                                    val newQuizTaken = currentQuizTaken + 1
                                     materialSnapshot.ref
                                         .child("quizTaken")
-                                        .setValue(quizTaken + 1).addOnCompleteListener { task ->
+                                        .setValue(newQuizTaken).addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
                                             // Points updated successfully
                                             Log.d(TAG, "SUCCESS UPDATE")
+                                            if (readsTaken >= 1 && flashcardTaken >= 1 && newQuizTaken >= 1) {
+                                                materialSnapshot.child("isCompleted").ref.setValue(true)
+                                                _completionCount.value = 1
+                                            }
                                         } else {
                                             // Error updating points
                                             Log.e(TAG, "FAIL")
                                         }
                                     }
                                 }
+
+//                                val isCompleted = materialSnapshot.child("isCompleted").getValue(Boolean::class.java) ?: false
+//                                if (isCompleted) {
+//                                    _completionCount.value = (_completionCount.value ?: 0) + 1
+//                                }
+
                             }
                         }
                     } else {

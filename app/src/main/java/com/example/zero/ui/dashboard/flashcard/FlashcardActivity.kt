@@ -13,8 +13,11 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import com.example.zero.R
+import com.example.zero.data.Badges
 import com.example.zero.data.FlashcardItem
 import com.example.zero.databinding.ActivityFlashcardBinding
+import com.example.zero.ui.achievement.badges.BadgesFragment
+import com.example.zero.ui.dashboard.CongratsPopupDialogFragment
 import com.example.zero.ui.dashboard.DashboardFragment.Companion.SELECTED_MATERIAL_ID
 import com.example.zero.ui.dashboard.reads.ReadsActivity
 
@@ -70,6 +73,44 @@ class FlashcardActivity : AppCompatActivity() {
                 nextFlashcard()
             }
         }
+
+        flashcardViewModel.completionCount.observe(this@FlashcardActivity) { completionCount ->
+            when (completionCount) {
+                3 -> {
+                    showBadgeDialog(
+                        Badges(
+                            id = 3,
+                            title = "Congrats!",
+                            desc = "You have unlocked this badge for completing 3 materials",
+                            imgUrl = "https://i.ibb.co.com/Z80RGZZ/rank3.png",
+                            isUnlocked = true
+                        )
+                    )
+                }
+                1 -> {
+                    showBadgeDialog(
+                        Badges(
+                            id = 1,
+                            title = "Congrats!",
+                            desc = "You have unlocked this badge for completing 1 material",
+                            imgUrl = "https://i.ibb.co.com/n1PQXHn/rank1.png",
+                            isUnlocked = true
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    private fun showBadgeDialog(badgeItem : Badges) {
+        val dialog = CongratsPopupDialogFragment()
+        val args = Bundle().apply {
+            putString(BadgesFragment.BADGE_TITLE, badgeItem.title)
+            putString(BadgesFragment.BADGE_DESC, badgeItem.desc)
+            putString(BadgesFragment.BADGE_IMG_URL, badgeItem.imgUrl)
+        }
+        dialog.arguments = args
+        dialog.show(supportFragmentManager, "congrats_unlock_dialog_from_flash")
     }
 
     private fun updateButtonState(index: Int) {

@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/jktsans_bold"
             android:hint="@string/tiet_enter_username"
+            android:inputType="textEmailAddress"
             android:textColor="@color/textPrimary" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -101,6 +102,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/jktsans_bold"
             android:hint="@string/tiet_enter_pass"
+            android:inputType="textPassword"
             android:textColor="@color/textPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,8 +134,8 @@
         android:layout_marginTop="12dp"
         android:text="@string/text_login"
         android:textAllCaps="false"
-        android:backgroundTint="#956FD7"
         android:padding="12dp"
+        android:backgroundTint="#956FD7"
         android:fontFamily="@font/jktsans_bold"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/vertical_guide_login_2"

@@ -17,6 +17,9 @@ import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 
 class FlashcardViewModel: ViewModel() {
+
+    private val _completionCount = MutableLiveData<Int>()
+    val completionCount : LiveData<Int> = _completionCount
     
     private val _flashcardList = MutableLiveData<List<FlashcardItem>>()
     val flashcardList : LiveData<List<FlashcardItem>> = _flashcardList
@@ -86,7 +89,9 @@ class FlashcardViewModel: ViewModel() {
                             materialsCompletionRef.children.forEach { materialSnapshot ->
                                 val materialId = materialSnapshot.child("id").getValue(Int::class.java)
                                 if (materialId == quizId) {
-                                    val readsTaken = materialSnapshot.child("flashcardTaken").getValue(Int::class.java) ?: 0
+                                    val flashcardTaken = materialSnapshot.child("flashcardTaken").getValue(Int::class.java) ?: 0
+                                    val readsTaken = materialSnapshot.child("readsTaken").getValue(Int::class.java) ?: 0
+                                    val quizTaken = materialSnapshot.child("quizTaken").getValue(Int::class.java) ?: 0
                                     materialSnapshot.ref
                                         .child("flashcardTaken")
                                         .setValue(readsTaken + 1).addOnCompleteListener { task ->
@@ -98,6 +103,17 @@ class FlashcardViewModel: ViewModel() {
                                                 Log.e(TAG, "${task.exception}")
                                             }
                                         }
+
+                                    if (readsTaken >= 1 && flashcardTaken >= 1 && quizTaken >= 1) {
+                                        materialSnapshot.child("isCompleted").ref.setValue(true)
+                                    }
+
+                                    val isCompleted = materialSnapshot.child("isCompleted").getValue(Boolean::class.java) ?: false
+
+                                    if (isCompleted) {
+                                        _completionCount.value = (_completionCount.value ?: 0) + 1
+                                    }
+
                                 } else {
                                     Log.e(TAG, "NO MATCHING IDS")
                                 }

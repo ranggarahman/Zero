@@ -13,11 +13,30 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
+import kotlin.random.Random
 
 class ReadsViewModel : ViewModel() {
 
+    private val _completionCount = MutableLiveData<Int>()
+    val completionCount : LiveData<Int> = _completionCount
+
     private val _reads = MutableLiveData<List<ReadsItem>>()
     val reads : LiveData<List<ReadsItem>> = _reads
+
+    private val _popup = MutableLiveData<Boolean>()
+    val popup : LiveData<Boolean> = _popup
+
+    private val imageUrls = listOf(
+        "https://i.ibb.co.com/nPS6vf6/a1643f261fb77b437b234115ba7b2101.jpg",
+        "https://i.ibb.co.com/Gd1tKK6/health-care-doctor-monitor.jpg",
+        "https://i.ibb.co.com/frLQ3Nk/OIP.jpg",
+        "https://i.ibb.co.com/DQyV3nf/a.jpg",
+        "https://i.ibb.co.com/QnbC0dQ/machine-learning-in-hospitals-pic03-20210415-etkho-hospital-engineering.jpg",
+        "https://i.ibb.co.com/QbdgP0r/Benefits-of-Medical-Animation-Services-735x349-1-min.jpg",
+        "https://i.ibb.co.com/F3h8dcz/OIP.jpg",
+        "https://i.ibb.co.com/BsRPprJ/Getty-Images-1164501571.jpg"
+    )
 
     fun getReads(materialId: Int) {
 
@@ -31,11 +50,13 @@ class ReadsViewModel : ViewModel() {
                     snapshot.children.forEachIndexed { _, flashcardSnapshot ->
                         val title = flashcardSnapshot.child("title").getValue(String::class.java) ?: ""
                         val content = flashcardSnapshot.child("content").getValue(String::class.java) ?: ""
+                        val randomImageUrl = imageUrls[Random.nextInt(imageUrls.size)]
 
                         // Based on type, construct the Question object appropriately
 
                         val items = ReadsItem(
                             title = title ,
+                            imgUrl = randomImageUrl,
                             content = content ,
                         )
 
@@ -82,22 +103,39 @@ class ReadsViewModel : ViewModel() {
                             materialsCompletionRef.children.forEach { materialSnapshot ->
                                 val materialId = materialSnapshot.child("id").getValue(Int::class.java)
                                 if (materialId == quizId) {
-                                    val readsTaken = materialSnapshot.child("readsTaken").getValue(Int::class.java) ?: 0
+                                    val currentReadsTaken = materialSnapshot.child("readsTaken").getValue(Int::class.java) ?: 0
+                                    val quizTaken = materialSnapshot.child("quizTaken").getValue(Int::class.java) ?: 0
+                                    val flashcardTaken = materialSnapshot.child("flashcardTaken").getValue(Int::class.java) ?: 0
+
+                                    val newReadsTaken = currentReadsTaken + 1
+
                                     materialSnapshot.ref
                                         .child("readsTaken")
-                                        .setValue(readsTaken + 1).addOnCompleteListener { task ->
+                                        .setValue(newReadsTaken).addOnCompleteListener { task ->
                                             if (task.isSuccessful) {
                                                 // Points updated successfully
+                                                if (newReadsTaken >= 1 && flashcardTaken >= 1 && quizTaken >= 1) {
+                                                    materialSnapshot.child("isCompleted").ref.setValue(true)
+                                                }
                                                 Log.d(TAG, "SUCCESS UPDATE")
                                             } else {
                                                 // Error updating points
                                                 Log.e(TAG, "FAIL")
                                             }
                                         }
+
                                 } else {
                                     Log.e(TAG, "QUIZ ID NOT FOUND AT $quizId, MATERIAL ID $materialId")
                                 }
+
+                                val isCompleted = materialSnapshot.child("isCompleted").getValue(Boolean::class.java) ?: false
+
+                                if (isCompleted) {
+                                    _completionCount.value = (_completionCount.value ?: 0) + 1
+                                }
+
                             }
+
                         }
                     } else {
                         // User not found

@@ -51,6 +51,7 @@
         app:lottie_rawRes="@raw/quiz_complete"
         app:lottie_autoPlay="true"
         app:lottie_speed="0.3"
+        app:lottie_loop="true"
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.7" />

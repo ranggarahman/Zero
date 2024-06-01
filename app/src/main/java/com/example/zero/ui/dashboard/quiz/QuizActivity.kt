@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.IntentFilter
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -252,10 +253,21 @@ class QuizActivity : AppCompatActivity() {
                         val isAnswerCorrect = selectedOptionCategory == correctAnswer
 
                         if (isAnswerCorrect) {
+                            val mediaPlayer = MediaPlayer.create(this, R.raw.correct)
+                            mediaPlayer.start()
+                            mediaPlayer.setOnCompletionListener { mp ->
+                                mp.release()
+                            }
                             Toast.makeText(this, "Yey! Jawaban Benar", Toast.LENGTH_SHORT).show()
                             quizViewModel.correctAnswerIterator()
                         } else {
                             Toast.makeText(this, "Yah :( Jawabanmu masih salah.", Toast.LENGTH_SHORT).show()
+                            // Play wrong answer sound
+                            val mediaPlayer = MediaPlayer.create(this, R.raw.wrong)
+                            mediaPlayer.start()
+                            mediaPlayer.setOnCompletionListener { mp ->
+                                mp.release()
+                            }
                         }
 
                         buttonState = ButtonState.CLICK_NEXT_QUESTION
@@ -298,8 +310,19 @@ class QuizActivity : AppCompatActivity() {
                         // Show "CORRECT" or "FALSE" toast
                         if (binding.fillblankLayout.editAnswer.text.toString().trim().lowercase() == question.correctAnswer.lowercase()) {
                             Toast.makeText(this, "Yey! Jawaban Benar", Toast.LENGTH_SHORT).show()
+                            val mediaPlayer = MediaPlayer.create(this, R.raw.correct)
+                            mediaPlayer.start()
+                            mediaPlayer.setOnCompletionListener { mp ->
+                                mp.release()
+                            }
                             quizViewModel.correctAnswerIterator()
                         } else {
+                            // Play wrong answer sound
+                            val mediaPlayer = MediaPlayer.create(this, R.raw.wrong)
+                            mediaPlayer.start()
+                            mediaPlayer.setOnCompletionListener { mp ->
+                                mp.release()
+                            }
                             Toast.makeText(this, "Yah :( Jawabanmu masih salah", Toast.LENGTH_SHORT).show()
                         }
 
@@ -342,6 +365,13 @@ class QuizActivity : AppCompatActivity() {
             binding.multiplechoiceLayout.optionBText,
             binding.multiplechoiceLayout.optionCText,
             binding.multiplechoiceLayout.optionDText
+        )
+
+        val answerToButtonMap = mapOf(
+            "a" to binding.multiplechoiceLayout.optionAButton,
+            "b" to binding.multiplechoiceLayout.optionBButton,
+            "c" to binding.multiplechoiceLayout.optionCButton,
+            "d" to binding.multiplechoiceLayout.optionDButton
         )
 
         val optionsMap = optionButtons.zip(optionTexts).toMap()
@@ -423,6 +453,12 @@ class QuizActivity : AppCompatActivity() {
                                     this@QuizActivity,
                                     R.color.correct_answer_green
                                 )
+                            // Play correct answer sound
+                            val mediaPlayer = MediaPlayer.create(this, R.raw.correct)
+                            mediaPlayer.start()
+                            mediaPlayer.setOnCompletionListener { mp ->
+                                mp.release()
+                            }
 
                         } else {
                             Toast.makeText(this, "Yah, jawabanmu masih salah :(", Toast.LENGTH_SHORT).show()
@@ -434,18 +470,24 @@ class QuizActivity : AppCompatActivity() {
                                     R.color.wrong_answer_red
                                 )
 
-                            // Find the button associated with the correct answer
-                            val correctOptionButton = optionButtons.find { button ->
-                                optionTexts[optionButtons.indexOf(button)].text == correctAnswer
+                            // Retrieve the button corresponding to the correct answer
+                            val correctAnswerButton = answerToButtonMap[question.correctAnswer]
+
+                            // Play wrong answer sound
+                            val mediaPlayer = MediaPlayer.create(this, R.raw.wrong)
+                            mediaPlayer.start()
+                            mediaPlayer.setOnCompletionListener { mp ->
+                                mp.release()
                             }
 
                             // Turn the button associated with the correct answer green
-                            correctOptionButton?.backgroundTintList =
+                            correctAnswerButton?.backgroundTintList =
                                 ContextCompat.getColorStateList(
                                     this@QuizActivity,
                                     R.color.correct_answer_green
                                 )
                         }
+
 
                         buttonState = ButtonState.CLICK_NEXT_QUESTION
                         binding.btnNext.text = nextQuestion

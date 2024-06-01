@@ -42,7 +42,9 @@
         app:cornerRadius="16dp"
         android:textAllCaps="false"
         android:textStyle="bold"
+        android:backgroundTint="#956FD7"
         android:fontFamily="@font/jktsans_bold"
+        android:textColor="@color/white"
         android:text="Cek Jawaban"/>
 
 </FrameLayout>
