@@ -91,7 +91,8 @@ class DashboardViewModel : ViewModel() {
                     val id = materialSnapshot.key?.toInt() ?: 0
                     val title = materialSnapshot.child("title").getValue(String::class.java) ?: ""
                     val img = materialSnapshot.child("imgurl").getValue(String::class.java) ?: ""
-                    materials.add(MaterialListItem(id, title, img))
+                    val desc = materialSnapshot.child("desc").getValue(String::class.java) ?: ""
+                    materials.add(MaterialListItem(id, title, desc, img))
                 }
                 _materialList.value = materials
                 _loading.value = false

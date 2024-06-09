@@ -1,42 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_width="wrap_content"
-    android:layout_margin="8dp"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="16dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="#EAFFE5"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_material_title"
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dasar CDSS"
-        android:fontFamily="@font/jktsans_regular"
-        android:textSize="16sp"
-        android:maxWidth="100dp"
-        android:textColor="@color/textPrimary"
-        android:ellipsize="end"
-        android:textAlignment="center"
-        android:maxLines="1"
-        />
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_material_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/stock_mat"
-        />
+        <TextView
+            android:id="@+id/tv_material_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Dasar CDSS"
+            android:fontFamily="@font/jktsans_medium"
+            android:textSize="18sp"
+            android:maxWidth="100dp"
+            android:textColor="@color/cardTextReverse"
+            android:ellipsize="end"
+            android:textAlignment="center"
+            android:maxLines="1" />
 
-    <Button
-        android:id="@+id/btn_material_navigate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mulai"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:backgroundTint="#956FD7"
-        android:layout_marginTop="-8dp"
-        />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/chevron_material_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_chevron_left_24"
+                android:layout_gravity="center"
+                />
+
+            <ImageView
+                android:id="@+id/iv_material_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:layout_margin="12dp"
+                android:layout_gravity="center"
+                android:src="@drawable/stock_mat"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.001" />
+
+            <TextView
+                android:id="@+id/tv_material_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="THis is the basic"
+                android:maxHeight="100dp"
+                android:maxLines="5"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/jktsans_regular"
+                android:textColor="@color/cardTextReverse"
+                android:layout_weight="2"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"/>
+
+            <ImageView
+                android:id="@+id/chevron_material_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_chevron_right_24"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_material_navigate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mulai"
+            android:fontFamily="@font/jktsans_regular"
+            app:cornerRadius="20dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:backgroundTint="#956FD7"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

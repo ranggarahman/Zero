@@ -1,5 +1,6 @@
 package com.example.zero.ui.dashboard.quiz.result
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
@@ -13,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.zero.R
 import com.example.zero.data.Badges
+import com.example.zero.data.Const
 import com.example.zero.data.Const.PATH_UID
 import com.example.zero.data.Const.PATH_USERPOINTS
 import com.example.zero.data.Const.PATH_USERS
@@ -20,7 +22,9 @@ import com.example.zero.data.FirebaseManager
 import com.example.zero.databinding.FragmentAvatarNameChangeOverlayBinding
 import com.example.zero.databinding.FragmentQuizResultDialogBinding
 import com.example.zero.ui.achievement.badges.BadgesFragment
+import com.example.zero.ui.dashboard.ChiroPopupDialogFragment
 import com.example.zero.ui.dashboard.CongratsPopupDialogFragment
+import com.example.zero.ui.dashboard.DashboardFragment
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.CORRECT_ANSWER_COUNT
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.TIME_SPENT
 import com.example.zero.ui.dashboard.quiz.QuizActivity.Companion.XP_ACQUIRED_COUNT
@@ -86,35 +90,51 @@ class QuizResultDialogFragment : DialogFragment() {
                     )
                 )
             }
-//            when (completionCount) {
-//                1 -> {
-//                    showBadgeDialog(
-//                        Badges(
-//                            id = 1,
-//                            title = "Congrats!",
-//                            desc = "You have unlocked this badge for completing 1 material",
-//                            imgUrl = "https://i.ibb.co.com/n1PQXHn/rank1.png",
-//                            isUnlocked = true
-//                        )
-//                    )
-//                }
-//                3 -> {
-//                    showBadgeDialog(
-//                        Badges(
-//                            id = 3,
-//                            title = "Congrats!",
-//                            desc = "You have unlocked this badge for completing 3 materials",
-//                            imgUrl = "https://i.ibb.co.com/Z80RGZZ/rank3.png",
-//                            isUnlocked = true
-//                        )
-//                    )
-//                }
-//            }
+            if (completionCount == 3){
+                showBadgeDialog(
+                        Badges(
+                            id = 3,
+                            title = "Congrats!",
+                            desc = "You have unlocked this badge for completing 3 materials",
+                            imgUrl = "https://i.ibb.co.com/Z80RGZZ/rank3.png",
+                            isUnlocked = true
+                        )
+                    )
+            }
+        }
+
+        // Check if this is the first time quiz
+        val sharedPreferences = requireContext().getSharedPreferences(
+            QRDF_NAME_FIST_QUIZ, Context.MODE_PRIVATE)
+        val isFirstTime = sharedPreferences.getBoolean(QRDF_KEY_FIRST_QUIZ, true)
+
+        if (isFirstTime) {
+            showTutorial()
+            // Update the flag to indicate that the tutorial has been shown
+            with(sharedPreferences.edit()) {
+                putBoolean(QRDF_KEY_FIRST_QUIZ, false)
+                apply()
+            }
         }
 
         binding.resultConfirm.setOnClickListener {
             activity?.finish()
         }
+
+    }
+
+    private fun showTutorial() {
+        val dialog = ChiroPopupDialogFragment()
+        val args = Bundle().apply {
+            putString(ChiroPopupDialogFragment.CHIRO_POPUP_MSG, "Hore! Kamu menyelesaikan quiz pertamamu! Sekarang kamu sudah paham tentang Dasar dari CDSS. Yuk ke materi selanjutnya!")
+        }
+        dialog.arguments = args
+
+        dialog.setOnDismissListener {
+            //showTapTargetPrompt()
+        }
+
+        dialog.show(parentFragmentManager, "chiro_popup_dialog_from_quiz")
 
     }
 
@@ -139,6 +159,8 @@ class QuizResultDialogFragment : DialogFragment() {
     companion object {
         private const val TAG = "QRDF"
         const val SELECTED_QUIZ_ID = "selected_quiz_id"
+        private const val QRDF_NAME_FIST_QUIZ = "QRDF_NAME_FIST_QUIZ"
+        private const val QRDF_KEY_FIRST_QUIZ = "QRDF_KEY_FIRST_QUIZ"
     }
 
 }

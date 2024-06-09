@@ -80,8 +80,8 @@ class FlashcardActivity : AppCompatActivity() {
                     showBadgeDialog(
                         Badges(
                             id = 3,
-                            title = "Congrats!",
-                            desc = "You have unlocked this badge for completing 3 materials",
+                            title = "Selamat!",
+                            desc = "Kamu Mendapat Badge ini karena menyelesaikan 3 Materi",
                             imgUrl = "https://i.ibb.co.com/Z80RGZZ/rank3.png",
                             isUnlocked = true
                         )
@@ -92,7 +92,7 @@ class FlashcardActivity : AppCompatActivity() {
                         Badges(
                             id = 1,
                             title = "Congrats!",
-                            desc = "You have unlocked this badge for completing 1 material",
+                            desc = "Kamu Mendapat Badge ini karena menyelesaikan 1 Materi",
                             imgUrl = "https://i.ibb.co.com/n1PQXHn/rank1.png",
                             isUnlocked = true
                         )

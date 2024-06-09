@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.example.zero.R
 import com.example.zero.data.Const.getCurrentStreak
 import com.example.zero.databinding.FragmentDashboardBinding
 import com.example.zero.ui.LoaderOverlay
+import com.example.zero.ui.dashboard.ChiroPopupDialogFragment.Companion.CHIRO_POPUP_MSG
 import com.example.zero.ui.utils.CircleDimmedPromptBackground
 import com.example.zero.ui.utils.RectDimmedPromptBackground
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
@@ -54,7 +57,7 @@ class DashboardFragment : Fragment() {
         val isFirstTime = sharedPreferences.getBoolean(DASH_KEY_FIRST_TIME_TUTORIAL, true)
 
         if (isFirstTime) {
-            showTapTargetPrompt()
+            showTutorial()
             // Update the flag to indicate that the tutorial has been shown
             with(sharedPreferences.edit()) {
                 putBoolean(DASH_KEY_FIRST_TIME_TUTORIAL, false)
@@ -65,11 +68,37 @@ class DashboardFragment : Fragment() {
         binding.dashCardOne.dashCardStreakText.text =
             getString(R.string.text_streaK_days, streakCount.toString())
 
-        dashboardViewModel.loading.observe(viewLifecycleOwner){
-            if (it){
-                dialog.show(parentFragmentManager, "DASH_LOADER_TAG")
+        // Inside your observer
+        dashboardViewModel.loading.observe(viewLifecycleOwner) { isVisible ->
+            if (isVisible) {
+                binding.shimmerLayout.startShimmer()
+                binding.dashMaterialRv.visibility = View.GONE
+
+                // Constraint to bottom of shimmerLayout
+                val constraintSet = ConstraintSet()
+                constraintSet.clone(binding.dashParentConstriantConteiner) // assuming the parent layout is ConstraintLayout
+                constraintSet.connect(
+                    R.id.header_chatroom,
+                    ConstraintSet.TOP,
+                    R.id.shimmerLayout,
+                    ConstraintSet.BOTTOM
+                )
+                constraintSet.applyTo(binding.dashParentConstriantConteiner)
             } else {
-                dialog.dismiss()
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.visibility = View.GONE
+                binding.dashMaterialRv.visibility = View.VISIBLE
+
+                // Constraint to bottom of dash_material_rv
+                val constraintSet = ConstraintSet()
+                constraintSet.clone(binding.dashParentConstriantConteiner) // assuming the parent layout is ConstraintLayout
+                constraintSet.connect(
+                    R.id.header_chatroom,
+                    ConstraintSet.TOP,
+                    R.id.dash_material_rv,
+                    ConstraintSet.BOTTOM
+                )
+                constraintSet.applyTo(binding.dashParentConstriantConteiner)
             }
         }
 
@@ -79,7 +108,8 @@ class DashboardFragment : Fragment() {
         }
 
         dashboardViewModel.materialList.observe(viewLifecycleOwner) { itemList ->
-            val materialListAdapter = MaterialAdapter(itemList)
+            val materialListAdapter = MaterialAdapter(itemList, binding.dashMaterialRv)
+            binding.dashMaterialRv.isNestedScrollingEnabled = true
             binding.dashMaterialRv.adapter = materialListAdapter
             binding.dashMaterialRv.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -94,7 +124,7 @@ class DashboardFragment : Fragment() {
                     }
 
                     findNavController().navigate(R.id.action_navigation_dashboard_to_materialFragment, bundle)
-                    Toast.makeText(requireContext(), "ID IS : $id", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(requireContext(), "ID IS : $id", Toast.LENGTH_LONG).show()
                 }
             })
         }
@@ -105,13 +135,28 @@ class DashboardFragment : Fragment() {
 
     }
 
+    private fun showTutorial() {
+        val dialog = ChiroPopupDialogFragment()
+        val args = Bundle().apply {
+            putString(CHIRO_POPUP_MSG, "Halo! Aku Chiro, aku juga sedang belajar CDSS seperti kamu. Aku bakal bantu kamu mengenal aplikasi ini yaa!")
+        }
+        dialog.arguments = args
+
+        dialog.setOnDismissListener {
+            showTapTargetPrompt()
+        }
+
+        dialog.show(parentFragmentManager, "chiro_popup_dialog_from_dash")
+
+    }
+
     private fun showTapTargetPrompt() {
         val customFont: Typeface? = ResourcesCompat.getFont(requireContext(), R.font.jktsans_regular)
 
         MaterialTapTargetPrompt.Builder(requireActivity())
             .setTarget(binding.dashCardOne.dashCardStreakText)
-            .setPrimaryText("This is the streak counter")
-            .setSecondaryText("You can increase the counter by logging in daily")
+            .setPrimaryText("Ini adalah streak counter")
+            .setSecondaryText("Kamu bisa menambah streak dengan membuka aplikasi ini setiap hari")
             .setPrimaryTextColour(resources.getColor(R.color.black))
             .setSecondaryTextColour(resources.getColor(R.color.black))
             .setPrimaryTextTypeface(customFont)
@@ -132,8 +177,8 @@ class DashboardFragment : Fragment() {
 
         MaterialTapTargetPrompt.Builder(requireActivity())
             .setTarget(binding.dashMaterialRv)
-            .setPrimaryText("This is the material list")
-            .setSecondaryText("You can see all available materials here")
+            .setPrimaryText("Ini adalah daftar materi yang tersedia")
+            .setSecondaryText("Geser ke kanan dan kiri untuk melihat yang tersedia")
             .setPrimaryTextColour(resources.getColor(R.color.black))
             .setSecondaryTextColour(resources.getColor(R.color.black))
             .setPrimaryTextTypeface(customFont)
@@ -156,8 +201,8 @@ class DashboardFragment : Fragment() {
 
         MaterialTapTargetPrompt.Builder(requireActivity())
             .setTarget(binding.btnChatroom)
-            .setPrimaryText("Access The Chat Room")
-            .setSecondaryText("You can interact with other users here")
+            .setPrimaryText("Mengakses Ruang Chat")
+            .setSecondaryText("Kamu bisa berinteraksi dengan pengguna lain disini")
             .setPrimaryTextColour(resources.getColor(R.color.black))
             .setSecondaryTextColour(resources.getColor(R.color.black))
             .setPrimaryTextTypeface(customFont)

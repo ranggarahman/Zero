@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/icon_selector_home"
-        android:title="Beranda" />
+        android:title="@string/beranda" />
 
     <item
         android:id="@+id/navigation_achievement"
         android:icon="@drawable/icon_selector_achievement"
-        android:title="Pencapaian" />
+        android:title="@string/pencapaian" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/icon_selector_profile"
-        android:title="Profil" />
+        android:title="@string/profil" />
 
 </menu>

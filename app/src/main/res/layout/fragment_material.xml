@@ -67,6 +67,7 @@
         app:layout_constraintBottom_toTopOf="@id/material_horz_1">
 
         <LinearLayout
+            android:id="@+id/mtr_container_reads"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -138,6 +139,7 @@
         app:layout_constraintTop_toBottomOf="@id/material_horz_1">
 
         <LinearLayout
+            android:id="@+id/mtr_container_flash"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -207,6 +209,7 @@
         app:layout_constraintTop_toBottomOf="@id/material_horz_2">
 
         <LinearLayout
+            android:id="@+id/mtr_container_quiz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

@@ -7,8 +7,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="send_success">Sent Successfully</string>
-    <string name="send_error">Failed to Send</string>
+    <string name="send_success">Berhasil Terkirim</string>
+    <string name="send_error">Gagal Dikirim</string>
     <string name="util_lorem_dolor_silit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis lacus sit amet lobortis tincidunt. Praesent ut iaculis diam.</string>
     <string name="title_menu_1">Belajar Clinical Decision Support System</string>
     <string name="desc_menu_1">Pelajari tentang Clinical Decision Support System (CDSS) dan lihat bagaimana alat ini dapat membantu meningkatkan keputusan dalam perawatan kesehatan. Kami akan membahas dasar-dasarnya, cara kerjanya, dan mengapa CDSS berguna dalam praktik medis sehari-hari.</string>
@@ -39,7 +39,7 @@
     <string name="no">Tidak</string>
     <string name="text_header_quiz_result">Horee, Quiz Selesai!</string>
     <string name="waktu">Waktu</string>
-    <string name="text_skor_akhir">Skor Akhir</string>
+    <string name="text_skor_akhir">Jawaban Benar</string>
     <string name="text_xp_didapat">XP didapat</string>
     <string name="text_ubah_nama">Ubah Nama</string>
     <string name="text_ubah_avatar">Ubah Avatar</string>
@@ -83,4 +83,9 @@
     <string name="logout_confirmation_message">Apa kamu yakin ingin keluar dari akun ini?</string>
     <string name="email_error">Bukan alamat email yang valid!</string>
     <string name="password_error">Password setidaknya harus 6 karakter</string>
+    <string name="public_chatroom">Ruang Chat Umum</string>
+    <string name="beranda">Beranda</string>
+    <string name="pencapaian">Pencapaian</string>
+    <string name="profil">Profil</string>
+    <string name="text_jawabannya_adalah">Jawabannya adalah \n %1$s</string>
 </resources>

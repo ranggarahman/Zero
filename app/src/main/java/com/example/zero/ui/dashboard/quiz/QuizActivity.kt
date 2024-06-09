@@ -61,7 +61,7 @@ class QuizActivity : AppCompatActivity() {
 
         startTime = System.currentTimeMillis()
 
-        quizViewModel.getQuiz()
+        quizViewModel.getQuiz(id)
 
         quizViewModel.questionList.observe(this){
 
@@ -78,7 +78,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun showExitConfirmationDialog() {
-        val builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this@QuizActivity, R.style.AlertDialogStyleCustom)
         builder.setTitle("Konfirmasi Keluar Quiz")
             .setMessage("Apa kamu yakin ingin keluar dari Quiz? Semua Progress akan hilang.")
             .setPositiveButton("Ya") { _, _ ->
@@ -94,6 +94,8 @@ class QuizActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+        dialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+        dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
     }
 
 
@@ -299,6 +301,7 @@ class QuizActivity : AppCompatActivity() {
     private fun fillBlankSetup(question: Question): Int {
         binding.fillblankLayout.editAnswer.text = null
         binding.fillblankLayout.textQuestion.text = question.questionText
+        binding.fillblankLayout.textAnswerFillblank.visibility = View.INVISIBLE
 
         binding.fillblankLayout.filblankImageview.setImageResource(question.imgInt)
 
@@ -324,6 +327,16 @@ class QuizActivity : AppCompatActivity() {
                                 mp.release()
                             }
                             Toast.makeText(this, "Yah :( Jawabanmu masih salah", Toast.LENGTH_SHORT).show()
+                            binding.fillblankLayout.textAnswerFillblank.apply {
+                                alpha = 0f
+                                visibility = View.VISIBLE
+                                animate()
+                                    .alpha(1f)
+                                    .setDuration(475) // duration of the animation in milliseconds
+                                    .setListener(null)
+                            }
+                            binding.fillblankLayout.textAnswerFillblank.text = getString(R.string.text_jawabannya_adalah, question.correctAnswer)
+
                         }
 
                         buttonState = ButtonState.CLICK_NEXT_QUESTION // Update the state
@@ -333,7 +346,6 @@ class QuizActivity : AppCompatActivity() {
                     ButtonState.CLICK_NEXT_QUESTION -> {
                         // Show next question
                         showNextQuestion(questionList)
-
                         buttonState = ButtonState.CLICK_TOAST // Update state
                         binding.btnNext.text = answerCheck
                     }

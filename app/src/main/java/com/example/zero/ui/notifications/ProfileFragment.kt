@@ -22,6 +22,8 @@ import com.example.zero.ui.achievement.AchievementFragment.Companion.ACHIEVEMENT
 import com.example.zero.ui.achievement.badges.BadgesFragment
 import com.example.zero.ui.achievement.badges.BadgesOverlayFragment
 import com.example.zero.ui.dashboard.DashboardFragment.Companion.DASH_PREFS_NAME_FIRST_TIME_TUTORIAL
+import com.example.zero.ui.dashboard.material.MaterialFragment.Companion.MTR_NAME_FIRST
+import com.example.zero.ui.dashboard.reads.ReadsActivity.Companion.READS_NAME_FIRST
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
@@ -86,6 +88,19 @@ class ProfileFragment : Fragment() {
                     clear()
                     apply()
                 }
+
+                val mtrSharedFirst = context.getSharedPreferences(MTR_NAME_FIRST, Context.MODE_PRIVATE)
+                with(mtrSharedFirst.edit()) {
+                    clear()
+                    apply()
+                }
+
+                val readsSharedPRefs = context.getSharedPreferences(READS_NAME_FIRST, Context.MODE_PRIVATE)
+                with(readsSharedPRefs.edit()) {
+                    clear()
+                    apply()
+                }
+
                 FirebaseManager.currentUser.signOut()
                 findNavController().navigate(R.id.action_navigation_profile_to_loginActivity)
                 activity?.finish()

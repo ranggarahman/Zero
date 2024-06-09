@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:padding="12dp"
     tools:context=".MainActivity">
 
     <!-- Title TextView for Username -->
@@ -15,7 +16,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/jktsans_bold"
-        android:text="Masukkan Username Baru"
+        android:text="Ubah Username"
         android:textColor="@color/textPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -33,6 +34,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        app:boxStrokeColor="#EAFFE5"
+        app:hintTextColor="@color/shimmer_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/usernameTitle">
@@ -42,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/jktsans_bold"
-            android:hint="Enter username"
+            android:hint="Masukkan Username Baru"
             android:textColor="@color/textPrimary" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -54,7 +57,13 @@
         app:layout_constraintEnd_toEndOf="@+id/usernameInputLayout"
         app:layout_constraintStart_toStartOf="@+id/usernameInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/usernameInputLayout"
+        android:layout_marginTop="24dp"
         android:text="Ubah Username"
+        android:fontFamily="@font/jktsans_regular"
+        android:backgroundTint="#956FD7"
+        app:cornerRadius="20dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

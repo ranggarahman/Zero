@@ -45,4 +45,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="AlertDialogStyleCustom" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:backgroundTint">#EAFFE5</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:fontFamily">@font/jktsans_regular</item>
+    </style>
+
 </resources>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
-    tools:context=".ui.main.home.material.quiz.brief.QuizBriefDialogFragment">
+    android:background="@color/fragment_window_color">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -24,7 +24,7 @@
         android:fontFamily="@font/jktsans_regular"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textColor="@color/textPrimary"/>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="Akan ada 3 macam pertanyaan, Pilihan Ganda, Lengkapi yang Kosong, dan Salah/Benar"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/textPrimary"
         android:fontFamily="@font/jktsans_regular"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -58,9 +58,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Perlu Kamu pahami, Nusabasa masih dalam pengembangan awal, jika ada kesalahan atau error dalam penggunaan kamu, harap maklum ya! 🤗"
+        android:text="Perlu Kamu pahami, ZERO masih dalam pengembangan awal, jika ada kesalahan atau error dalam penggunaan kamu, harap maklum ya! 🤗"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/textPrimary"
         android:fontFamily="@font/jktsans_regular"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -77,6 +77,9 @@
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         android:text="Oke, Aku Paham. Mari Mulai!"
         android:textAllCaps="false"
+        android:fontFamily="@font/jktsans_regular"
+        android:backgroundTint="#956FD7"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 

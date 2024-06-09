@@ -8,15 +8,46 @@
     android:background="@color/fragment_window_color"
     android:padding="16dp">
 
+    <LinearLayout
+        android:id="@+id/top_public_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_private_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back_24"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/username_target"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/public_chatroom"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:fontFamily="@font/jktsans_bold"
+            android:textColor="@color/textPrimary"
+            />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="18dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/til_message_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/top_public_container" />
 
     <FrameLayout
         android:id="@+id/button_send_message"

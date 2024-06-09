@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_marginBottom="?attr/actionBarSize"
     android:padding="16dp"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dash_parent_constriant_conteiner"
         android:layout_width="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
         android:layout_height="match_parent">
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="@string/text_study_with"
-            android:fontFamily="@font/jktsans_medium"
+            android:fontFamily="@font/jktsans_bold"
             android:textColor="@color/textPrimary"
             app:layout_constraintTop_toBottomOf="@id/dash_guide_horizontal_top"/>
 
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/jktsans_medium"
+            android:fontFamily="@font/jktsans_bold"
             android:textSize="20sp"
             android:textColor="@color/textPrimary"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,16 +88,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_rv"
             tools:listitem="@layout/item_dashboard_material"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:visibility="invisible"
             />
+
+        <!--below is the view for our shimmer-->
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:animationCache="true"
+            app:shimmer_repeat_mode="restart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header_rv"
+            app:shimmer_shape="linear">
+
+            <!--For shimmer we are creating a same
+                layout but setting its background
+                as a gray colour and not providing
+                any view inside it-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!--below we are displaying multiple
+                    shimmer layouts using include
+                    to show them in list format-->
+                <include layout="@layout/item_shimmer_dash_material_list" />
+                <include layout="@layout/item_shimmer_dash_material_list" />
+                <include layout="@layout/item_shimmer_dash_material_list" />
+                <include layout="@layout/item_shimmer_dash_material_list" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:id="@+id/header_chatroom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/jktsans_medium"
+            android:fontFamily="@font/jktsans_bold"
             android:textSize="20sp"
             android:textColor="@color/textPrimary"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +144,7 @@
             android:id="@+id/card_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
             app:layout_constraintTop_toBottomOf="@id/header_chatroom"
             app:layout_constraintStart_toStartOf="parent"
             tools:showIn="@layout/fragment_dashboard">
@@ -157,6 +191,7 @@
                     android:text="@string/text_akses_ruang_chat"
                     android:textAllCaps="false"
                     app:cornerRadius="20dp"
+                    android:fontFamily="@font/jktsans_regular"
                     android:textColor="@color/white"
                     android:backgroundTint="#956FD7"
                     />

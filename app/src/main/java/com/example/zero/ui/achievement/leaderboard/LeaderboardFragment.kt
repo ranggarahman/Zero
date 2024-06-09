@@ -93,8 +93,8 @@ class LeaderboardFragment : Fragment() {
 
         MaterialTapTargetPrompt.Builder(requireActivity())
             .setTarget(binding.leaderboardTable)
-            .setPrimaryText("This is the Leaderboard")
-            .setSecondaryText("You can view all the user rankings, including yourself.")
+            .setPrimaryText("Ini adalah papan peringkat")
+            .setSecondaryText("Kamu bisa melihat ranking semua pengguna, termasuk kamu.")
             .setPrimaryTextColour(resources.getColor(R.color.black))
             .setSecondaryTextColour(resources.getColor(R.color.black))
             .setPrimaryTextTypeface(customFontPrimary)
@@ -119,17 +119,18 @@ class LeaderboardFragment : Fragment() {
             val viewHolder = binding.leaderboardRecyclerView
                 .getChildViewHolder(firstItemView) as LeaderboardAdapter.AchievementViewHolder
 
-            val customFont: Typeface? = ResourcesCompat.getFont(requireContext(), R.font.jktsans_regular)
+            val customFontPrimary: Typeface? = ResourcesCompat.getFont(requireContext(), R.font.jktsans_bold)
+            val customFontSecondary: Typeface? = ResourcesCompat.getFont(requireContext(), R.font.jktsans_regular)
 
             // Create and show the Material Tap Target Prompt
             MaterialTapTargetPrompt.Builder(requireActivity())
                 .setTarget(viewHolder.itemView)  // Target the whole item view or a specific view inside the ViewHolder
-                .setPrimaryText("This is a leaderboard item")
-                .setSecondaryText("Tap here to see the user details")
+                .setPrimaryText("Ini adalah pengguna")
+                .setSecondaryText("Kamu bisa mengetuk item pengguna untuk melihat badges yang mereka punya")
                 .setPrimaryTextColour(resources.getColor(R.color.black))
                 .setSecondaryTextColour(resources.getColor(R.color.black))
-                .setPrimaryTextTypeface(customFont)
-                .setSecondaryTextTypeface(customFont)
+                .setPrimaryTextTypeface(customFontPrimary)
+                .setSecondaryTextTypeface(customFontSecondary)
                 .setBackgroundColour(resources.getColor(R.color.green_1))
                 .setPromptBackground(RectDimmedPromptBackground())
                 .setPromptFocal(TransparentPromptFocal()) // Optional: change the focal shape
@@ -150,8 +151,8 @@ class LeaderboardFragment : Fragment() {
 
         MaterialTapTargetPrompt.Builder(requireActivity())
             .setTarget(tabLayout)
-            .setPrimaryText("This is the Navigation Tab")
-            .setSecondaryText("You can view the leaderboard and the badges you have unlocked.")
+            .setPrimaryText("Ini adalah tab navigasi")
+            .setSecondaryText("Kamu bisa melihat papan peringkat dan badge yang kamu miliki.")
             .setPrimaryTextColour(resources.getColor(R.color.black))
             .setSecondaryTextColour(resources.getColor(R.color.black))
             .setPrimaryTextTypeface(customFontPrimary)

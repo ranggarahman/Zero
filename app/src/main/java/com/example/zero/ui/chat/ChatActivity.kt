@@ -86,6 +86,11 @@ class ChatActivity : AppCompatActivity() {
             })
 
         }
+
+        binding.btnPrivateBack.setOnClickListener {
+            // Use the onBackPressedDispatcher to handle the back press
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun buttonListener(messagesRef: DatabaseReference, username: String, avatarId: Int) {

@@ -2,6 +2,7 @@ package com.example.zero.ui.notifications
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -58,7 +59,7 @@ class AvatarSelectOverlayFragment : DialogFragment() {
 
         leaderboardAdapter.setOnItemClickCallback(object : AvatarSelectAdapter.OnItemClickCallback{
             override fun onItemClicked(data: Avatar) {
-                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AlertDialogStyleCustom)
                 alertDialogBuilder.apply {
                     setTitle(R.string.dialog_avatar_change)
                     setMessage(R.string.dialog_avatar_confirm)
@@ -72,6 +73,9 @@ class AvatarSelectOverlayFragment : DialogFragment() {
                 }
                 val alertDialog = alertDialogBuilder.create()
                 alertDialog.show()
+
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
             }
         })
     }
@@ -150,7 +154,7 @@ class AvatarSelectOverlayFragment : DialogFragment() {
         super.onResume()
         // Set the width and height of the dialog fragment to match_parent
         val width = ViewGroup.LayoutParams.WRAP_CONTENT
-        val height = ViewGroup.LayoutParams.WRAP_CONTENT
+        val height = ViewGroup.LayoutParams.MATCH_PARENT
         dialog?.window?.setLayout(width, height)
     }
 

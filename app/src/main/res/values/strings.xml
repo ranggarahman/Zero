@@ -6,51 +6,52 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="send_success">Sent Successfully</string>
-    <string name="send_error">Failed to Send</string>
+    <string name="send_success">Berhasil Terkirim</string>
+    <string name="send_error">Gagal Dikirim</string>
     <string name="util_lorem_dolor_silit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sagittis lacus sit amet lobortis tincidunt. Praesent ut iaculis diam.</string>
-    <string name="title_menu_1">Learn Clinical Decision Support System</string>
-    <string name="desc_menu_1">Get to know Clinical Decision Support Systems (CDSS) and see how they can help improve healthcare decisions. We\'ll cover the basics, how they work, and why they\'re useful in everyday medical practice.</string>
+    <string name="title_menu_1">Belajar Clinical Decision Support System</string>
+    <string name="desc_menu_1">Pelajari tentang Clinical Decision Support System (CDSS) dan lihat bagaimana alat ini dapat membantu meningkatkan keputusan dalam perawatan kesehatan. Kami akan membahas dasar-dasarnya, cara kerjanya, dan mengapa CDSS berguna dalam praktik medis sehari-hari.</string>
 
-    <string name="title_menu_2">Various Gamification Features</string>
-    <string name="desc_menu_2">Enjoy various gamification features designed to make learning more interactive and fun, and to increase learning motivation.</string>
 
-    <string name="title_menu_3">Various Interesting Materials &amp; Quizzes</string>
-    <string name="desc_menu_3">Explore various educational materials and interesting quizzes designed to test your understanding and deepen your knowledge in the field of health.</string>
+    <string name="title_menu_2">Fitur Gamifikasi Beragam</string>
+    <string name="desc_menu_2">Nikmati berbagai fitur gamifikasi yang dirancang untuk membuat pembelajaran lebih interaktif dan menyenangkan, serta meningkatkan motivasi belajar.</string>
 
-    <string name="title_menu_4">Chiro\'s Workshop</string>
-    <string name="desc_menu_4">Certificates that prove fundamental knowledge along with practical skills desired by global companies.</string>
+    <string name="title_menu_3">Berbagai Materi &amp; Quiz Menarik</string>
+    <string name="desc_menu_3">Jelajahi berbagai materi edukatif dan quiz menarik yang dirancang untuk menguji pemahaman serta memperdalam pengetahuan Anda di bidang kesehatan.</string>
 
-    <string name="learn_now">Learn Now</string>
-    <string name="header_username">Hello, %1$s</string>
-    <string name="text_header_desc">You can access the available materials \n below 👇</string>
-    <string name="text_study_with">Study with Chiro</string>
-    <string name="text_dash_card">Hi, my name is Chiro, I\'m also learning about CDSS. Let\'s click on the material to learn together with me!</string>
-    <string name="text_available_materials">Available Materials</string>
-    <string name="text_dash_chat">Chat Room</string>
-    <string name="text_akses_ruang_chat">Access Chat Room</string>
+    <string name="title_menu_4">Nyilit Bareng Chiro</string>
+    <string name="desc_menu_4">Sertifikat yang membuktikan pengetahuan fundamental beserta keterampilan nyata yang diinginkan perusahaan global.</string>
 
-    <string name="dialog_avatar_change">Change Avatar</string>
-    <string name="dialog_avatar_confirm">Are you sure you want to change your avatar?</string>
+    <string name="learn_now">Belajar Sekarang</string>
+    <string name="header_username">Halo, %1$s</string>
+    <string name="text_header_desc">Kamu bisa mengakses materi yang tersedia \n dibawah ini 👇</string>
+    <string name="text_study_with">Belajar Bareng Chiro</string>
+    <string name="text_dash_card">Hai, namaku Chiro, aku juga lagi belajar tentang CDSS, yuk klik materinya untuk belajar bareng aku!</string>
+    <string name="text_available_materials">Materi Tersedia</string>
+    <string name="text_dash_chat">Ruang Chat Bersama</string>
+    <string name="text_akses_ruang_chat">Akses Ruang chat</string>
 
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="text_header_quiz_result">Hooray! Quiz is done!</string>
-    <string name="waktu">Time Spent</string>
-    <string name="text_skor_akhir">Final Score</string>
-    <string name="text_xp_didapat">XP Acquired</string>
-    <string name="text_ubah_nama">Change Name</string>
-    <string name="text_ubah_avatar">Change Avatar</string>
-    <string name="text_logout">Log Out</string>
-    <string name="text_buka_flashcards">Open Flashcards</string>
-    <string name="text_mulai_quiz">Start Quiz</string>
-    <string name="text_akses_bacaan">Access Reading Materials</string>
+    <string name="dialog_avatar_change">Ubah Avatar</string>
+    <string name="dialog_avatar_confirm">Apa kamu yakin ingin mengubah avatar?</string>
 
-    <string name="text_flashcard_desc">Flashcards are great for reviewing and reinforcing knowledge. Quickly test yourself on key concepts and terms.</string>
-    <string name="text_reads_desc">Explore reading materials on key topics. These resources deepen your understanding and provide comprehensive knowledge.</string>
-    <string name="text_quiz_desc">Test your knowledge with interactive quizzes. Assess your understanding and identify areas for improvement.</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="text_header_quiz_result">Horee, Quiz Selesai!</string>
+    <string name="waktu">Waktu</string>
+    <string name="text_skor_akhir">Jawaban Benar</string>
+    <string name="text_xp_didapat">XP didapat</string>
+    <string name="text_ubah_nama">Ubah Nama</string>
+    <string name="text_ubah_avatar">Ubah Avatar</string>
+    <string name="text_logout">Keluar</string>
+    <string name="text_buka_flashcards">Buka Flashcards</string>
+    <string name="text_mulai_quiz">Mulai Quiz</string>
+    <string name="text_akses_bacaan">Akses Bacaan</string>
 
-    <string name="material_fragment_label">Available Materials</string>
+    <string name="text_flashcard_desc">Flashcard membantu meninjau dan memperkuat pengetahuan. Uji diri dengan konsep dan istilah penting.</string>
+    <string name="text_reads_desc">Jelajahi materi bacaan untuk memperdalam pemahaman. Sumber ini memberikan pengetahuan komprehensif.</string>
+    <string name="text_quiz_desc">Uji pengetahuan Anda dengan kuis interaktif. Kuis ini membantu menilai dan meningkatkan pemahaman.</string>
+
+    <string name="material_fragment_label">Materi Tersedia</string>
 
     <string name="title_badge_1">Rookie</string>
     <string name="title_badge_2">Sociable</string>
@@ -59,71 +60,32 @@
     <string name="title_badge_5">More is Always Less</string>
     <string name="title_badge_6">Top of The World</string>
 
-    <string name="desc_badge_1">Complete Your First Quiz, Reading Material, &amp; Flashcard</string>
-    <string name="desc_badge_2">Send Your First Message in the Chat Room</string>
-    <string name="desc_badge_3">Complete 3 Materials</string>
-    <string name="desc_badge_4">Earn More Than 200 XP</string>
-    <string name="desc_badge_5">Earn More Than 300 XP</string>
-    <string name="desc_badge_6">Rank in the Top 5 on the Leaderboard</string>
-    <string name="text_subtitle_flash">Tap on the card to reveal the answer</string>
-    <string name="text_card_badge_chiro">Badges you acquire can be displayed for others to see in the leaderboard. Let\'s get them all!</string>
+    <string name="desc_badge_1">Selesaikan Quiz, Materi Bacaan, &amp; Flashcard Pertamamu</string>
+    <string name="desc_badge_2">Kirim Pesan Pertamamu di Ruang Chat</string>
+    <string name="desc_badge_3">Selesaikan 3 Materi</string>
+    <string name="desc_badge_4">Dapatkan lebih dari 200 XP</string>
+    <string name="desc_badge_5">Dapatkan lebih dari 300 XP</string>
+    <string name="desc_badge_6">Masuk Dalam 5 Besar Leaderboard</string>
 
-    <string name="text_card_chiro_dash_chat">You can access the public chatroom to interact with other users. Please be civilized at all times!</string>
-    <string name="text_streaK_days">%1$s Days</string>
-    <string name="tiet_enter_username">Enter Email</string>
-    <string name="tiet_enter_pass">Enter Password</string>
-    <string name="text_separatOR_login">OR</string>
-    <string name="text_login_with_google">Login using Google Account</string>
-    <string name="text_login_welcome">Welcome!</string>
-    <string name="text_login_subtitle">You can login with the available methods below</string>
+    <string name="text_subtitle_flash">Ketuk Kartu untuk membuka jawaban</string>
+    <string name="text_card_badge_chiro">Badges yang kamu dapatkan bisa tampil untuk orang lain di papan peringkat, yuk dapatkan semuanya!</string>
+    <string name="text_card_chiro_dash_chat">Kamu bisa mengakses Ruang Chat publik untuk berinteraksi dengan pengguna lain, tetap jaga kesponanan yaa!</string>
+    <string name="text_streaK_days">%1$s Hari</string>
+    <string name="tiet_enter_username">Masukkan Email</string>
+    <string name="tiet_enter_pass">Masukkan Password</string>
+    <string name="text_separatOR_login">ATAU</string>
+    <string name="text_login_with_google">Login dengan Akun Google</string>
+    <string name="text_login_welcome">Selamat Datang!</string>
+    <string name="text_login_subtitle">Masuk ke akunmu dengan metode yang tersedia</string>
     <string name="text_login">Login</string>
-
     <string name="logout_confirmation_title">Konfirmasi Keluar Akun</string>
     <string name="logout_confirmation_message">Apa kamu yakin ingin keluar dari akun ini?</string>
-    <string name="title_activity_private_chat">PrivateChatActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.\n\n
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.\n\n
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.\n\n
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
-    <string name="email_error">Not a valid email address!</string>
-    <string name="password_error">Password must at least be 6 characters</string>
+    <string name="email_error">Bukan alamat email yang valid!</string>
+    <string name="password_error">Password setidaknya harus 6 karakter</string>
+    <string name="public_chatroom">Ruang Chat Umum</string>
+    <string name="beranda">Beranda</string>
+    <string name="pencapaian">Pencapaian</string>
+    <string name="profil">Profil</string>
+    <string name="text_jawabannya_adalah">Jawabannya adalah \n %1$s</string>
 
 </resources>

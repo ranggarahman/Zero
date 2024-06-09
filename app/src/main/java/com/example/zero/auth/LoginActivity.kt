@@ -111,6 +111,19 @@ class LoginActivity : AppCompatActivity() {
                         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener { registerTask ->
                                 if (registerTask.isSuccessful) {
+                                    val user = FirebaseAuth.getInstance().currentUser
+
+                                    // Send email verification
+                                    user?.sendEmailVerification()?.addOnCompleteListener { verifyTask ->
+                                        if (verifyTask.isSuccessful) {
+                                            // Email verification sent successfully
+                                            Log.d(TAG,"Verification email sent to ${user.email}")
+                                        } else {
+                                            // Handle failure in sending email verification
+                                            Log.d(TAG,"Failed to send verification email: ${verifyTask.exception?.message}")
+                                        }
+                                    }
+
                                     // Registration successful, sign in again to handle the user
                                     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                                         .addOnCompleteListener { signInAfterRegisterTask ->
@@ -118,38 +131,23 @@ class LoginActivity : AppCompatActivity() {
                                                 handleUserAuthentication(username)
                                             } else {
                                                 // Sign in after registration failed
-                                                Log.e(TAG, "ERROR: Authentication after registration failed")
-                                                Toast.makeText(
-                                                    this,
-                                                    "Authentication after registration failed",
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
+                                                Log.e(TAG, "ERROR: Authentication after registration failed. ${signInAfterRegisterTask.exception?.message}")
                                             }
                                         }
                                 } else {
                                     // Registration failed
                                     Log.e(TAG, "ERROR: Registration failed, ${registerTask.exception?.message}")
-                                    Toast.makeText(
-                                        this,
-                                        "Registration Failed, ${registerTask.exception?.message}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
                                 }
                             }
                     }
                 }
                 .addOnFailureListener { e ->
                     Log.e(TAG, "ERROR: ${e.message}")
-                    Toast.makeText(
-                        this,
-                        "Authentication Failed: ${e.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
         } else {
             Toast.makeText(
                 this,
-                "Email and Password cannot be empty",
+                "Email dan Password tidak boleh kosong",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -186,7 +184,7 @@ class LoginActivity : AppCompatActivity() {
                                 // Database write successful
                                 Toast.makeText(
                                     this,
-                                    "SUCCESS LOGIN",
+                                    "Login Berhasil!",
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 // Do further processing with the authenticated user
@@ -202,7 +200,7 @@ class LoginActivity : AppCompatActivity() {
                         // User already exists, no need to create a new record
                         Toast.makeText(
                             this,
-                            "SUCCESS LOGIN",
+                            "Login Berhasil!",
                             Toast.LENGTH_SHORT
                         ).show()
                         // Do further processing with the authenticated user

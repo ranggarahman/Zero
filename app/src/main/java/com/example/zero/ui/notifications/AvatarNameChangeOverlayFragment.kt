@@ -1,6 +1,7 @@
 package com.example.zero.ui.notifications
 
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.zero.R
 import com.example.zero.data.Avatar
 import com.example.zero.data.Const
 import com.example.zero.data.Const.PATH_UID
@@ -39,20 +41,23 @@ class AvatarNameChangeOverlayFragment: DialogFragment() {
 
         binding.btnConfirmUsername.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
-            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            val alertDialogBuilder = AlertDialog.Builder(requireContext(), R.style.AlertDialogStyleCustom)
             alertDialogBuilder.apply {
-                setTitle("Change Avatar")
-                setMessage("Are you sure you want to change your USERNAME?")
-                setPositiveButton("Yes") { dialog, which ->
+                setTitle("Mengubah Username")
+                setMessage("Kamu yakin ingin mengganti username kamu menjadi $username?")
+                setPositiveButton("Ya") { dialog, which ->
                     changeUsername(username)
                     dialog.dismiss()
                 }
-                setNegativeButton("No") { dialog, which ->
+                setNegativeButton("Tidak") { dialog, which ->
                     dialog.dismiss()
                 }
             }
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
+
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
         }
     }
 

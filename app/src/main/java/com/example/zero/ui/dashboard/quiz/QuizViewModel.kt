@@ -23,9 +23,9 @@ class QuizViewModel(): ViewModel() {
     private val _correctAnswerCount = MutableLiveData<Int>()
     val correctAnswerCount: LiveData<Int> = _correctAnswerCount
 
-    fun getQuiz() {
+    fun getQuiz(id: Int) {
         val database = FirebaseManager.database.reference
-        val reference = database.child("materials").child("0").child("quiz")
+        val reference = database.child("materials").child("$id").child("quiz")
 
         try {
             reference.addValueEventListener(object : ValueEventListener {

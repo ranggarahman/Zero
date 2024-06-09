@@ -10,6 +10,7 @@
     <color name="loading_gray">#555555</color>
     <color name="textPrimary">#000000</color>
     <color name="primaryGray">#6A6C70</color>
+    <color name="alertDialogReverseText">@color/white</color>
 
     <color name="cardTextReverse">#FF000000</color>
 
@@ -21,4 +22,6 @@
     <color name="wrong_answer_red">#FAB0B0</color>
     <color name="progress_green">#9ADC67</color>
     <color name="primary_variant_purple">#956FD7</color>
+
+    <color name="shimmer_gray">#B3B3B3</color>
 </resources>
